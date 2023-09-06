@@ -1,24 +1,29 @@
 <script lang="ts">
     import { COLOR_PALETTE_STORE, THEME } from "../../store/store";
 
-    const { log } = console;
+    export let type: "button" | "submit" | "reset" = "button";
     export let text: string = "Button Text";
-    export let action = () => {
-        log("clicked Button");
-    };
+
+    export let action = () => console.log("button clicked...");
 
     export let grayed: boolean = false;
 </script>
 
 <button
     on:click={action}
+    {type}
     style={`
         background-color: ${
-            grayed ? $COLOR_PALETTE_STORE[$THEME].bg_gray : $COLOR_PALETTE_STORE[$THEME].main_blue
+            grayed
+                ? $COLOR_PALETTE_STORE[$THEME].bg_gray
+                : $COLOR_PALETTE_STORE[$THEME].main_blue
         };
         color: ${$COLOR_PALETTE_STORE[$THEME].text}
     `}
-    class="py-1 px-3 rounded-full"
+    class="flex items-center justify-center gap-[3px] py-1 px-3 rounded-full whitespace-nowrap"
 >
     {text}
+    <slot />
 </button>
+
+<!--py-[5px] px-[9px] sm:py-1 sm:px-3 rounded-full whitespace-nowrap -->

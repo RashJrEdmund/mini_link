@@ -52,3 +52,7 @@ a {
 li {
 	list-style: none;
 }
+
+input {
+	outline: none;
+}

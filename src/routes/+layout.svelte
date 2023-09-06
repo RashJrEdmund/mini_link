@@ -13,13 +13,13 @@
 		background-color: ${$COLOR_PALETTE_STORE[$THEME].bg};
 		color: ${$COLOR_PALETTE_STORE[$THEME].text};
 	`}
-	class="app text-orange-500 min-h-[100vh]"
+	class="app min-h-[100vh]"
 >
-	<div class="w-res_width mx-auto">
+	<div class="w-app_width_limit mx-auto">
 		<Navbar />
-		<Header />
+		<!-- <Header /> -->
 
-		<main class="w-full bg-orange-400">
+		<main class="w-res_width mx-auto border-app_border">
 			<slot />
 		</main>
 	</div>
