@@ -1,5 +1,5 @@
 <script lang="ts">
-	//
+	import Navbar from "../components/organisms/Navbar.svelte";
 </script>
 
 <svelte:head>
@@ -8,7 +8,7 @@
 </svelte:head>
 
 <section class="home">
-	home page
+	home
 </section>
 
 <style lang="scss">
