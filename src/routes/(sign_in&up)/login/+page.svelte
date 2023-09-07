@@ -3,5 +3,5 @@
 </script>
 
 <main>
-    Landing page
+    Login
 </main>

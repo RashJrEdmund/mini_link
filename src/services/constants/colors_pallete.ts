@@ -4,7 +4,8 @@ export const COLOR_PALETTE: Color_Palette = {
     light: {
         lite_gray: "#181e29",
         text: "#ffffff",
-        bg: "#ffffff",
+        bg: "#cccccc",
+        app_bg: "#ffffff",
         bg_gray: "#181e29",
         border: "#c9ced6",
         active_link: "#144ee3",
@@ -18,6 +19,7 @@ export const COLOR_PALETTE: Color_Palette = {
         lite_gray: "#c9ced6",
         text: "#ffffff",
         bg: "#0b101b",
+        app_bg: "#181e29",
         bg_gray: "#181e29",
         border: "#c9ced6",
         active_link: "#1fb036",

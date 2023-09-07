@@ -4,6 +4,7 @@
     export let pink_alert: boolean = false;
     export let is_link: boolean = false;
     export let other_tags: boolean = false;
+    export let sx: string = ""; // add custom styles
 
     export let action = () => console.log("button clicked...");
 </script>
@@ -18,11 +19,13 @@
             : is_link
             ? $COLOR_PALETTE_STORE[$THEME].lite_blue
             : $COLOR_PALETTE_STORE[$THEME].lite_gray
-        }; text-decoration: ${is_link ? "underline" : "none"};
+    }; text-decoration: ${is_link ? "underline" : "none"};
+        cursor: ${is_link ? "pointer" : "default"}
     `}
     class={`
         $${other_tags && "flex items-center justify-center gap-[2px]"}
         ${is_link && "text-lite_blue"}
+        ${sx}
     `}
 >
     <slot />

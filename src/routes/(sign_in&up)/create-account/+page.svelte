@@ -3,5 +3,5 @@
 </script>
 
 <main>
-    Landing page
+    <section>create - account</section>
 </main>

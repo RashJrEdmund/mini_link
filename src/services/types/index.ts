@@ -4,6 +4,7 @@ export type THEME_SETTING_TYPE = {
     lite_gray: string,
     text: string,
     bg: string,
+    app_bg: string,
     bg_gray: string,
     border: string,
     active_link: string,

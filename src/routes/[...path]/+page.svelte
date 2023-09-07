@@ -3,5 +3,5 @@
 </script>
 
 <main>
-    Landing page
+    <section>404 page</section>
 </main>
