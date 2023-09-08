@@ -33,6 +33,6 @@
     />
     <Button text="" type="submit" action={hanldeSubmit}>
         <span class="hidden md:inline">Shorten</span>
-        <img src={ScissorsIcon} alt="scissors icon" class="h-[30px] w-[30px]" />
+        <img src={ScissorsIcon} draggable="false" alt="scissors icon" class="h-[30px] w-[30px]" />
     </Button>
 </form>
