@@ -19,3 +19,14 @@ export type Color_Palette = {
     light: THEME_SETTING_TYPE,
     dark: THEME_SETTING_TYPE,
 }
+
+export type LINK_OBJ = {
+    id: string;
+    user_id: string;
+    short_link: string;
+    original: string;
+    clicks: string | number;
+    status: "Active" | "Inactive";
+    alias: string;
+    createdAt: string;
+};

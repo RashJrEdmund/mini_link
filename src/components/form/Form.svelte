@@ -3,12 +3,31 @@
     import SpanTag from "../atoms/SpanTag.svelte";
     import LinkIcon from "../../lib/icons/link_icon.svg";
     import ScissorsIcon from "../../lib/icons/scissors.png";
-    import { COLOR_PALETTE_STORE, THEME } from "../../store/store";
+    import { COLOR_PALETTE_STORE, LINK_DATA, THEME } from "../../store/store";
+    import type { LINK_OBJ } from "../../services/types";
+
+    let linkData: LINK_OBJ[] | any = [];
+
+    const _ = LINK_DATA.subscribe((val) => {
+        linkData = val;
+    });
 
     let input_val = "";
 
     const hanldeSubmit = () => {
         // check input_val
+
+        const newLink: LINK_OBJ = {
+            user_id: "1",
+            id: crypto.randomUUID(),
+            original: "",
+            short_link: "https://minilink.com/aZxxklairll",
+            clicks: 0,
+            status: "Active",
+            alias: "",
+        }
+
+        
 
         console.log({ input_val });
     };

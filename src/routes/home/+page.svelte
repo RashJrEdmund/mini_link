@@ -40,7 +40,7 @@
 	</section>
 
 	<section
-		class="bg-main_bg w-full pt-[90px] md:pt-[130px]"
+		class="w-full pt-[90px] md:pt-[130px]"
 	>
 		<MiniLinkTable />
 	</section>

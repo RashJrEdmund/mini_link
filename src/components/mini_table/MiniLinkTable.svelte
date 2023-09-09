@@ -5,6 +5,10 @@
     import TableHeader from "./TableHeader.svelte";
     import EditIcon from "../../lib/icons/edit_icon.svg";
     import DeleteIcon from "../../lib/icons/delete_icon.svg";
+    import CopyIcon from "../../lib/icons/copy_icon.svg";
+    import { LINK_DATA } from "../../store/store";
+    import SpanTag from "../atoms/SpanTag.svelte";
+    import Img_Tag from "../atoms/Img_Tag.svelte";
 
     type LINK_OBJ = {
         id: string;
@@ -15,43 +19,18 @@
         status: "Active" | "Inactive";
         createdAt: string;
     };
-    const linkData: LINK_OBJ[] = [
-        {
-            id: crypto.randomUUID(),
-            user_id: "1",
-            short_link: "https://minilink.com/aZxxklairll",
-            original:
-                "https://codesandbox.io/s/eager-snow-fpnqw4?file=/src/App.svelte",
-            clicks: 2,
-            status: "Active",
-            createdAt: new Date().toDateString(),
-        },
-        {
-            id: crypto.randomUUID(),
-            user_id: "1",
-            short_link: "https://minilink.com/aZxxklairll",
-            original:
-                "https://codesandbox.io/s/eager-snow-fpnqw4?file=/src/App.svelte",
-            clicks: 2,
-            status: "Active",
-            createdAt: new Date().toDateString(),
-        },
-        {
-            id: crypto.randomUUID(),
-            user_id: "1",
-            short_link: "https://minilink.com/aZxxklairll",
-            original:
-                "https://codesandbox.io/s/eager-snow-fpnqw4?file=/src/App.svelte",
-            clicks: 2,
-            status: "Active",
-            createdAt: new Date().toDateString(),
-        },
-    ];
+
+    let linkData: LINK_OBJ[] | any = [];
+
+    const _ = LINK_DATA.subscribe((val) => {
+        linkData = val;
+    });
 </script>
 
 <main>
     <div class="table_container pb-2 mb-9">
         <table class="w-full">
+            <caption>History</caption>
             <tr>
                 <th>Short Link</th>
                 <th>Original Link</th>
@@ -62,25 +41,43 @@
             </tr>
             {#each linkData as link (link.id)}
                 <tr>
-                    <td data-cell="Short link">{link.short_link}</td>
-                    <td data-cell="Original">{link.original}</td>
-                    <td data-cell="Clicks">{link.clicks}</td>
-                    <td data-cell="Status">{link.status}</td>
-                    <td data-cell="Date">{link.createdAt}</td>
-                    <td data-cell="Actions" class="flex items-center">
-                        <Button
-                            text=""
-                            sx="h-[45px] w-[10px] rounded-full flex items"
-                        >
-                            <img src={EditIcon} alt="edit cion" />
-                        </Button>
-                        <Button text="">
+                    <td data-cell="mini link">
+                        <span class="flex flex-col">
+                            {link?.alias}
+                            <span>
+                                <SpanTag
+                                    no_wrap
+                                    is_link
+                                    action={() => window.open(link?.short_link)}
+                                >
+                                    {link?.short_link}
+                                </SpanTag>
+
+                                <Img_Tag
+                                    src={CopyIcon}
+                                    alt="copy icon"
+                                    sx="ml-1 inline"
+                                />
+                            </span>
+                        </span>
+                    </td>
+                    <td data-cell="original">{link?.original}</td>
+                    <td data-cell="clicks">{link?.clicks}</td>
+                    <td data-cell="status">{link?.status}</td>
+                    <td data-cell="date">{link?.createdAt}</td>
+                    <td data-cell="actions" class="flex items-center">
+                        <span class="flex items-center gap-[10px] mt-[10px]">
+                            <img
+                                src={EditIcon}
+                                alt="edit cion"
+                                class="cursor-pointer"
+                            />
                             <img
                                 src={DeleteIcon}
                                 alt="delete cion"
-                                class="text-orange-600"
+                                class="ml-[10px] cursor-pointer"
                             />
-                        </Button>
+                        </span>
                     </td>
                 </tr>
             {/each}
@@ -97,11 +94,17 @@
             width: 100%;
             border-collapse: collapse;
             background-color: #323232;
+            color: #fff;
+
+            caption {
+                display: none;
+                text-align: left;
+            }
 
             tr {
                 th {
                     text-align: left;
-                    background-color: hsl(0 0% 0% / 0.5);
+                    background-color: hsl(221, 42%, 7%);
                 }
 
                 th,
@@ -110,7 +113,7 @@
                 }
 
                 &:nth-of-type(2n) {
-                    background-color: hsl(0 0% 0% / 0.2);
+                    background-color: hsl(221, 42%, 7%, 0.2);
                 }
             }
         }
@@ -118,27 +121,43 @@
 
     @media only screen and (max-width: 660px) {
         .table_container {
-
-            th {
-                display: none;
-            }
-
-            td {
-                display: block;
-                padding: 0.5rem 1rem;
-
-                &:first-child {
-                    padding-top: 2rem;
+            table {
+                caption {
+                    display: flex;
+                    text-align: left;
+                    padding: 1rem;
+                    background-color: hsl(221, 42%, 7%);
+                }
+                th {
+                    display: none;
                 }
 
-                &:last-child {
-                    padding-bottom: 2rem;
-                }
+                td {
+                    display: grid;
+                    padding: 0.5rem;
+                    border-bottom: 1px solid #8a928c0f;
 
-                &::before {
-                    content: attr(data-cell) ": ";
-                    font-weight: 700;
-                    text-transform: capitalize;
+                    &:first-child {
+                        padding-top: 2rem;
+                    }
+
+                    &:last-child {
+                        padding-bottom: 2rem;
+                    }
+
+                    &::before {
+                        content: attr(data-cell);
+                        font-weight: 700;
+                        text-transform: capitalize;
+                    }
+
+                    &[data-cell="actions"] {
+                        span {
+                            display: flex;
+                            align-items: center;
+                            gap: 10px;
+                        }
+                    }
                 }
             }
         }
