@@ -48,4 +48,15 @@ export const LINK_DATA = writable([
         alias: "Link to code sand box",
         createdAt: new Date().toDateString(),
     },
+    {
+        id: crypto.randomUUID(),
+        user_id: "1",
+        short_link: "https://minilink.com/aZxxklairll",
+        original:
+            "https://codesandbox.io/s/eager-snow-fpnqw4?file=/src/App.svelte",
+        clicks: 2,
+        status: "Active",
+        alias: "Link to code sand box",
+        createdAt: new Date().toDateString(),
+    }
 ]);
