@@ -20,14 +20,19 @@
         const newLink: LINK_OBJ = {
             user_id: "1",
             id: crypto.randomUUID(),
-            original: "",
+            original: input_val,
             short_link: "https://minilink.com/aZxxklairll",
             clicks: 0,
             status: "Active",
             alias: "",
-        }
+            createdAt: Date.now(),
+        };
 
-        
+        LINK_DATA.set([...linkData, newLink])
+
+        // LINK_DATA.update((currentData) => [...currentData, newLink]);
+
+        linkData = [linkData, newLink]
 
         console.log({ input_val });
     };
@@ -52,6 +57,11 @@
     />
     <Button text="" type="submit" action={hanldeSubmit}>
         <span class="hidden md:inline">Shorten</span>
-        <img src={ScissorsIcon} draggable="false" alt="scissors icon" class="h-[30px] w-[30px]" />
+        <img
+            src={ScissorsIcon}
+            draggable="false"
+            alt="scissors icon"
+            class="h-[30px] w-[30px]"
+        />
     </Button>
 </form>

@@ -28,5 +28,5 @@ export type LINK_OBJ = {
     clicks: string | number;
     status: "Active" | "Inactive";
     alias: string;
-    createdAt: string;
+    createdAt: string | number;
 };
