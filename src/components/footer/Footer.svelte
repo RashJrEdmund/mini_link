@@ -1,11 +1,7 @@
 <script lang="ts">
-    import { customNavigate } from "../../services/hooks";
     import { COLOR_PALETTE_STORE, THEME } from "../../store/store";
     import SpanTag from "../atoms/SpanTag.svelte";
-
-    const navigate = customNavigate();
-
-    const gotoLogin = () => navigate("/login");
+    import A_Tag from "../atoms/A_Tag.svelte";
 </script>
 
 <footer
@@ -14,7 +10,7 @@
 >
     <div class="flex items-center justify-center p-2 sm:p-3 md:p-4 mx-auto w-app_width_limit">
         <p>
-            <SpanTag is_link action={gotoLogin}>Login Now</SpanTag>
+            <A_Tag is_link path="/login">Login Now</A_Tag>
             <SpanTag>To access premium features 🥲</SpanTag>
         </p>
     </div>

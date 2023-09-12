@@ -2,7 +2,7 @@
     import { COLOR_PALETTE_STORE, THEME } from "../../store/store";
 
     export let type: "button" | "submit" | "reset" = "button";
-    export let text: string = "Button Text";
+    export let text: string = "";
     export let sx: string = ""; // add custom styles
 
     export let grayed: boolean = false;

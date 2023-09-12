@@ -15,7 +15,7 @@
     class="flex items-center justify-between w-full mx-auto"
 >
     <div class="flex items-center justify-between w-app_width_limit mx-auto py-1">
-        <HeaderText text={$APP_NAME} minimal action={() => navigate("/home")} />
+        <HeaderText text={$APP_NAME} medium action={() => navigate("/")} />
 
         <section class="flex items-center justify-center w-fit gap-2">
             <span>
