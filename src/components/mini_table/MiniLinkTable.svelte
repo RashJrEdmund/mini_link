@@ -1,30 +1,20 @@
 <script lang="ts">
-    //
-
-    import Button from "../atoms/Button.svelte";
-    import TableHeader from "./TableHeader.svelte";
-    import EditIcon from "../../lib/icons/edit_icon.svg";
-    import DeleteIcon from "../../lib/icons/delete_icon.svg";
     import CopyIcon from "../../lib/icons/copy_icon.svg";
-    import { LINK_DATA } from "../../store/store";
+    import { LINK_STORE } from "../../store/store";
     import SpanTag from "../atoms/SpanTag.svelte";
     import Img_Tag from "../atoms/Img_Tag.svelte";
+    import { fade, scale } from "svelte/transition";
+    import { onDestroy } from "svelte";
+    import ActionButtons from "./ActionButtons.svelte";
+    import type { LINK_OBJ } from "../../services/types";
 
-    type LINK_OBJ = {
-        id: string;
-        user_id: string;
-        short_link: string;
-        original: string;
-        clicks: string | number;
-        status: "Active" | "Inactive";
-        createdAt: string;
-    };
+    let linkData: LINK_OBJ[];
 
-    let linkData: LINK_OBJ[] | any = [];
-
-    const _ = LINK_DATA.subscribe((val) => {
+    const unsubscribe = LINK_STORE.subscribe((val) => {
         linkData = val;
     });
+
+    onDestroy(() => unsubscribe());
 </script>
 
 <main>
@@ -40,7 +30,7 @@
                 <th>Actions</th>
             </tr>
             {#each linkData as link (link.id)}
-                <tr>
+                <tr in:scale out:fade={{ duration: 300 }}>
                     <td data-cell="mini link">
                         <span class="flex flex-col">
                             {link?.alias}
@@ -64,20 +54,18 @@
                     <td data-cell="original">{link?.original}</td>
                     <td data-cell="clicks">{link?.clicks}</td>
                     <td data-cell="status">{link?.status}</td>
-                    <td data-cell="date">{link?.createdAt}</td>
+                    <td data-cell="date"
+                        >{new Date(link?.createdAt).toDateString()}</td
+                    >
                     <td data-cell="actions" class="flex items-center">
-                        <span class="flex items-center gap-[10px] mt-[10px]">
-                            <img
-                                src={EditIcon}
-                                alt="edit cion"
-                                class="cursor-pointer"
-                            />
-                            <img
-                                src={DeleteIcon}
-                                alt="delete cion"
-                                class="ml-[10px] cursor-pointer"
-                            />
-                        </span>
+                        <ActionButtons linkId={link?.id} />
+                    </td>
+                </tr>
+            {:else}
+                <tr id="no_links">
+                    <td colspan="10">
+                        No history data detected <br />
+                        You haven't shortened any links
                     </td>
                 </tr>
             {/each}
@@ -114,6 +102,13 @@
 
                 &:nth-of-type(2n) {
                     background-color: hsl(221, 42%, 7%, 0.2);
+                }
+
+                &#no_links {
+                    td {
+                        padding: 100px 0;
+                        text-align: center;
+                    }
                 }
             }
         }

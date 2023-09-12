@@ -6,7 +6,7 @@
 	import Navbar from "../../components/navbar/Navbar.svelte";
 	import { APP_NAME } from "../../store/store";
 
-	const toRegister = () => console.log("to register");
+	const toRegister = () => window.open("/home/register", "_blank", "toolbar=yes, resizable=0, width=600,height=600");
 
 	let chances = "0" + 5;
 </script>

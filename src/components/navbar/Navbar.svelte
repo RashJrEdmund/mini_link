@@ -5,14 +5,17 @@
 
     import Button from "../atoms/Button.svelte";
     import HeaderText from "../atoms/HeaderText.svelte";
+    import { customNavigate } from "../../services/hooks";
+
+    const navigate = customNavigate();
 </script>
 
 <nav
     style={`background-color: ${$COLOR_PALETTE_STORE[$THEME].bg}`}
-    class="flex items-center justify-between w-full mx-auto py-1"
+    class="flex items-center justify-between w-full mx-auto"
 >
     <div class="flex items-center justify-between w-app_width_limit mx-auto py-1">
-        <HeaderText text={$APP_NAME} minimal />
+        <HeaderText text={$APP_NAME} minimal action={() => navigate("/home")} />
 
         <section class="flex items-center justify-center w-fit gap-2">
             <span>

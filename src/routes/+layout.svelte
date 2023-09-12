@@ -21,7 +21,7 @@
 		<!-- <Header /> -->
 
 		<main
-			class="w-res_width mx-auto border border-app_border pb-10 min-h-[60vh]"
+			class="w-res_width mx-auto border-app_border pb-10 min-h-[60vh]"
 		>
 			<slot />
 		</main>

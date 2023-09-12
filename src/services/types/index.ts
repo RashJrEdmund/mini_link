@@ -21,7 +21,7 @@ export type Color_Palette = {
 }
 
 export type LINK_OBJ = {
-    id: string;
+    id: string | number;
     user_id: string;
     short_link: string;
     original: string;
