@@ -16,37 +16,37 @@ export const APP_NAME = readable("Mini link");
 export const THEME = writable(theme_modes);
 
 export const LINK_STORE = writable<LINK_OBJ[]>([
-    // {
-    //     id: crypto.randomUUID(),
-    //     user_id: "1",
-    //     short_link: "https://minilink.com/aZxxklairll",
-    //     original:
-    //         "https://codesandbox.io/s/eager-snow-fpnqw4?file=/src/App.svelte",
-    //     clicks: 2,
-    //     status: "Active",
-    //     alias: "Link to code sand box",
-    //     createdAt: Date.now(),
-    // },
-    // {
-    //     id: crypto.randomUUID(),
-    //     user_id: "1",
-    //     short_link: "https://minilink.com/aZxxklairll",
-    //     original:
-    //         "https://codesandbox.io/s/eager-snow-fpnqw4?file=/src/App.svelte",
-    //     clicks: 2,
-    //     status: "Active",
-    //     alias: "Link to code sand box",
-    //     createdAt: Date.now(),
-    // },
-    // {
-    //     id: crypto.randomUUID(),
-    //     user_id: "1",
-    //     short_link: "https://minilink.com/aZxxklairll",
-    //     original:
-    //         "https://codesandbox.io/s/eager-snow-fpnqw4?file=/src/App.svelte",
-    //     clicks: 2,
-    //     status: "Active",
-    //     alias: "Link to code sand box",
-    //     createdAt: Date.now(),
-    // }
+    {
+        id: crypto.randomUUID(),
+        user_id: "1",
+        short_link: "https://minilink.com/aZxxklairll",
+        original:
+            "https://codesandbox.io/s/eager-snow-fpnqw4?file=/src/App.svelte",
+        clicks: 2,
+        status: "Active",
+        alias: "Link to code sand box",
+        createdAt: Date.now(),
+    },
+    {
+        id: crypto.randomUUID(),
+        user_id: "1",
+        short_link: "https://minilink.com/aZxxklairll",
+        original:
+            "https://codesandbox.io/s/eager-snow-fpnqw4?file=/src/App.svelte",
+        clicks: 2,
+        status: "Active",
+        alias: "Link to code sand box",
+        createdAt: Date.now(),
+    },
+    {
+        id: crypto.randomUUID(),
+        user_id: "1",
+        short_link: "https://minilink.com/aZxxklairll",
+        original:
+            "https://codesandbox.io/s/eager-snow-fpnqw4?file=/src/App.svelte",
+        clicks: 2,
+        status: "Active",
+        alias: "Link to code sand box",
+        createdAt: Date.now(),
+    }
 ]);

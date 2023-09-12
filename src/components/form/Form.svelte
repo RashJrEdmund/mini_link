@@ -5,13 +5,13 @@
     import ScissorsIcon from "../../lib/icons/scissors.png";
     import { COLOR_PALETTE_STORE, LINK_STORE, THEME } from "../../store/store";
     import type { LINK_OBJ } from "../../services/types";
-    import { onDestroy } from "svelte";
+    import { onDestroy, onMount } from "svelte";
     import { validateUrl } from "../../services/functions/utils";
+    import toast, { Toaster } from 'svelte-french-toast';
 
     let linkData: LINK_OBJ[] | null;
 
     const unsubscribe = LINK_STORE.subscribe((val) => {
-        console.log({ val });
         linkData = val;
     });
 
@@ -40,8 +40,14 @@
         console.log({ input_val });
     };
 
+    onMount(() => {
+		toast.success("It works!");
+	})
+
     onDestroy(() => unsubscribe());
 </script>
+
+<Toaster />
 
 <form
     on:submit|preventDefault={hanldeSubmit}
