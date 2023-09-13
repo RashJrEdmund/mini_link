@@ -24,15 +24,15 @@
         </ATag>
 
         <section class="flex items-center justify-center w-fit gap-2">
-            <span>
+            <ATag path="/login">
                 <Button text="Login" grayed>
                     <img src={LoginIcon} alt="login icon" />
                 </Button>
-            </span>
+            </ATag>
 
-            <span class="hidden sm:inline">
+            <ATag path="/create-account" sx="hidden sm:inline">
                 <Button active text="Register Now" />
-            </span>
+            </ATag>
 
             <ToggleTheme />
         </section>

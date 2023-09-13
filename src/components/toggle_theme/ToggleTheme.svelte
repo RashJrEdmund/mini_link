@@ -33,6 +33,7 @@
 <style lang="scss">
     .them_icon_holder {
         position: relative;
+        cursor: pointer;
         width: 70px;
         height: 35px;
         border-radius: 30px;
@@ -41,18 +42,17 @@
         .theme_icon {
             position: absolute;
             top: 50%;
-            left: 0;
+            left: 5px;
             transform: translateY(-50%);
             transition: 300ms;
             width: 30px;
             height: 30px;
             background-position: center;
             background-size: cover;
-            cursor: pointer;
 
             &.dark_mode {
                 transition: 300ms;
-                transform: translate(100%, -50%);
+                transform: translate(35px, -50%);
             }
         }
     }

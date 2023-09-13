@@ -24,7 +24,7 @@
 
 <section class="home">
     <section
-        class="flex flex-col gap-6 items-center justify-center w-full pt-[90px] md:pt-[130px]"
+        class="flex flex-col gap-6 items-center justify-center w-full pt-[90px] md:pt-[100px]"
     >
         <HeaderText text="Shorten Your Looong URL : )" />
 

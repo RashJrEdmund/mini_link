@@ -33,7 +33,7 @@ export const LINK_STORE = writable<LINK_OBJ[]>([
             "https://codesandbox.io/s/eager-snow-fpnqw4?file=/src/App.svelte",
         clicks: 2,
         status: "Active",
-        alias: "Link to code sand box",
+        alias: "some other link",
         createdAt: Date.now(),
     },
     {
@@ -44,7 +44,7 @@ export const LINK_STORE = writable<LINK_OBJ[]>([
             "https://codesandbox.io/s/eager-snow-fpnqw4?file=/src/App.svelte",
         clicks: 2,
         status: "Active",
-        alias: "Link to code sand box",
+        alias: "My special link",
         createdAt: Date.now(),
     }
 ]);
