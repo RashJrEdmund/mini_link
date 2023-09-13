@@ -6,6 +6,8 @@
     import Button from "../atoms/Button.svelte";
     import HeaderText from "../atoms/HeaderText.svelte";
     import { customNavigate } from "../../services/hooks";
+    import ToggleTheme from "../toggle_theme/ToggleTheme.svelte";
+    import ATag from "../atoms/A_Tag.svelte";
 
     const navigate = customNavigate();
 </script>
@@ -14,8 +16,12 @@
     style={`background-color: ${$COLOR_PALETTE_STORE[$THEME].bg}`}
     class="flex items-center justify-between w-full mx-auto"
 >
-    <div class="flex items-center justify-between w-app_width_limit mx-auto py-1">
-        <HeaderText text={$APP_NAME} medium action={() => navigate("/")} />
+    <div
+        class="flex items-center justify-between w-app_width_limit mx-auto py-1"
+    >
+        <ATag path="/">
+            <HeaderText text={$APP_NAME} medium />
+        </ATag>
 
         <section class="flex items-center justify-center w-fit gap-2">
             <span>
@@ -23,11 +29,12 @@
                     <img src={LoginIcon} alt="login icon" />
                 </Button>
             </span>
-            <Button text="" sx="h-[45px] w-[10px] rounded-full">icon</Button>
 
             <span class="hidden sm:inline">
                 <Button active text="Register Now" />
             </span>
+
+            <ToggleTheme />
         </section>
     </div>
 </nav>

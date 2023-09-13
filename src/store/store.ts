@@ -1,9 +1,7 @@
 import { readable, writable } from "svelte/store";
-import { COLOR_PALETTE } from "../services/constants/colors_pallete";
-import type { LINK_OBJ } from "../services/types";
+import { COLOR_PALETTE } from "../services/theme/colors_pallete";
+import type { LINK_OBJ, THEME_MODE } from "../services/types";
 // import type { Color_Palette } from "../services/types";
-
-type THEME_MODE = 'light' | "dark"
 
 const theme_modes: THEME_MODE = "dark" // default-theme-mode
 

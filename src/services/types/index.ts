@@ -1,5 +1,7 @@
 /* ========== THEME_TYPES ========== */
 
+export type THEME_MODE = 'light' | "dark"
+
 export type THEME_SETTING_TYPE = {
     lite_gray: string,
     text: string,

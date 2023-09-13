@@ -8,12 +8,13 @@
     export let box: boolean = false;
     export let sx: string = ""; // add extra styling
 
-    export let path: string = "//"
+    export let path: string = "//";
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <a
+    data-sveltekit-preload-data="hover"
     href={path}
     style={`color: ${
         pink_alert
@@ -25,7 +26,10 @@
     `}
     class={`
         $${other_tags && "flex items-center justify-center gap-[2px]"}
-        $${no_wrap && "flex items-center justify-center flex-nowrap whitespace-nowrap gap-[2px]"}
+        $${
+            no_wrap &&
+            "flex items-center justify-center flex-nowrap whitespace-nowrap gap-[2px]"
+        }
         ${is_link && "underline cursor-pointer"}
         ${box && "border p-1"}
         ${sx}

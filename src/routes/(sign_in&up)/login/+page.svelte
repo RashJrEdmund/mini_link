@@ -3,54 +3,65 @@
     import Button from "../../../components/atoms/Button.svelte";
     import HeaderText from "../../../components/atoms/HeaderText.svelte";
     import PTag from "../../../components/atoms/P_Tag.svelte";
-    import loginImage from "../../../lib/images/login-image.gif";
+    import { COLOR_PALETTE_STORE, THEME } from "../../../store/store";
 
     let username: string = "";
     let email: string = "";
+    let password: string = "";
 
     const handleLogin = () => {
         //
     };
 </script>
 
-<main class="min-h-[calc(100vh-250px)] flex items-center justify-center">
-    <div
-        class="bg-main_bg flex items-center m-[2rem_auto] p-2 w-fit h-fit min-h-[500px] gap-3 min-w-[1000px]"
-    >
-        <section
-            style={`
-                background-image: url(${loginImage});
-                background-position: center;
-                background-size: cover;
-            `}
-            class="hidden md:flex flex-1 w-full h-full min-h-[475px] rounded-md"
-        />
-        <form
-            on:submit|preventDefault={handleLogin}
-            class="border-l pl-3 flex-1 w-full min-h-[500px]"
-        >
-            <HeaderText text="Login" small /d>
+<form
+    on:submit|preventDefault={handleLogin}
+    style={`border-left: 1px solid ${$COLOR_PALETTE_STORE[$THEME].lite_gray}`}
+    class="flex flex-col pl-3 flex-1 w-full min-h-[500px]"
+>
+    <HeaderText text="Login" small />
 
-            <input
-                type="text"
-                placeholder="Enter username"
-                bind:value={username}
-                class="bg-transparent border rounded mt-[3rem] p-1 w-full min-h-[40px]"
-            />
+    <input
+        type="text"
+        placeholder="Enter email or username"
+        style={`
+                    border-bottom: 1px solid ${$COLOR_PALETTE_STORE[$THEME].lite_gray};
+                    color: ${$COLOR_PALETTE_STORE[$THEME].lite_gray}
+                `}
+        bind:value={username}
+        class="bg-transparent mt-[3rem] p-1 w-full min-h-[40px]"
+    />
 
-            <input
-                type="email"
-                placeholder="Enter email"
-                bind:value={email}
-                class="bg-transparent border rounded mt-[4rem] p-1 w-full min-h-[40px]"
-            />
+    <input
+        type="email"
+        placeholder="Enter email"
+        style={`
+                    border-bottom: 1px solid ${$COLOR_PALETTE_STORE[$THEME].lite_gray};
+                    color: ${$COLOR_PALETTE_STORE[$THEME].lite_gray}
+                `}
+        bind:value={email}
+        class="bg-transparent mt-[2.5rem] p-1 w-full min-h-[40px]"
+    />
 
-            <Button sx="mt-[4rem]">Login Now</Button>
+    <input
+        type="password"
+        placeholder="Password"
+        style={`
+                    border-bottom: 1px solid ${$COLOR_PALETTE_STORE[$THEME].lite_gray};
+                    color: ${$COLOR_PALETTE_STORE[$THEME].lite_gray}
+                `}
+        bind:value={password}
+        class="bg-transparent mt-[2.5rem] p-1 w-full min-h-[40px]"
+    />
 
-            <PTag sx="mt-[4rem]">
-                create account ?
-                <ATag is_link path="/create-account">create account</ATag>
-            </PTag>
-        </form>
-    </div>
-</main>
+    <ATag is_link path="/forgot-password" sx="self-end mt-3">
+        Forgot password
+    </ATag>
+
+    <Button sx="mt-[1rem]">Log me in</Button>
+
+    <PTag sx="mt-[2.5rem]">
+        create account ?
+        <ATag is_link path="/create-account">create account</ATag>
+    </PTag>
+</form>
