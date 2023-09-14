@@ -23,7 +23,7 @@ export const LINK_STORE = writable<LINK_OBJ[]>([
         clicks: 2,
         status: "Active",
         alias: "Link to code sand box",
-        createdAt: Date.now(),
+        createdAt: "Thu Sep 14 2023",
     },
     {
         id: crypto.randomUUID(),
@@ -34,7 +34,7 @@ export const LINK_STORE = writable<LINK_OBJ[]>([
         clicks: 2,
         status: "Active",
         alias: "some other link",
-        createdAt: Date.now(),
+        createdAt: "Tues Sep 12 2023",
     },
     {
         id: crypto.randomUUID(),
@@ -45,6 +45,6 @@ export const LINK_STORE = writable<LINK_OBJ[]>([
         clicks: 2,
         status: "Active",
         alias: "My special link",
-        createdAt: Date.now(),
+        createdAt: "Wed Sep 13 2023",
     }
 ]);

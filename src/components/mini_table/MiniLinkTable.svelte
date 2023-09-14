@@ -33,14 +33,14 @@
                 <tr in:scale out:fade={{ duration: 300 }}>
                     <td data-cell="mini link">
                         <span class="flex flex-col">
-                            {link?.alias}
+                            {link.alias}
                             <span>
                                 <SpanTag
                                     no_wrap
                                     is_link
-                                    action={() => window.open(link?.short_link)}
+                                    action={() => window.open(link.short_link)}
                                 >
-                                    {link?.short_link}
+                                    {link.short_link}
                                 </SpanTag>
 
                                 <Img_Tag
@@ -51,14 +51,14 @@
                             </span>
                         </span>
                     </td>
-                    <td data-cell="original">{link?.original}</td>
-                    <td data-cell="clicks">{link?.clicks}</td>
-                    <td data-cell="status">{link?.status}</td>
+                    <td data-cell="original">{link.original}</td>
+                    <td data-cell="clicks">{link.clicks}</td>
+                    <td data-cell="status">{link.status}</td>
                     <td data-cell="date"
-                        >{new Date(link?.createdAt).toDateString()}</td
+                        >{new Date(link.createdAt).toDateString()}</td
                     >
                     <td data-cell="actions" class="flex items-center">
-                        <ActionButtons linkId={link?.id} />
+                        <ActionButtons linkId={link.id} />
                     </td>
                 </tr>
             {:else}

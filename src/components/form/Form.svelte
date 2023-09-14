@@ -7,7 +7,9 @@
     import type { LINK_OBJ } from "../../services/types";
     import { onDestroy, onMount } from "svelte";
     import { validateUrl } from "../../services/functions/utils";
-    import toast, { Toaster } from 'svelte-french-toast';
+    import toast, { Toaster } from "svelte-french-toast";
+    import { nanoid } from "nanoid";
+    import { BASE_URL, SHORTEN_LENGTH } from "../../services/constants/constants";
 
     let linkData: LINK_OBJ[] | null;
 
@@ -21,12 +23,13 @@
         // validate check input_val to match a url
 
         console.log("input_val validation", validateUrl(input_val));
+        console.log({ nanoid: nanoid(10) });
 
         const newLink: LINK_OBJ = {
             user_id: "1",
             id: crypto.randomUUID(),
             original: input_val,
-            short_link: "https://minilink.com/aZxxklairll",
+            short_link: BASE_URL + nanoid(SHORTEN_LENGTH), // https://mini-link.com/nanoid()
             clicks: 0,
             status: "Active",
             alias: "",
@@ -41,8 +44,8 @@
     };
 
     onMount(() => {
-		toast.success("It works!");
-	})
+        toast.success("It works!");
+    });
 
     onDestroy(() => unsubscribe());
 </script>

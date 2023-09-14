@@ -4,7 +4,7 @@
     import type { LINK_OBJ } from "../../services/types";
     import { LINK_STORE } from "../../store/store";
 
-    export let linkId: string | null; // the current link id;
+    export let linkId: string | number; // the current link id;
 
     const handleDelete = () => {
         if (!linkId) return;

@@ -19,7 +19,7 @@ type nav_type = (path: string, options?: {
     height?: number
 }) => undefined;
 
-export const customNavigate: () => nav_type = () => {
+export const useNavigate: () => nav_type = () => {
     return (path, options) => {
         if (options?.target === "_blank") {
             const tlB = options?.newTab ? "yes" : "no";

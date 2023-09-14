@@ -1,20 +1,17 @@
 <script lang="ts">
+    import type { PageData } from "./$types";
     import A_Tag from "../components/atoms/A_Tag.svelte";
     import HeaderText from "../components/atoms/HeaderText.svelte";
     import SpanTag from "../components/atoms/SpanTag.svelte";
     import Form from "../components/form/Form.svelte";
     import MiniLinkTable from "../components/mini_table/MiniLinkTable.svelte";
-    import Navbar from "../components/navbar/Navbar.svelte";
     import { APP_NAME } from "../store/store";
 
-    const toRegister = () =>
-        window.open(
-            "/home/register",
-            "_blank",
-            "toolbar=yes, resizable=0, width=600,height=600"
-        );
-
     let chances = "0" + 5;
+
+    export let data: PageData; // page data
+
+    console.log("data", data);
 </script>
 
 <svelte:head>
@@ -49,5 +46,4 @@
 </section>
 
 <style lang="scss">
-
 </style>

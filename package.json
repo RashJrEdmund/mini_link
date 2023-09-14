@@ -36,6 +36,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"nanoid": "^5.0.1",
 		"svelte-french-toast": "^1.2.0"
 	}
 }

@@ -5,11 +5,8 @@
 
     import Button from "../atoms/Button.svelte";
     import HeaderText from "../atoms/HeaderText.svelte";
-    import { customNavigate } from "../../services/hooks";
     import ToggleTheme from "../toggle_theme/ToggleTheme.svelte";
     import ATag from "../atoms/A_Tag.svelte";
-
-    const navigate = customNavigate();
 </script>
 
 <nav
@@ -31,7 +28,7 @@
             </ATag>
 
             <ATag path="/create-account" sx="hidden sm:inline">
-                <Button active text="Register Now" />
+                <Button text="Register Now" />
             </ATag>
 
             <ToggleTheme />
