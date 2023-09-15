@@ -3,10 +3,10 @@
     import Button from "../../../components/atoms/Button.svelte";
     import HeaderText from "../../../components/atoms/HeaderText.svelte";
     import PTag from "../../../components/atoms/P_Tag.svelte";
+    import TextField from "../../../components/atoms/TextField.svelte";
     import { COLOR_PALETTE_STORE, THEME } from "../../../store/store";
 
-    let username: string = "";
-    let email: string = "";
+    let email_username: string = "";
     let password: string = "";
 
     const handleLogin = () => {
@@ -21,46 +21,28 @@
 >
     <HeaderText text="Login" small />
 
-    <input
+    <TextField
+        bind:value={email_username}
         type="text"
-        placeholder="Enter email or username"
-        style={`
-                    border-bottom: 1px solid ${$COLOR_PALETTE_STORE[$THEME].lite_gray};
-                    color: ${$COLOR_PALETTE_STORE[$THEME].lite_gray}
-                `}
-        bind:value={username}
-        class="bg-transparent mt-[3rem] p-1 w-full min-h-[40px]"
+        placeholder="Enter email or user"
     />
 
-    <input
-        type="email"
-        placeholder="Enter email"
-        style={`
-                    border-bottom: 1px solid ${$COLOR_PALETTE_STORE[$THEME].lite_gray};
-                    color: ${$COLOR_PALETTE_STORE[$THEME].lite_gray}
-                `}
-        bind:value={email}
-        class="bg-transparent mt-[2.5rem] p-1 w-full min-h-[40px]"
-    />
-
-    <input
+    <TextField
+        bind:value={password}
         type="password"
         placeholder="Password"
-        style={`
-                    border-bottom: 1px solid ${$COLOR_PALETTE_STORE[$THEME].lite_gray};
-                    color: ${$COLOR_PALETTE_STORE[$THEME].lite_gray}
-                `}
-        bind:value={password}
-        class="bg-transparent mt-[2.5rem] p-1 w-full min-h-[40px]"
-    />
+        sx="mt-5"
+    >
+        eye
+    </TextField>
 
-    <ATag is_link path="/forgot-password" sx="self-end mt-3">
+    <ATag is_link path="/forgot-password" sx="self-end mt-5">
         Forgot password
     </ATag>
 
-    <Button sx="mt-[1rem]">Log me in</Button>
+    <Button sx="mt-5">Log me in</Button>
 
-    <PTag sx="mt-[2.5rem]">
+    <PTag sx="mt-6">
         create account ?
         <ATag is_link path="/create-account">create account</ATag>
     </PTag>

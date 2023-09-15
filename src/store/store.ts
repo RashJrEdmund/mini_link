@@ -12,7 +12,11 @@ export const APP_NAME = readable<string>("Mini link");
 
 /* ========== WRITABLE_ITEMS ========== */
 
-export const THEME = writable<THEME_MODE>(theme_modes);
+export const THEME = writable<THEME_MODE>(theme_modes, (e) => {
+    console.log("got subscribed to", e);
+
+    return console.log("just got unscribed from", e);
+});
 
 export const LINK_STORE = writable<LINK_OBJ[]>([
     {

@@ -3,6 +3,7 @@
     import Button from "../../../components/atoms/Button.svelte";
     import HeaderText from "../../../components/atoms/HeaderText.svelte";
     import PTag from "../../../components/atoms/P_Tag.svelte";
+    import TextField from "../../../components/atoms/TextField.svelte";
     import { COLOR_PALETTE_STORE, THEME } from "../../../store/store";
 
     let username: string = "";
@@ -22,49 +23,25 @@
 >
     <HeaderText text="Create an account" small />
 
-    <input
+    <TextField
         type="text"
         placeholder="Enter username"
-        style={`
-                    border-bottom: 1px solid ${$COLOR_PALETTE_STORE[$THEME].lite_gray};
-                    color: ${$COLOR_PALETTE_STORE[$THEME].lite_gray}
-                `}
         bind:value={username}
-        class="bg-transparent mt-[2rem] p-1 w-full min-h-[40px]"
     />
 
-    <input
-        type="email"
-        placeholder="Enter email"
-        style={`
-                    border-bottom: 1px solid ${$COLOR_PALETTE_STORE[$THEME].lite_gray};
-                    color: ${$COLOR_PALETTE_STORE[$THEME].lite_gray}
-                `}
-        bind:value={email}
-        class="bg-transparent mt-[2rem] p-1 w-full min-h-[40px]"
-    />
+    <TextField type="email" placeholder="Enter email" bind:value={email} />
 
-    <input
-        type="password"
-        placeholder="Password"
-        style={`
-                    border-bottom: 1px solid ${$COLOR_PALETTE_STORE[$THEME].lite_gray};
-                    color: ${$COLOR_PALETTE_STORE[$THEME].lite_gray}
-                `}
-        bind:value={password}
-        class="bg-transparent mt-[2rem] p-1 w-full min-h-[40px]"
-    />
+    <TextField type="password" placeholder="Password" bind:value={password}>
+        eye
+    </TextField>
 
-    <input
+    <TextField
         type="password"
         placeholder="Confirm Password"
-        style={`
-                    border-bottom: 1px solid ${$COLOR_PALETTE_STORE[$THEME].lite_gray};
-                    color: ${$COLOR_PALETTE_STORE[$THEME].lite_gray}
-                `}
-        bind:value={password}
-        class="bg-transparent mt-[2rem] p-1 w-full min-h-[40px]"
-    />
+        bind:value={confirm_password}
+    >
+        eye
+    </TextField>
 
     <Button sx="mt-[2rem]">Create my account</Button>
 

@@ -26,9 +26,9 @@
                 </Button>
             </ATag>
 
-            <ATag path="/create-account" sx="hidden sm:inline">
+            <!-- <ATag path="/create-account" sx="hidden sm:inline">
                 <Button text="Register Now" />
-            </ATag>
+            </ATag> -->
 
             <ToggleTheme />
         </section>
