@@ -17,7 +17,7 @@ export type THEME_SETTING_TYPE = {
     disable_btn: string,
 }
 
-export type Color_Palette = {
+export type COLOR_PALETTE_TYPE = {
     light: THEME_SETTING_TYPE,
     dark: THEME_SETTING_TYPE,
 }

@@ -1,6 +1,6 @@
-import type { Color_Palette } from "../types";
+import type { COLOR_PALETTE_TYPE as T } from "../types";
 
-export const COLOR_PALETTE: Color_Palette = {
+export const COLOR_PALETTE: T = {
     light: {
         lite_gray: "#181e29",
         text: "#ffffff",

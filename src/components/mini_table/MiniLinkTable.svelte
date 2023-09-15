@@ -1,5 +1,5 @@
 <script lang="ts">
-    import CopyIcon from "../../lib/icons/copy_icon.svg";
+    import CopyIcon from "$lib/icons/copy_icon.svg";
     import { LINK_STORE } from "../../store/store";
     import SpanTag from "../atoms/SpanTag.svelte";
     import Img_Tag from "../atoms/Img_Tag.svelte";

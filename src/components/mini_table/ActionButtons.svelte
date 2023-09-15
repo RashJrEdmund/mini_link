@@ -1,7 +1,6 @@
 <script lang="ts">
-    import EditIcon from "../../lib/icons/edit_icon.svg";
-    import DeleteIcon from "../../lib/icons/delete_icon.svg";
-    import type { LINK_OBJ } from "../../services/types";
+    import EditIcon from "$lib/icons/edit_icon.svg";
+    import DeleteIcon from "$lib/icons/delete_icon.svg";
     import { LINK_STORE } from "../../store/store";
 
     export let linkId: string | number; // the current link id;

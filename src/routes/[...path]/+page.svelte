@@ -4,8 +4,9 @@
     import HeaderText from "../../components/atoms/HeaderText.svelte";
     import PTag from "../../components/atoms/P_Tag.svelte";
     import SpanTag from "../../components/atoms/SpanTag.svelte";
-    import pageNotFound from "../../lib/animations/page_not_found.gif";
+    import pageNotFound from "$lib/animations/page_not_found.gif";
     import { COLOR_PALETTE_STORE, THEME } from "../../store/store";
+
     console.clear();
     console.log($page);
 </script>
@@ -32,7 +33,7 @@
 
         <PTag sx="text-center">
             the path
-            <SpanTag class="font-semibold text-[1.1rem]">
+            <SpanTag sx="font-semibold text-[1.1rem]">
                 /{$page?.params?.path}
             </SpanTag>
             <br />

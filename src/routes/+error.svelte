@@ -1,7 +1,7 @@
 <script lang="ts">
     import { page } from "$app/stores";
     import HeaderText from "../components/atoms/HeaderText.svelte";
-    import errorImage from "../lib/animations/error.gif";
+    import errorImage from "$lib/animations/error.gif";
     import { COLOR_PALETTE_STORE, THEME } from "../store/store";
     console.clear();
     console.log($page);

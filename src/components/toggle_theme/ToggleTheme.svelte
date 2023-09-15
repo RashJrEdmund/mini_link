@@ -1,6 +1,6 @@
 <script lang="ts">
-    import lightBg from "../../lib/icons/light-mode.svg";
-    import darkBg from "../../lib/icons/dark-mode.png";
+    import lightBg from "$lib/icons/light-mode.svg";
+    import darkBg from "$lib/icons/dark-mode.png";
     import { COLOR_PALETTE_STORE, THEME } from "../../store/store";
 
     const TOGGLE_BG = {

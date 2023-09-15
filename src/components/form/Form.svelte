@@ -1,8 +1,8 @@
 <script lang="ts">
     import Button from "../atoms/Button.svelte";
     import SpanTag from "../atoms/SpanTag.svelte";
-    import LinkIcon from "../../lib/icons/link_icon.svg";
-    import ScissorsIcon from "../../lib/icons/scissors.png";
+    import LinkIcon from "$lib/icons/link_icon.svg";
+    import ScissorsIcon from "$lib/icons/scissors.png";
     import { COLOR_PALETTE_STORE, LINK_STORE, THEME } from "../../store/store";
     import type { LINK_OBJ } from "../../services/types";
     import { onDestroy, onMount } from "svelte";
