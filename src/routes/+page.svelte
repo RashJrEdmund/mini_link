@@ -5,13 +5,18 @@
     import SpanTag from "../components/atoms/SpanTag.svelte";
     import Form from "../components/form/Form.svelte";
     import MiniLinkTable from "../components/mini_table/MiniLinkTable.svelte";
-    import { APP_NAME } from "../store/store";
+    import { APP_NAME, LINK_STORE } from "../store/store";
+    import { onMount } from "svelte";
 
     let chances = "0" + 5;
 
     export let data: PageData; // page data
 
-    console.log("data", data);
+    onMount(() => {
+        if (!data.LINK_DATA) return;
+        LINK_STORE.set(data.LINK_DATA);
+        console.log(data);
+    });
 </script>
 
 <svelte:head>

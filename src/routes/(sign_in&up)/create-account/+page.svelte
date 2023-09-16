@@ -3,6 +3,7 @@
     import Button from "../../../components/atoms/Button.svelte";
     import HeaderText from "../../../components/atoms/HeaderText.svelte";
     import PTag from "../../../components/atoms/P_Tag.svelte";
+    import SpanTag from "../../../components/atoms/SpanTag.svelte";
     import TextField from "../../../components/atoms/TextField.svelte";
     import { COLOR_PALETTE_STORE, THEME } from "../../../store/store";
 
@@ -10,40 +11,57 @@
     let email: string = "";
     let password: string = "";
     let confirm_password: string = "";
+    let showpassword: boolean = false;
+    let showConfirmPassword: boolean = false;
 
     const handleLogin = () => {
-        //
+        console.log("creating account...");
     };
 </script>
 
+<!-- on:submit|preventDefault={handleLogin} -->
 <form
-    on:submit|preventDefault={handleLogin}
+    method="POST"
     style={`border-left: 1px solid ${$COLOR_PALETTE_STORE[$THEME].lite_gray}`}
     class="pl-3 py-3 flex-1 w-full h-fit min-h-[500px]"
 >
     <HeaderText text="Create an account" small />
 
+    <TextField type="text" placeholder="Enter username" name="username" bind:value={username} />
+
+    <TextField type="email" placeholder="Enter email" name="email" bind:value={email} />
+
     <TextField
-        type="text"
-        placeholder="Enter username"
-        bind:value={username}
-    />
-
-    <TextField type="email" placeholder="Enter email" bind:value={email} />
-
-    <TextField type="password" placeholder="Password" bind:value={password}>
-        eye
+        type={showpassword ? "text" : "password"}
+        placeholder="Password"
+        name="password"
+        bind:value={password}
+    >
+        <SpanTag
+            action={() => (showpassword = !showpassword)}
+            sx="cursor-pointer"
+        >
+            {showpassword ? "🚫" : "👀"}
+        </SpanTag>
     </TextField>
 
     <TextField
-        type="password"
+        type={showConfirmPassword ? "text" : "password"}
         placeholder="Confirm Password"
+        name="confirm_password"
         bind:value={confirm_password}
     >
-        eye
+        <SpanTag
+            action={() => (showConfirmPassword = !showConfirmPassword)}
+            sx="cursor-pointer"
+        >
+            {showConfirmPassword ? "🚫" : "👀"}
+        </SpanTag>
     </TextField>
 
-    <Button sx="mt-[2rem]">Create my account</Button>
+    <!-- <Button sx="mt-[2rem]" type="submit">Create my account</Button> -->
+
+    <button>create account</button>
 
     <PTag sx="mt-[2rem]">
         already have an account ?

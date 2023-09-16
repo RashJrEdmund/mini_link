@@ -6,7 +6,7 @@
     import { COLOR_PALETTE_STORE, LINK_STORE, THEME } from "../../store/store";
     import type { LINK_OBJ } from "../../services/types";
     import { onDestroy, onMount } from "svelte";
-    import { validateUrl } from "../../services/functions/utils";
+    import { validateUrl } from "../../services/functions/validation";
     import toast, { Toaster } from "svelte-french-toast";
     import { nanoid } from "nanoid";
     import { BASE_URL, SHORTEN_LENGTH } from "../../services/constants/constants";

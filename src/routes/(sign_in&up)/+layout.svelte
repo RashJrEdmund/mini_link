@@ -1,13 +1,14 @@
 <script lang="ts">
     import { page } from "$app/stores";
-    import { onDestroy, onMount } from "svelte";
     import loginGif from "$lib/animations/login.gif";
     import createAccountGif from "$lib/animations/create_account.gif";
     import { COLOR_PALETTE_STORE, THEME } from "../../store/store";
 
     $: pathname = $page.url.pathname;
 
-    const pageGif = {
+    type PageGif = Record<string, string>;
+
+    const pageGif: PageGif = {
         "/login": loginGif,
         "/create-account": createAccountGif,
     };
