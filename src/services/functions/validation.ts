@@ -10,7 +10,7 @@ export const validateUrl: ValidateUrlType = (url) => {
 }
 
 export const validateEmail: ValidateEmailType = (email) => {
-    const regex = /^([A-Za-z\d.-]+)@([A-Za-z\d-]+)\.([A-Za-z]{2,6})(\.[A-Za-z]{2,6}) ?$/;
+    const regex = /^([A-Za-z\d.-]+)@([A-Za-z\d-]+).([A-Za-z]{2,6})(\.[A-Za-z]{2,6}) ?$/;
     return regex.test(email);
 }
 

@@ -5,31 +5,39 @@
     import PTag from "../../../components/atoms/P_Tag.svelte";
     import SpanTag from "../../../components/atoms/SpanTag.svelte";
     import TextField from "../../../components/atoms/TextField.svelte";
+    import { validateEmail } from "../../../services/functions/validation";
     import { COLOR_PALETTE_STORE, THEME } from "../../../store/store";
+    import type { ActionData } from "./$types";
 
-    let email_username: string = "";
+    export let form: ActionData; // the object returned from the default action on +page.server.ts;
+
+    let email: string = form?.email ?? "";
     let password: string = "";
     let showpassword: boolean = false;
 
-    const handleLogin = () => {
-        console.log("login in...");
-    };
+    let isValidEmail: boolean = false;
+
+    $: (() => {
+        if (email) isValidEmail = validateEmail(email);
+        else isValidEmail = true;
+    })();
 </script>
 
-    
-    <!-- on:submit|preventDefault={handleLogin} -->
 <form
-    method="POST"
+    method="post"
     style={`border-left: 1px solid ${$COLOR_PALETTE_STORE[$THEME].lite_gray}`}
     class="flex flex-col pl-3 flex-1 w-full min-h-[500px]"
 >
     <HeaderText text="Login" small />
+    <SpanTag>{form?.message || ""}</SpanTag>
 
     <TextField
-        bind:value={email_username}
+        bind:value={email}
         type="text"
-        placeholder="Enter email or user"
+        placeholder="Enter email"
         name="email"
+        error_message={isValidEmail ? "" : "Not a valid email"}
+        success_message={validateEmail(email) ? "✅ valid" : ""}
     />
 
     <TextField
@@ -39,7 +47,10 @@
         name="password"
         sx="mt-5"
     >
-        <SpanTag action={() => showpassword = !showpassword} sx="cursor-pointer">
+        <SpanTag
+            action={() => (showpassword = !showpassword)}
+            sx="cursor-pointer"
+        >
             {showpassword ? "🚫" : "👀"}
         </SpanTag>
     </TextField>

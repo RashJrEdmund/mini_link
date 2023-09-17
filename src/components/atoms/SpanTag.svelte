@@ -2,6 +2,7 @@
     import { COLOR_PALETTE_STORE, THEME } from "../../store/store";
 
     export let pink_alert: boolean = false;
+    export let success: boolean = false;
     export let is_link: boolean = false;
     export let other_tags: boolean = false;
     export let no_wrap: boolean = false;
@@ -18,6 +19,8 @@
     style={`color: ${
         pink_alert
             ? $COLOR_PALETTE_STORE[$THEME].main_pink
+            : success
+            ? $COLOR_PALETTE_STORE[$THEME].lite_blue
             : is_link
             ? $COLOR_PALETTE_STORE[$THEME].lite_blue
             : $COLOR_PALETTE_STORE[$THEME].lite_gray
@@ -25,7 +28,10 @@
     `}
     class={`
         $${other_tags && "flex items-center justify-center gap-[2px]"}
-        $${no_wrap && "flex items-center justify-center flex-nowrap whitespace-nowrap gap-[2px]"}
+        $${
+            no_wrap &&
+            "flex items-center justify-center flex-nowrap whitespace-nowrap gap-[2px]"
+        }
         ${is_link && "underline cursor-pointer"}
         ${box && "border p-1"}
         ${sx}

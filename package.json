@@ -36,6 +36,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"bcrypt": "^5.1.1",
+		"mongodb": "^6.1.0",
 		"nanoid": "^5.0.1",
 		"svelte-french-toast": "^1.2.0"
 	}
