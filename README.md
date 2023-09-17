@@ -1,7 +1,11 @@
 ### Author
     Rash E.J
 
-## mini_link preview url: visit [deployment](https://mini-link.vercel.app/)
+## mini_link
+
+see GitHub [project for mini link](https://github.com/users/RashJrEdmund/projects/6)
+
+veiw deployment: visit [deployment](https://mini-link.vercel.app/)
 
 ## Project tour
 
