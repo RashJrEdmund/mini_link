@@ -27,7 +27,7 @@
 
         const newLink: LINK_OBJ = {
             user_id: "1",
-            id: crypto.randomUUID(),
+            _id: crypto.randomUUID(),
             original: input_val,
             short_link: BASE_URL + nanoid(SHORTEN_LENGTH), // https://mini-link.com/nanoid()
             clicks: 0,

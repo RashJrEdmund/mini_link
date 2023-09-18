@@ -29,7 +29,7 @@
                 <th>Date</th>
                 <th>Actions</th>
             </tr>
-            {#each linkData as link (link.id)}
+            {#each linkData as link (link._id)}
                 <tr in:scale out:fade={{ duration: 300 }}>
                     <td data-cell="mini link">
                         <span class="flex flex-col">

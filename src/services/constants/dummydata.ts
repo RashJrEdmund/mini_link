@@ -2,7 +2,7 @@ import type { LINK_OBJ } from "../types";
 
 export const LINK_DATA: LINK_OBJ[] = [
     {
-        id: crypto.randomUUID(),
+        _id: crypto.randomUUID(),
         user_id: "1",
         short_link: "https://minilink.com/aZxxklairll",
         original:
@@ -13,7 +13,7 @@ export const LINK_DATA: LINK_OBJ[] = [
         createdAt: "Thu Sep 14 2023",
     },
     {
-        id: crypto.randomUUID(),
+        _id: crypto.randomUUID(),
         user_id: "1",
         short_link: "https://minilink.com/aZxxklairll",
         original:
@@ -24,7 +24,7 @@ export const LINK_DATA: LINK_OBJ[] = [
         createdAt: "Tues Sep 12 2023",
     },
     {
-        id: crypto.randomUUID(),
+        _id: crypto.randomUUID(),
         user_id: "1",
         short_link: "https://minilink.com/aZxxklairll",
         original:

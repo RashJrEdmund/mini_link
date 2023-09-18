@@ -26,7 +26,6 @@
 <!-- on:submit|preventDefault={handleLogin} -->
 <form
     method="POST"
-    action="/?/create-accout"
     style={`border-left: 1px solid ${$COLOR_PALETTE_STORE[$THEME].lite_gray}`}
     class="pl-3 py-3 flex-1 w-full h-fit min-h-[500px]"
 >

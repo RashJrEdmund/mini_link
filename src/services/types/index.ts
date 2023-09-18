@@ -23,8 +23,8 @@ export type COLOR_PALETTE_TYPE = {
 }
 
 export type LINK_OBJ = {
-    id: string | number;
-    user_id: string;
+    _id: string | number;
+    user_id: string | null; // null for not logged in users
     short_link: string;
     original: string;
     clicks: string | number;
@@ -32,3 +32,14 @@ export type LINK_OBJ = {
     alias: string;
     createdAt: string | number;
 };
+
+export type USER = {
+    _id: string,
+    username: string,
+    email: string,
+    profile_pic: string,
+    is_premium_user: boolean,
+    createdAt: string,
+    updatedAt: string,
+}
+
