@@ -1,5 +1,5 @@
 import type { LINK_OBJ } from "../../../services/types";
-import { URLS } from "../../db/urls"
+import URLS from "../../db/urls"
 
 export default class URL_SERVICE {
     static getById = (_id: string) => {

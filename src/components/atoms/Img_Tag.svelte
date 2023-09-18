@@ -4,13 +4,19 @@
     export let alt: string = "image text"; // alt text
     export let draggable: "true" | "false" = "false";
 
+    export let action = () => console.log("button clicked...");
+
     export let circle: boolean = false;
 </script>
 
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y-click-events-have-key-events -->
 <img
     {src}
     {alt}
     {draggable}
+    {...$$restProps}
+    on:click={action}
     class={`
         ${circle && "rounded-full"}
         ${sx}

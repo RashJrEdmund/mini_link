@@ -17,6 +17,7 @@ export const actions = {
 
 
         cookies.set("token", crypto.randomUUID(), { path: "/" });
-        return { message: "Logged in", staus: 200 }
+
+        return { message: "Logged in", status: 200 }
     },
 };

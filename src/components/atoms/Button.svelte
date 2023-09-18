@@ -15,6 +15,7 @@
 <button
     on:click={action}
     {type}
+    {...$$restProps}
     style={`
         background-color: ${
             grayed

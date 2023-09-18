@@ -1,12 +1,19 @@
 <script>
 	import "./styles.css";
-
-	import Header from "./Header.svelte";
 	import "../TailwindCSS.svelte";
 	import { COLOR_PALETTE_STORE, THEME } from "../store/store";
+
+    import { onMount } from "svelte";
+
+	import Header from "./Header.svelte";
 	import Navbar from "../components/navbar/Navbar.svelte";
 	import Footer from "../components/footer/Footer.svelte";
+
+
+    import toast, { Toaster } from "svelte-french-toast";
 </script>
+
+<Toaster />
 
 <div
 	id="header_text_2"

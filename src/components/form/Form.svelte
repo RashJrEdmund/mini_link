@@ -7,7 +7,8 @@
     import type { LINK_OBJ } from "../../services/types";
     import { onDestroy, onMount } from "svelte";
     import { validateUrl } from "../../services/functions/validation";
-    import toast, { Toaster } from "svelte-french-toast";
+    import { INVERT_THEME } from "../../services/functions/utils"
+    import toast from "svelte-french-toast";
     import { nanoid } from "nanoid";
     import { BASE_URL, SHORTEN_LENGTH } from "../../services/constants/constants";
 
@@ -21,6 +22,8 @@
 
     const hanldeSubmit = () => {
         // validate check input_val to match a url
+
+        if(!input_val.trim()) return;
 
         console.log("input_val validation", validateUrl(input_val));
         console.log({ nanoid: nanoid(10) });
@@ -40,17 +43,18 @@
 
         input_val = "";
 
+        toast.error("new link added",
+            {
+                icon: "✅",
+                style: `border-radius: 10px; background: ${$COLOR_PALETTE_STORE[INVERT_THEME($THEME)].bg}; color: ${$COLOR_PALETTE_STORE[INVERT_THEME($THEME)].lite_gray};`
+            }
+        );
+
         console.log({ input_val });
     };
 
-    onMount(() => {
-        toast.success("It works!");
-    });
-
     onDestroy(() => unsubscribe());
 </script>
-
-<Toaster />
 
 <form
     on:submit|preventDefault={hanldeSubmit}
@@ -69,6 +73,7 @@
         class="border-l-2 border-l-main_blue bg-transparent p-1 rounded-none w-full sm:w-fit sm:min-w-[300px] md:min-w-[450px]"
         bind:value={input_val}
     />
+
     <Button text="" type="submit">
         <span class="hidden md:inline">Shorten</span>
         <img

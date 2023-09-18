@@ -1,17 +1,12 @@
 import type { USER } from "../../../services/types";
-import USERS from "../../db/users"
-import URL_SERVICE from "../url/url.service"
 
-export default class USER_SERVICE {
-    static getById = (_id: string) => {
-        return USERS.findOne({ _id });
-    }
-
+export default class USER_MODULE {
     static getByEmail = (email: string) => {
         return USERS.findOne({ email });
     }
 
-    static createUser = (user: USER) => {
+    static createUser = async (user: USER) => {
+        const hash = await bcryt
         return USERS.insertOne(user);
     }
 

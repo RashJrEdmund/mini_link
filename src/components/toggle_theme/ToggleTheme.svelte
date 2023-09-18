@@ -1,7 +1,11 @@
 <script lang="ts">
     import lightBg from "$lib/icons/light-mode.svg";
     import darkBg from "$lib/icons/dark-mode.png";
+    import { onMount } from "svelte";
     import { COLOR_PALETTE_STORE, THEME } from "../../store/store";
+    import { LOCALSTORAGE } from "../../services/functions/storage.ts"
+
+    import type { THEME_MODE } from "../../services/types";
 
     const TOGGLE_BG = {
         light: lightBg,
@@ -9,8 +13,27 @@
     };
 
     const toggleAppTheme = () => {
-        THEME.update((prev) => (prev === "dark" ? "light" : "dark"));
+        THEME.update((prev) => {
+            const new_theme: THEME_MODE = prev === "dark" ? "light" : "dark";
+            LOCALSTORAGE.save("theme_mode", new_theme);
+            return new_theme;
+        });
     };
+
+    // $: (() => {
+    //     const local_theme = LOCALSTORAGE.get("theme_mode");
+    //     console.log({local_theme, LOCALSTORAGE});
+
+    //     if (local_theme === 'dark') THEME.set("dark");
+    //     else THEME.set("light");
+    // })();
+
+    onMount(() => {
+        const local_theme = LOCALSTORAGE.get("theme_mode");
+
+        if (local_theme === 'dark') THEME.set("dark");
+        else THEME.set("light");
+    });
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->

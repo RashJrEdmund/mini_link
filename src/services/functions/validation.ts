@@ -1,3 +1,8 @@
+// import bcrypt from "bcrypt"
+import { SALT_ROUNDS } from "../constants/constants";
+
+console.log("this import bcrypt from", SALT_ROUNDS)
+
 type ValidateUrlType = (url: string) => boolean;
 
 type ValidateEmailType = (email: string) => boolean;
@@ -15,7 +20,16 @@ export const validateEmail: ValidateEmailType = (email) => {
 }
 
 export const checkIsEmailOrUsername: CheckEmailUsername = (value) => {
-    
-
     return true;
+}
+
+export class BCRYPT {
+    static hash = (password: string) => {
+        // return bcrypt.hash(password, SALT_ROUNDS)
+    }
+
+    static compare = (hash: string) => {
+
+        return
+    }
 }

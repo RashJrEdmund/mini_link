@@ -13,6 +13,7 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <header
     on:click={action}
+    {...$$restProps}
     id="main_app_header"
     style={`background-image: linear-gradient(to right, ${$COLOR_PALETTE_STORE[$THEME].main_blue}, ${$COLOR_PALETTE_STORE[$THEME].main_pink})`}
     class={`py-1 w-fit ${

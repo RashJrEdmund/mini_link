@@ -32,10 +32,10 @@
     </span>
 
     {#if error_message}
-        <SpanTag pink_alert={!!error_message} sx="self-start">{error_message}</SpanTag>
+        <SpanTag pink_alert={!!error_message} sx="self-start mt-1">{error_message}</SpanTag>
     {/if}
 
     {#if success_message}
-        <SpanTag success sx="self-start">{success_message}</SpanTag>
+        <SpanTag success sx="self-start mt-1">{success_message}</SpanTag>
     {/if}
 </span>

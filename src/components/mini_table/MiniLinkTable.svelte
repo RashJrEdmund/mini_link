@@ -7,12 +7,21 @@
     import { onDestroy } from "svelte";
     import ActionButtons from "./ActionButtons.svelte";
     import type { LINK_OBJ } from "../../services/types";
+    import toast from "svelte-french-toast";
+
+    type COPY = (short_link: string) => void;
 
     let linkData: LINK_OBJ[];
 
     const unsubscribe = LINK_STORE.subscribe((val) => {
         linkData = val;
     });
+
+    const copyLink: COPY =  (short_link) => {
+        navigator.clipboard.writeText(short_link)
+            .then(() => toast.success("link copied"))
+            .catch(() => toast.error("try again"));
+    }
 
     onDestroy(() => unsubscribe());
 </script>
@@ -44,9 +53,11 @@
                                 </SpanTag>
 
                                 <Img_Tag
+                                    action={() => copyLink(link.short_link)}
                                     src={CopyIcon}
                                     alt="copy icon"
-                                    sx="ml-1 inline"
+                                    title={`copy link ${link?.alias ? 'to '+ link.alias : ""}`}
+                                    sx="ml-1 inline cursor-pointer"
                                 />
                             </span>
                         </span>

@@ -16,6 +16,7 @@
 <a
     data-sveltekit-preload-data="hover"
     href={path}
+    {...$$restProps}
     style={`color: ${
         pink_alert
             ? $COLOR_PALETTE_STORE[$THEME].main_pink

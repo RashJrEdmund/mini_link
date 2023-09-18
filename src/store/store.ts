@@ -2,7 +2,7 @@ import { readable, writable } from "svelte/store";
 import { COLOR_PALETTE } from "../services/theme/colors_pallete";
 import type { COLOR_PALETTE_TYPE, LINK_OBJ, THEME_MODE } from "../services/types";
 
-const theme_modes: THEME_MODE = "dark" // default-theme-mode
+const theme_modes: THEME_MODE = "light" // default-theme-mode
 
 /* ========== READEABBLE_ITEMS ========== */
 

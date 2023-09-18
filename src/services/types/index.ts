@@ -43,3 +43,9 @@ export type USER = {
     updatedAt: string,
 }
 
+export type USER_AGENT = {
+    _id: string, // This is going to bet the user-agent from the request header. also add finger print from fingerprintJs
+    links: LINK_OBJ[], // this is going to 
+    createdAt: string,
+    updatedAt: string,
+}

@@ -4,7 +4,7 @@
     import errorImage from "$lib/animations/error.gif";
     import { COLOR_PALETTE_STORE, THEME } from "../store/store";
     console.clear();
-    console.log($page);
+    console.log({page: $page});
 </script>
 
 <main class="min-h-[calc(100vh-250px)] flex items-center justify-center">

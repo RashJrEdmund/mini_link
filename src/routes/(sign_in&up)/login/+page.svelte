@@ -5,8 +5,9 @@
     import PTag from "../../../components/atoms/P_Tag.svelte";
     import SpanTag from "../../../components/atoms/SpanTag.svelte";
     import TextField from "../../../components/atoms/TextField.svelte";
-    import { validateEmail } from "../../../services/functions/validation";
     import { COLOR_PALETTE_STORE, THEME } from "../../../store/store";
+    import { validateEmail } from "../../../services/functions/validation.ts";
+    
     import type { ActionData } from "./$types";
 
     export let form: ActionData; // the object returned from the default action on +page.server.ts;
@@ -16,6 +17,8 @@
     let showpassword: boolean = false;
 
     let isValidEmail: boolean = false;
+
+    console.log(form)
 
     $: (() => {
         if (email) isValidEmail = validateEmail(email);
@@ -29,7 +32,8 @@
     class="flex flex-col pl-3 flex-1 w-full min-h-[500px]"
 >
     <HeaderText text="Login" small />
-    <SpanTag>{form?.message || ""}</SpanTag>
+
+    <SpanTag pink_alert={+form?.status !== 200} success={+form?.status === 200}>{form?.message || ""}</SpanTag>
 
     <TextField
         bind:value={email}

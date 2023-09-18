@@ -9,6 +9,7 @@
 </script>
 
 <p
+    {...$$restProps}
     style={`color: ${$COLOR_PALETTE_STORE[$THEME].lite_gray};`}
     class={`
         $${other_tags && "flex items-center justify-center gap-[2px]"}

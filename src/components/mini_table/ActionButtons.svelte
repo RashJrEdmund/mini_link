@@ -18,11 +18,12 @@
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 
 <span class="flex items-center gap-[10px] mt-[10px]">
-    <img src={EditIcon} alt="edit cion" class="cursor-pointer" />
+    <img src={EditIcon} alt="edit cion" class="cursor-pointer" title="edit link" />
     <img
         src={DeleteIcon}
         alt="delete cion"
         class="ml-[10px] cursor-pointer"
+        title="delte link"
         on:click={handleDelete}
     />
 </span>
