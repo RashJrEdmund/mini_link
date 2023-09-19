@@ -1,4 +1,3 @@
-import toast from "svelte-french-toast";
 import type { THEME_MODE } from "../types";
 
 type InvertBoolean = (bool: boolean) => boolean;

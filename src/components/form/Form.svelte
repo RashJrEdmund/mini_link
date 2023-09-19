@@ -23,7 +23,19 @@
     const hanldeSubmit = () => {
         // validate check input_val to match a url
 
-        if(!input_val.trim()) return;
+        if (!input_val.trim()) return toast("👀",
+            {
+                icon: "👀",
+                style: `border-radius: 10px; background: ${$COLOR_PALETTE_STORE[INVERT_THEME($THEME)].bg}; color: ${$COLOR_PALETTE_STORE[INVERT_THEME($THEME)].lite_gray};`
+            }
+        );
+
+        if (!validateUrl(input_val)) return toast("Not a valid URL",
+            {
+                icon: "🚫",
+                style: `border-radius: 10px; background: ${$COLOR_PALETTE_STORE[INVERT_THEME($THEME)].bg}; color: ${$COLOR_PALETTE_STORE[INVERT_THEME($THEME)].lite_gray};`
+            }
+        );
 
         console.log("input_val validation", validateUrl(input_val));
         console.log({ nanoid: nanoid(10) });
@@ -43,14 +55,12 @@
 
         input_val = "";
 
-        toast.error("new link added",
+        toast("new link added",
             {
                 icon: "✅",
                 style: `border-radius: 10px; background: ${$COLOR_PALETTE_STORE[INVERT_THEME($THEME)].bg}; color: ${$COLOR_PALETTE_STORE[INVERT_THEME($THEME)].lite_gray};`
             }
         );
-
-        console.log({ input_val });
     };
 
     onDestroy(() => unsubscribe());

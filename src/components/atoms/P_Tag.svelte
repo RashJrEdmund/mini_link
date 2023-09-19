@@ -6,10 +6,13 @@
     export let other_tags: boolean = false;
     export let fit: boolean = false;
     export let sx: string = ""; // add extra styling
+
+    export let action = () => null;
 </script>
 
 <p
     {...$$restProps}
+    on:click={action}
     style={`color: ${$COLOR_PALETTE_STORE[$THEME].lite_gray};`}
     class={`
         $${other_tags && "flex items-center justify-center gap-[2px]"}

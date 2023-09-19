@@ -20,14 +20,6 @@
         });
     };
 
-    // $: (() => {
-    //     const local_theme = LOCALSTORAGE.get("theme_mode");
-    //     console.log({local_theme, LOCALSTORAGE});
-
-    //     if (local_theme === 'dark') THEME.set("dark");
-    //     else THEME.set("light");
-    // })();
-
     onMount(() => {
         const local_theme = LOCALSTORAGE.get("theme_mode");
 

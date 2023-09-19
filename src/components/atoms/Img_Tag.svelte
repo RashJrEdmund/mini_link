@@ -4,7 +4,7 @@
     export let alt: string = "image text"; // alt text
     export let draggable: "true" | "false" = "false";
 
-    export let action = () => console.log("button clicked...");
+    export let action = () => null;
 
     export let circle: boolean = false;
 </script>

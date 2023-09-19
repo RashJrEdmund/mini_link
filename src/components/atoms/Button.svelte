@@ -9,7 +9,7 @@
     export let active: boolean = false;
     export let in_active: boolean = false;
 
-    export let action = () => console.log("button clicked...");
+    export let action = () => null;
 </script>
 
 <button

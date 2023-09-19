@@ -11,6 +11,13 @@
 
 
     import toast, { Toaster } from "svelte-french-toast";
+
+	onMount(async () => {
+		fetch("http://localhost:5173/api/urls")
+			.then((data) => data.json())
+			.then((data) => console.log("this is data \n", data))
+			.catch((err) => console.warn("and error occured", err));
+	})
 </script>
 
 <Toaster />

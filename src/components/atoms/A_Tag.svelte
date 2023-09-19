@@ -9,12 +9,17 @@
     export let sx: string = ""; // add extra styling
 
     export let path: string = "";
+
+
+
+    export let action = () => null;
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <a
     data-sveltekit-preload-data="hover"
+    on:click={action}
     href={path}
     {...$$restProps}
     style={`color: ${

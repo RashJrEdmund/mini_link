@@ -9,7 +9,7 @@
     export let box: boolean = false;
     export let sx: string = ""; // add extra styling
 
-    export let action = () => console.log("button clicked...");
+    export let action = () => null;
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->

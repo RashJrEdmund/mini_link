@@ -1,7 +1,17 @@
+const defaultGetOptions: {
+    parse?: boolean,
+} = {
+    parse: true,
+}
+
 export class LOCALSTORAGE {
-    static get = (key: string) => {
+    static get = (key: string, options = defaultGetOptions) => {
         const val = localStorage.getItem(key);
-        if (val) return JSON.parse(val);
+        if (val) {
+            if (!options?.parse) return val;
+
+            return JSON.parse(val);
+        }
     }
 
     static save = (key: string, value: any) =>
@@ -15,9 +25,13 @@ export class LOCALSTORAGE {
 //  SESSIONSTORAGE BELOW using it to hold the state of the edit form
 
 export class SESSIONSTORAGE {
-    static get = (key: string) => {
+    static get = (key: string, options = defaultGetOptions) => {
         const val = sessionStorage.getItem(key);
-        if (val) return JSON.parse(val);
+        if (val) {
+            if (!options?.parse) return val;
+
+            return JSON.parse(val);
+        }
     }
 
     static save = (key: string, value: any) =>

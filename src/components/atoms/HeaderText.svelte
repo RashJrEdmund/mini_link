@@ -1,6 +1,6 @@
 <script lang="ts">
     import { COLOR_PALETTE_STORE, THEME } from "../../store/store";
-    export let action = () => console.log("button clicked...");
+    export let action = () => null;
 
     export let text: string = "Header text";
     export let sx: string = ""; // add custom styles
