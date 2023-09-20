@@ -7,9 +7,9 @@ export const POST: RequestHandler = URL_CONTROLLER.CREATE_URL // post request;
 
 export const PUT: RequestHandler = URL_CONTROLLER.EDIT_URL //  put request;
 
-export const DEL: RequestHandler = URL_CONTROLLER.EDLETE_URL // delte request
+export const DELETE: RequestHandler = URL_CONTROLLER.EDLETE_URL // delte request
 
-// export const POST: RequestHandler = async (req) => {
+// export const GET: RequestHandler = async (req) => {
 //     const urls = [
 //         {
 //             _id: "dalkfjafdf23-dfad-daff-243jp3ioud",
@@ -21,7 +21,7 @@ export const DEL: RequestHandler = URL_CONTROLLER.EDLETE_URL // delte request
 //         }
 //     ];
 
-//     custom_logger("REQUEST", req);
+//     // custom_logger("REQUEST", req);
 
 //     return new Response(JSON.stringify(urls), {
 //         headers: {

@@ -32,7 +32,11 @@ export default class URL_CONTROLLER {
             custom_logger("PARAMS", user_id);
 
             return new Response(JSON.stringify(urls, null, 4), {
-                headers
+                headers: {
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                    "Access-Control-Allow-Methods": "*"
+                }
             });
         } catch (er) {
             throw error(500, {

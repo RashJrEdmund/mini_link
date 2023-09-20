@@ -24,7 +24,7 @@ export const load: PageLoad = async (props) => {
 
     const userUrls = await USER_SERVICE.getUserUrls(_id);
 
-    const url = `https://jsonplaceholder.typicode.com/users`
+    const url = "http://localhost:5173/api/urls/go" || `https://jsonplaceholder.typicode.com/users`
     const userData = await fetch(url).then(res => res.json());
 
     return {
