@@ -6,7 +6,7 @@
     import SpanTag from "../../../components/atoms/SpanTag.svelte";
     import TextField from "../../../components/atoms/TextField.svelte";
     import { COLOR_PALETTE_STORE, THEME } from "../../../store/store";
-    import { validateEmail } from "../../../services/functions/validation.ts";
+    import { validateEmail } from "$services/functions/validation";
     import { goto } from '$app/navigation';
     
     import type { ActionData } from "./$types";

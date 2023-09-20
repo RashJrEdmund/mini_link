@@ -4,13 +4,13 @@
     import LinkIcon from "$lib/icons/link_icon.svg";
     import ScissorsIcon from "$lib/icons/scissors.png";
     import { COLOR_PALETTE_STORE, LINK_STORE, THEME } from "../../store/store";
-    import type { LINK_OBJ } from "../../services/types";
+    import type { LINK_OBJ } from "$services/types";
     import { onDestroy, onMount } from "svelte";
-    import { validateUrl } from "../../services/functions/validation";
-    import { INVERT_THEME } from "../../services/functions/utils"
+    import { validateUrl } from "$services/functions/validation";
+    import { INVERT_THEME } from "$services/functions/utils"
     import toast from "svelte-french-toast";
     import { nanoid } from "nanoid";
-    import { BASE_URL, SHORTEN_LENGTH } from "../../services/constants/constants";
+    import { BASE_URL, SHORTEN_LENGTH } from "$services/constants/constants";
 
     let linkData: LINK_OBJ[] | null;
 

@@ -1,7 +1,7 @@
 import { readable, writable } from "svelte/store";
-import { COLOR_PALETTE } from "../services/theme/colors_pallete";
-import type { COLOR_PALETTE_TYPE, LINK_OBJ, THEME_MODE } from "../services/types";
-import { LOCALSTORAGE } from "../services/functions/storage";
+import { COLOR_PALETTE } from "$services/theme/colors_pallete";
+import type { COLOR_PALETTE_TYPE, LINK_OBJ, THEME_MODE } from "$services/types";
+import { LOCALSTORAGE } from "$services/functions/storage";
 import { browser } from '$app/environment';
 
 if (browser) {

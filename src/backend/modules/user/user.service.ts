@@ -1,18 +1,18 @@
-import type { USER } from "../../../services/types";
-import USERS from "../../db/users"
-import URL_SERVICE from "../url/url.service"
+import type { USER } from "$services/types";
+import URL_SERVICE from "../user_agent/user_agent.service";
+import USER_REPO from "./user.repo";
 
 export default class USER_SERVICE {
     static getById = (_id: string) => {
-        return USERS.findOne({ _id });
+        return USER_REPO.getById(_id);
     }
 
     static getByEmail = (email: string) => {
-        return USERS.findOne({ email });
+        return USER_REPO.getByEmail(email);
     }
 
     static createUser = (user: USER) => {
-        return USERS.insertOne(user);
+        return USER_REPO.createUser(user);
     }
 
     static getUserUrls = (_id: string) => {
@@ -20,6 +20,6 @@ export default class USER_SERVICE {
     }
 
     static delete = (_id: string) => {
-        return USERS.deleteOne({ _id });
+        return USER_REPO.delete(_id);
     }
 }

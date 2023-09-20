@@ -3,9 +3,8 @@
     import darkBg from "$lib/icons/dark-mode.png";
     import { onMount } from "svelte";
     import { COLOR_PALETTE_STORE, THEME } from "../../store/store";
-    import { LOCALSTORAGE } from "../../services/functions/storage.ts"
-
-    import type { THEME_MODE } from "../../services/types";
+    import { LOCALSTORAGE } from "$services/functions/storage";
+    import type { THEME_MODE } from "$services/types";
 
     const TOGGLE_BG = {
         light: lightBg,

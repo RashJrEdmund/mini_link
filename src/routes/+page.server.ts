@@ -2,11 +2,11 @@
 // it so that it gets served as a static asset in production
 // export const prerender = true;
 
-// import { LINK_DATA } from "../services/constants/dummydata";
+// import { LINK_DATA } from "$services/constants/dummydata";
 
-import { custom_logger } from "../services/functions/utils";
-import type { PageLoad } from "./$types";
-import USER_SERVICE from "../backend/modules/user/user.service";
+import USER_SERVICE from "$backend/modules/user/user.service";
+import { custom_logger } from "$services/functions/utils";
+import type { PageLoad } from "./user/$types";
 
 export const load: PageLoad = async (props) => {
     const { params, cookies } = props;

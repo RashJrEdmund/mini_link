@@ -1,4 +1,4 @@
-import type { LINK_OBJ } from "../../../services/types";
+import type { LINK_OBJ } from "$services/types";
 import USERS_AGENTS from "../../db/userAgents"
 
 export default class URL_SERVICE {
@@ -6,7 +6,7 @@ export default class URL_SERVICE {
         return USERS_AGENTS.findOne({ _id });
     }
 
-    static getUserUSER = (user_id: string) => {
+    static getUserUrls = (user_id: string) => {
         return USERS_AGENTS.find({ user_id }).toArray();
     }
 

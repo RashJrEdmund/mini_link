@@ -1,6 +1,6 @@
-import { fail } from "@sveltejs/kit";
+import { fail, type Actions } from "@sveltejs/kit";
 
-export const actions = {
+export const actions: Actions = {
     default: async (e) => {
         console.log("\n \n ===== EVENT ===== \n", e);
 
@@ -23,7 +23,6 @@ export const actions = {
             username: username ?? "",
             email: email ?? "",
         });
-
 
         cookies.set("token", crypto.randomUUID(), { path: "/" });
         return { message: "Logged in" };

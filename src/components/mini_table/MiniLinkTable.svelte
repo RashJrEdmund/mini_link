@@ -6,7 +6,7 @@
     import { fade, scale } from "svelte/transition";
     import { onDestroy } from "svelte";
     import ActionButtons from "./ActionButtons.svelte";
-    import type { LINK_OBJ } from "../../services/types";
+    import type { LINK_OBJ } from "$services/types";
     import toast from "svelte-french-toast";
 
     type COPY = (short_link: string) => void;
@@ -109,6 +109,10 @@
                 th,
                 td {
                     padding: 1rem;
+
+                    &[data-cell="date"] {
+                        white-space: nowrap;
+                    }
                 }
 
                 &:nth-of-type(2n) {

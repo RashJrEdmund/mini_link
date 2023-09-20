@@ -1,32 +1,13 @@
-import { error } from '@sveltejs/kit';
 import type { RequestHandler } from '../$types';
-import { custom_logger } from '../../../../services/functions/utils';
+import URL_CONTROLLER from '$backend/modules/url/url.controller';
 
-export const GET: RequestHandler = async (req) => {
-    const { params } = req
-    const urls = [
-        {
-            _id: "dalkfjafdf23-dfad-daff-243jp3ioud",
-            short_link: "https//mini-link.vercel-app.com/dakk2ijda2",
-            original: "https//www.mangoose/edu?plus=the_end_is_near/my+shortener.orangeLink.com",
-            user_id: "dafadfadfadfe-3434kj-daf343-daadf",
-            status: "active",
-            createdAt: new Date().toLocaleDateString(),
-        }
-    ];
+export const GET: RequestHandler = URL_CONTROLLER.GET_URLS; // get request;
 
-    custom_logger("REQUEST", req);
+export const POST: RequestHandler = URL_CONTROLLER.CREATE_URL // post request;
 
-    custom_logger("PARAMS", params);
+export const PUT: RequestHandler = URL_CONTROLLER.EDIT_URL //  put request;
 
-    return new Response(JSON.stringify(urls, null, 4), {
-        headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Methods": "*"
-        }
-    });
-}
+export const DEL: RequestHandler = URL_CONTROLLER.EDLETE_URL // delte request
 
 // export const POST: RequestHandler = async (req) => {
 //     const urls = [
