@@ -2,7 +2,10 @@ import type { THEME_MODE } from "../types";
 
 type InvertBoolean = (bool: boolean) => boolean;
 // 37.223056, 38.922500 coordinates to fireship
-type LoggerTYPe = (identifier: string, val: any, clear_prev?: boolean) => void;
+type LoggerTYPe = (_label: string, val: any, options?: {
+    clear?: boolean,
+    type?: "warn" | "error" | "log",
+}) => void;
 
 export const invertBooleanValue: InvertBoolean = (bool) => {
     return !bool;
@@ -12,12 +15,14 @@ export const INVERT_THEME: (_theme: THEME_MODE) => THEME_MODE = (_theme) => {
     return _theme === "dark" ? "light" : "dark"
 }
 
-export const custom_logger: LoggerTYPe = (identifier, val, clear_prev = false) => {
-    if (clear_prev) console.clear();
+export const custom_logger: LoggerTYPe = (_label, val, options) => {
+    if (options?.clear) console.clear();
 
-    console.log(`
-    \n \n ========== START ${identifier} ========== \n \n`,
+    const _log_type = options?.type ?? "log";
+
+    return console[_log_type](
+        `\n \n ========== START ${_label} ========== \n \n`,
         val,
-        `\n \n ========== END ${identifier} ==========
-    `);
+        `\n \n ========== END ${_label} ========== \n \n`
+    );
 }

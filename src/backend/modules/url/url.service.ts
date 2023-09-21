@@ -1,8 +1,14 @@
 import type { LINK_OBJ } from "$services/types";
+import type { ObjectId } from "mongodb";
 import URL_REPO from "./url.repo";
+import { custom_logger } from "$services/functions/utils";
 
 export default class URL_SERVICE {
-    static getById = (_id: string) => {
+    static getAllUrls = () => {
+        return URL_REPO.getAllUrls();
+    }
+
+    static getById = (_id: ObjectId) => {
         return URL_REPO.getById(_id);
     }
 
@@ -14,7 +20,18 @@ export default class URL_SERVICE {
         return URL_REPO.createUrl(url);
     }
 
-    static deleteOne = (_id: string) => {
+    static editUrl = async (_id: ObjectId, url: LINK_OBJ) => {
+        custom_logger("go_into_edit_url", url);
+
+        await URL_REPO.editUrl(_id, url)
+            .then(res => {
+                console.log({ res })
+            });
+
+        return URL_SERVICE.getById(_id);
+    }
+
+    static deleteOne = (_id: ObjectId) => {
         return URL_REPO.deleteOne(_id);
     }
 }

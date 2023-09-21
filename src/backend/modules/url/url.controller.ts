@@ -1,63 +1,141 @@
 import { error, type RequestHandler } from "@sveltejs/kit";
 import { custom_logger } from "$services/functions/utils";
+import URL_SERVICE from "./url.service";
+import { stringify, headers } from "$backend/utils/utils";
+import { createFromBody } from "$backend/utils/functions/functions";
+import REQ_NOT_FOUND_ERROS from "$backend/utils/REQ_ERROR";
+import { ObjectId } from "mongodb";
 
-const headers = {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "*"
-}
-
+const ERR_MESSAGE = new REQ_NOT_FOUND_ERROS("URL");
 export default class URL_CONTROLLER {
-    static GET_URLS: RequestHandler = async (req) => {
+    ERR_MESSAGE = new REQ_NOT_FOUND_ERROS("URL");
+
+    static GET_ALL_URLS: RequestHandler = async () => {
+        try {
+            const urls = await URL_SERVICE.getAllUrls();
+
+            if (!urls) throw error(404, {
+                message: ERR_MESSAGE.NONE_FOUND(),
+            });
+
+            return new Response(stringify(urls));
+        } catch (er: any) {
+            throw error(er.status ?? 500, {
+                message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+            });
+        }
+    };
+
+    static GET_USER_URLS: RequestHandler = async (req) => {
         const { params: { user_id } } = req;
 
         if (!user_id) throw error(404, {
-            message: "NOT_FOUND"
+            message: ERR_MESSAGE.NOT_FOUND({ _strict: true }),
+        });
+
+        custom_logger("USER_ID", { user_id });
+
+        try {
+            const userUrls = await URL_SERVICE.getUserUrls(user_id);
+
+            if (!userUrls) throw error(404, {
+                message: ERR_MESSAGE.NOT_FOUND_UNDER_USER(),
+            });
+
+            return new Response(stringify(userUrls), {
+                headers
+            });
+        } catch (er: any) {
+            throw error(er.status ?? 500, {
+                message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+            });
+        }
+    };
+
+    static GET_ONE_URL: RequestHandler = async (req) => {
+        const { params: { _id } } = req;
+
+        if (!_id) throw error(404, {
+            message: ERR_MESSAGE.NOT_FOUND(),
         });
 
         try {
-            const urls = [
-                {
-                    _id: "dalkfjafdf23-dfad-daff-243jp3ioud",
-                    short_link: "https//mini-link.vercel-app.com/dakk2ijda2",
-                    original: "https//www.mangoose/edu?plus=the_end_is_near/my+shortener.orangeLink.com",
-                    user_id: "dafadfadfadfe-3434kj-daf343-daadf",
-                    status: "active",
-                    createdAt: new Date().toLocaleDateString(),
-                }
-            ];
+            const url = await URL_SERVICE.getById(new ObjectId(_id));
 
-            custom_logger("REQUEST", req);
-
-            custom_logger("PARAMS", user_id);
-
-            return new Response(JSON.stringify(urls, null, 4), {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*",
-                    "Access-Control-Allow-Methods": "*"
-                }
+            if (!url) throw error(404, {
+                message: ERR_MESSAGE.NOT_FOUND(),
             });
-        } catch (er) {
-            throw error(500, {
-                message: "AN_ERROR_OCCURED"
-            })
+
+            return new Response(stringify(url), {
+                headers
+            });
+        } catch (er: any) {
+            throw error(er.status ?? 500, {
+                message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+            });
         }
     }
 
-
     static CREATE_URL: RequestHandler = async (req) => {
-        return new Response("creating url...", {
-            headers
+        const { request: { body } } = req;
+
+        if (!body) throw error(404, {
+            message: ERR_MESSAGE.NOT_FOUND(),
         });
+
+        try {
+            const { status, new_url } = createFromBody(body, "URL");
+
+            if (status !== 200 || !new_url) throw error(404, {
+                message: ERR_MESSAGE.MISSING_INFO(),
+            });
+
+            const url = await URL_SERVICE.createUrl(new_url);
+
+            return new Response(stringify(url), {
+                headers
+            });
+        } catch (er: any) {
+            throw error(er.status ?? 500, {
+                message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+            });
+        }
     }
 
     static EDIT_URL: RequestHandler = async (req) => {
-        const { params } = req;
+        const body = await req.request.json();
 
-        return new Response("editing url...", {
-            headers
-        });
+        const { params: { _id } } = req;
+
+        custom_logger("EDIT_REQUEST", { body, _id, mongoId: new ObjectId("507f191e810c19729de860ea").toString(), ObjectId }, { clear: true });
+
+        // const update_url = await URL_SERVICE.editUrl(new ObjectId(_id), body);
+
+        // return new Response(update_url, {
+        //     headers
+        // });
+
+        try {
+            // const { status, new_url: prev_url } = createFromBody(body, "URL");
+
+            // if (!_id || status !== 200 || !prev_url) throw error(404, {
+            //     message: ERR_MESSAGE.MISSING_INFO(),
+            // });
+
+            const update_url = await URL_SERVICE.editUrl(new ObjectId(_id), body);
+
+            if (!update_url) throw error(500, {
+                message: ERR_MESSAGE.MISSING_INFO(),
+            });
+
+            return new Response(stringify(update_url), {
+                headers
+            });
+        } catch (er: any) {
+            throw error(er.status ?? 500, {
+                message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+            });
+        }
     }
 
     static EDLETE_URL: RequestHandler = async (req) => {

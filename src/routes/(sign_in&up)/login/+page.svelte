@@ -53,7 +53,10 @@
         sx="mt-5"
     >
         <SpanTag
-            action={() => (showpassword = !showpassword)}
+            action={() => {
+                showpassword = !showpassword;
+                return null
+            }}
             sx="cursor-pointer"
         >
             {showpassword ? "🚫" : "👀"}

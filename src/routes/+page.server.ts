@@ -13,7 +13,7 @@ export const load: PageLoad = async (props) => {
 
     const token = cookies.get("token");
 
-    console.log({ all: cookies.getAll() })
+    console.log({ all_cookies: cookies.getAll() })
 
     // custom_logger("props", props);
 

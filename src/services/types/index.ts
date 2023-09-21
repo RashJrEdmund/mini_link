@@ -28,9 +28,9 @@ export type LINK_OBJ = {
     short_link: string;
     original: string;
     clicks: string | number;
-    status: "Active" | "Inactive";
-    alias: string;
-    createdAt: string | number;
+    status?: "Active" | "Inactive";
+    alias?: string;
+    createdAt?: string | number;
 };
 
 export type USER = {
@@ -39,8 +39,8 @@ export type USER = {
     email: string,
     profile_pic: string,
     is_premium_user: boolean,
-    createdAt: string,
-    updatedAt: string,
+    createdAt?: string,
+    updatedAt?: string,
 }
 
 export type USER_AGENT = {
