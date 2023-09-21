@@ -60,7 +60,9 @@ export default class URL_CONTROLLER {
         });
 
         try {
-            const url = await URL_SERVICE.getById(new ObjectId(_id));
+            const url = await URL_SERVICE.getById(_id);
+            console.clear();
+            console.log({ url })
 
             if (!url) throw error(404, {
                 message: ERR_MESSAGE.NOT_FOUND(),
@@ -87,7 +89,7 @@ export default class URL_CONTROLLER {
             const { status, new_url } = createFromBody(body, "URL");
 
             if (status !== 200 || !new_url) throw error(404, {
-                message: ERR_MESSAGE.MISSING_INFO(),
+                message: ERR_MESSAGE.MISSING_DETAILS(),
             });
 
             const url = await URL_SERVICE.createUrl(new_url);
@@ -98,6 +100,7 @@ export default class URL_CONTROLLER {
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+                er
             });
         }
     }
@@ -107,7 +110,7 @@ export default class URL_CONTROLLER {
 
         const { params: { _id } } = req;
 
-        custom_logger("EDIT_REQUEST", { body, _id, mongoId: new ObjectId("507f191e810c19729de860ea").toString(), ObjectId }, { clear: true });
+        custom_logger("EDIT_REQUEST", { body, _id, mongoId: new ObjectId(_id).toString(), ObjectId }, { clear: true });
 
         // const update_url = await URL_SERVICE.editUrl(new ObjectId(_id), body);
 
@@ -116,16 +119,16 @@ export default class URL_CONTROLLER {
         // });
 
         try {
-            // const { status, new_url: prev_url } = createFromBody(body, "URL");
+            const { status, new_url: prev_url } = createFromBody(body, { _type: "URL", _strict: false });
 
-            // if (!_id || status !== 200 || !prev_url) throw error(404, {
-            //     message: ERR_MESSAGE.MISSING_INFO(),
-            // });
+            if (!_id || status !== 200 || !prev_url) throw error(404, {
+                message: ERR_MESSAGE.MISSING_DETAILS(),
+            });
 
-            const update_url = await URL_SERVICE.editUrl(new ObjectId(_id), body);
+            const update_url = await URL_SERVICE.editUrl(_id, prev_url);
 
             if (!update_url) throw error(500, {
-                message: ERR_MESSAGE.MISSING_INFO(),
+                message: ERR_MESSAGE.MISSING_DETAILS(),
             });
 
             return new Response(stringify(update_url), {

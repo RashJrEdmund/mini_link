@@ -1,8 +1,9 @@
 import type { USER } from "$services/types";
 import USERS from "$db/users"
+import type { ObjectId } from "mongodb";
 
 export default class USER_REPO {
-    static getById = (_id: string) => {
+    static getById = (_id: ObjectId) => {
         return USERS.findOne({ _id });
     }
 
@@ -14,7 +15,7 @@ export default class USER_REPO {
         return USERS.insertOne(user);
     }
 
-    static delete = (_id: string) => {
+    static delete = (_id: ObjectId) => {
         return USERS.deleteOne({ _id });
     }
 }

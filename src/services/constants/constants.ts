@@ -7,5 +7,3 @@ export const BASE_URL: S = "http://localhost:5173/";
 export const SHORTEN_LENGTH: N = 10;
 
 export const SALT_ROUNDS: N = 12;
-
-export const ENTITY_ID_LENGTH: N = 24;

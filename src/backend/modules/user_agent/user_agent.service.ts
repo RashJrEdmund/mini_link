@@ -1,12 +1,13 @@
 import type { LINK_OBJ } from "$services/types";
-import USERS_AGENTS from "../../db/userAgents"
+import USERS_AGENTS from "../../db/userAgents";
+import type { ObjectId } from "mongodb";
 
-export default class URL_SERVICE {
-    static getById = (_id: string) => {
+export default class USER_AGENT_SERVICE {
+    static getById = (_id: ObjectId) => {
         return USERS_AGENTS.findOne({ _id });
     }
 
-    static getUserUrls = (user_id: string) => {
+    static getUserUrls = (user_id: ObjectId) => {
         return USERS_AGENTS.find({ user_id }).toArray();
     }
 
@@ -14,7 +15,7 @@ export default class URL_SERVICE {
         return USERS_AGENTS.insertOne(url);
     }
 
-    static deleteOne = (_id: string) => {
+    static deleteOne = (_id: ObjectId) => {
         return USERS_AGENTS.deleteOne({ _id });
     }
 }

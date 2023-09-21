@@ -1,6 +1,5 @@
-import { ENTITY_ID_LENGTH } from "$services/constants/constants";
+import { error } from "@sveltejs/kit";
 import { ObjectId } from "mongodb";
-import { nanoid } from "nanoid";
 
 export const headers = {
     "Content-Type": "application/json",
@@ -12,8 +11,14 @@ export const stringify = (obj: object, _spacing = 4) => {
     return JSON.stringify(obj, null, _spacing);
 }
 
-export const generateObjectId = () => {
-    return new ObjectId(ENTITY_ID_LENGTH);
+export const createObjectId = (_id: string) => {
+    try {
+        return new ObjectId(_id); // this is a mongodb thing, generates a unique id base on the environment and is only for server side processes
+    } catch (err) {
+        throw error(401, {
+            message: "URECOGNISED_ID",
+        });
+    }
 }
 
-console.log(generateObjectId().toString());
+// console.log("\n object id \n", generateObjectId().toString(), "\n");

@@ -11,7 +11,7 @@ export default class URL_REPO {
         return URLS.findOne({ _id });
     }
 
-    static getUserUrls = (user_id: string) => {
+    static getUserUrls = (user_id: ObjectId) => {
         return URLS.find({ user_id }).toArray();
     }
 
@@ -27,3 +27,24 @@ export default class URL_REPO {
         return URLS.deleteOne({ _id });
     }
 }
+
+
+// import { LINK_DATA } from "$services/constants/dummydata";
+import { ObjectId as OBJECTID } from "mongodb";
+
+console.clear();
+console.log("id \n", new OBJECTID())
+// (() => {
+//     const createMany = async () => {
+//         const res = await URLS.insertMany([...LINK_DATA.map(link => ({
+//             ...link,
+//             _id: new OBJECTID(),
+//             user_id: new OBJECTID("650c4619f98113df72f95316")
+//         }))]);
+
+//         return res;
+//     }
+
+//     // console.clear();
+//     // console.log(createMany());
+// })()
