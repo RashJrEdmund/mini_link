@@ -4,7 +4,6 @@
 
 // import { LINK_DATA } from "$services/constants/dummydata";
 
-import USER_SERVICE from "$backend/modules/user/user.service";
 import { custom_logger } from "$services/functions/utils";
 import type { PageLoad } from "./user/$types";
 
@@ -13,18 +12,18 @@ export const load: PageLoad = async (props) => {
 
     const token = cookies.get("token");
 
-    console.log({ all_cookies: cookies.getAll() })
+    console.log({ all_cookies: cookies.getAll() });
 
     // custom_logger("props", props);
 
     custom_logger("token", token);
 
-    // const currentUser = USERS.find({})
-    const _id = "97631e7e-a50b-4248-a7oo-oa8b5dce3b52"
+    const _id = "650c4619f98113df72f95316";
 
-    const userUrls = await USER_SERVICE.getUserUrls(_id);
+    const userUrls = await fetch(`http://localhost:5173/api/urls/${_id}`).then(res => res.json());
 
-    const url = "http://localhost:5173/api/urls/go" || `https://jsonplaceholder.typicode.com/users`
+    const url = `http://localhost:5173/api/users/${_id}` || `https://jsonplaceholder.typicode.com/users`;
+
     const userData = await fetch(url).then(res => res.json());
 
     return {

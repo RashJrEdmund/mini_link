@@ -23,9 +23,9 @@ export type COLOR_PALETTE_TYPE = {
 }
 
 export type LINK_OBJ = {
-    _id: string | number;
-    user_id: string | null; // null for not logged in users
-    short_link: string;
+    _id?: string;
+    user_id: string; // null for not logged in users
+    short_link?: string;
     original: string;
     clicks: string | number;
     status?: "Active" | "Inactive";
@@ -34,9 +34,10 @@ export type LINK_OBJ = {
 };
 
 export type USER = {
-    _id: string,
+    _id?: string, // there's sposed to be a password field
     username: string,
     email: string,
+    password: string,
     profile_pic: string,
     is_premium_user: boolean,
     createdAt?: string,

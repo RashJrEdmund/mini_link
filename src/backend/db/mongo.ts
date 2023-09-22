@@ -1,5 +1,5 @@
+import { MONGO_URL } from "$backend/utils/constants";
 import { MongoClient } from "mongodb";
-import { MONGO_URL } from "$env/static/private";
 
 const mongo_client_options = {
     useUnifiedTopology: true,

@@ -1,15 +1,12 @@
-import { error, type RequestHandler } from "@sveltejs/kit";
-import { custom_logger } from "$services/functions/utils";
+import { error, json, type RequestHandler } from "@sveltejs/kit";
 import URL_SERVICE from "./url.service";
 import { stringify, headers } from "$backend/utils/utils";
-import { createFromBody } from "$backend/utils/functions/functions";
+import { createFromBody } from "$backend/utils/functions";
 import REQ_NOT_FOUND_ERROS from "$backend/utils/REQ_ERROR";
-import { ObjectId } from "mongodb";
 
 const ERR_MESSAGE = new REQ_NOT_FOUND_ERROS("URL");
-export default class URL_CONTROLLER {
-    ERR_MESSAGE = new REQ_NOT_FOUND_ERROS("URL");
 
+export default class URL_CONTROLLER {
     static GET_ALL_URLS: RequestHandler = async () => {
         try {
             const urls = await URL_SERVICE.getAllUrls();
@@ -18,7 +15,9 @@ export default class URL_CONTROLLER {
                 message: ERR_MESSAGE.NONE_FOUND(),
             });
 
-            return new Response(stringify(urls));
+            return new Response(stringify(urls), {
+                headers
+            });
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
@@ -26,14 +25,12 @@ export default class URL_CONTROLLER {
         }
     };
 
-    static GET_USER_URLS: RequestHandler = async (req) => {
-        const { params: { user_id } } = req;
+    static GET_USER_URLS: RequestHandler = async (e) => {
+        const { params: { user_id } } = e;
 
         if (!user_id) throw error(404, {
             message: ERR_MESSAGE.NOT_FOUND({ _strict: true }),
         });
-
-        custom_logger("USER_ID", { user_id });
 
         try {
             const userUrls = await URL_SERVICE.getUserUrls(user_id);
@@ -52,8 +49,8 @@ export default class URL_CONTROLLER {
         }
     };
 
-    static GET_ONE_URL: RequestHandler = async (req) => {
-        const { params: { _id } } = req;
+    static GET_ONE_URL: RequestHandler = async (e) => {
+        const { params: { _id } } = e;
 
         if (!_id) throw error(404, {
             message: ERR_MESSAGE.NOT_FOUND(),
@@ -61,8 +58,6 @@ export default class URL_CONTROLLER {
 
         try {
             const url = await URL_SERVICE.getById(_id);
-            console.clear();
-            console.log({ url })
 
             if (!url) throw error(404, {
                 message: ERR_MESSAGE.NOT_FOUND(),
@@ -78,15 +73,15 @@ export default class URL_CONTROLLER {
         }
     }
 
-    static CREATE_URL: RequestHandler = async (req) => {
-        const { request: { body } } = req;
+    static CREATE_URL: RequestHandler = async (e) => {
+        const body = await e.request.json()
 
         if (!body) throw error(404, {
             message: ERR_MESSAGE.NOT_FOUND(),
         });
 
         try {
-            const { status, new_url } = createFromBody(body, "URL");
+            const { status, new_url } = createFromBody(body, { _type: "URL", _strict: true }); // strict mode is recomended for creation
 
             if (status !== 200 || !new_url) throw error(404, {
                 message: ERR_MESSAGE.MISSING_DETAILS(),
@@ -100,7 +95,6 @@ export default class URL_CONTROLLER {
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
-                er
             });
         }
     }
@@ -109,14 +103,6 @@ export default class URL_CONTROLLER {
         const body = await req.request.json();
 
         const { params: { _id } } = req;
-
-        custom_logger("EDIT_REQUEST", { body, _id, mongoId: new ObjectId(_id).toString(), ObjectId }, { clear: true });
-
-        // const update_url = await URL_SERVICE.editUrl(new ObjectId(_id), body);
-
-        // return new Response(update_url, {
-        //     headers
-        // });
 
         try {
             const { status, new_url: prev_url } = createFromBody(body, { _type: "URL", _strict: false });
@@ -141,11 +127,39 @@ export default class URL_CONTROLLER {
         }
     }
 
-    static EDLETE_URL: RequestHandler = async (req) => {
-        const { params } = req;
+    static DELETE_URL: RequestHandler = async (req) => {
+        const { params: { _id } } = req;
 
-        return new Response("deleting url", {
-            headers
+        if (!_id) throw error(404, {
+            message: ERR_MESSAGE.NOT_FOUND(),
         });
+
+        try {
+            const res = await URL_SERVICE.deleteOne(_id);
+
+            if (!res) return json(
+                {
+                    message: `URL_ID: ${_id} NOT FOUND`
+                },
+                {
+                    status: 404,
+                    headers
+                }
+            );
+
+            return json(
+                {
+                    message: `URL_${res.alias ? "ALIAS" : "ID"}: ${res.alias ? res.alias : _id} SUCCESFULLY DELETED`
+                },
+                {
+                    status: 404,
+                    headers
+                }
+            );
+        } catch (er: any) {
+            throw error(er.status ?? 500, {
+                message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+            });
+        }
     }
 }

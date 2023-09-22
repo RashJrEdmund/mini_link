@@ -1,7 +1,7 @@
 import type { RequestHandler } from './$types';
 
-export const GET: RequestHandler = async (req) => {
-    // custom_logger("REQUEST", req);
+import USER_CONTROLLER from '$backend/modules/user/user.controller';
 
-    return new Response("getting all users...");
-}
+export const GET: RequestHandler = USER_CONTROLLER.GET_ALL_USERS; // get request for all user;
+
+export const POST: RequestHandler = USER_CONTROLLER.CREATE_USER // create request

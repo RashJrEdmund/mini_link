@@ -11,6 +11,10 @@ export default class URL_REPO {
         return URLS.findOne({ _id });
     }
 
+    static getByOriginal = (original: string) => {
+        return URLS.findOne({ original });
+    }
+
     static getUserUrls = (user_id: ObjectId) => {
         return URLS.find({ user_id }).toArray();
     }
@@ -20,20 +24,20 @@ export default class URL_REPO {
     }
 
     static editUrl = (_id: ObjectId, url: LINK_OBJ) => {
-        return URLS.updateOne({ _id }, { $set: { ...url } });
+        return URLS.findOneAndUpdate({ _id }, { $set: { ...url } });
     }
 
     static deleteOne = (_id: ObjectId) => {
-        return URLS.deleteOne({ _id });
+        return URLS.findOneAndDelete({ _id });
     }
 }
 
 
 // import { LINK_DATA } from "$services/constants/dummydata";
-import { ObjectId as OBJECTID } from "mongodb";
+// import { ObjectId as OBJECTID } from "mongodb";
 
-console.clear();
-console.log("id \n", new OBJECTID())
+// console.clear();
+// console.log("id \n", new OBJECTID());
 // (() => {
 //     const createMany = async () => {
 //         const res = await URLS.insertMany([...LINK_DATA.map(link => ({
@@ -47,4 +51,4 @@ console.log("id \n", new OBJECTID())
 
 //     // console.clear();
 //     // console.log(createMany());
-// })()
+// })();

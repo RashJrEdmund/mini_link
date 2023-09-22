@@ -5,12 +5,10 @@
     import ScissorsIcon from "$lib/icons/scissors.png";
     import { COLOR_PALETTE_STORE, LINK_STORE, THEME } from "../../store/store";
     import type { LINK_OBJ } from "$services/types";
-    import { onDestroy, onMount } from "svelte";
-    import { validateUrl } from "$services/functions/validation";
+    import { onDestroy } from "svelte";
     import { INVERT_THEME } from "$services/functions/utils"
+    import { validateUrl } from "$services/functions/validation";
     import toast from "svelte-french-toast";
-    import { nanoid } from "nanoid";
-    import { BASE_URL, SHORTEN_LENGTH } from "$services/constants/constants";
 
     let linkData: LINK_OBJ[] | null;
 
@@ -21,8 +19,6 @@
     let input_val = "";
 
     const hanldeSubmit = () => {
-        // validate check input_val to match a url
-
         if (!input_val.trim()) return toast("👀",
             {
                 icon: "👀",
@@ -38,13 +34,11 @@
         );
 
         console.log("input_val validation", validateUrl(input_val));
-        console.log({ nanoid: nanoid(10) });
 
         const newLink: LINK_OBJ = {
             user_id: "1",
             _id: crypto.randomUUID(),
-            original: input_val,
-            short_link: BASE_URL + nanoid(SHORTEN_LENGTH), // https://mini-link.com/nanoid()
+            original: input_val, // short_link generated in the backend
             clicks: 0,
             status: "Active",
             alias: "",

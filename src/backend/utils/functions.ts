@@ -1,14 +1,14 @@
 import type { LINK_OBJ, USER } from "$services/types";
 import { error } from "@sveltejs/kit";
-import REQ_NOT_FOUND_ERROS from "../REQ_ERROR";
+import REQ_NOT_FOUND_ERROS from "./REQ_ERROR";
 
 type CREATE_FROM_BODY = (body: any, options: {
     _type: "USER" | "URL",
-    _strict?: boolean,
+    _strict?: boolean, // strict mode is recomended for when creating. and not editting
 }) => {
     status: number,
-    new_user?: USER | object,
-    new_url?: LINK_OBJ | object
+    new_user?: USER,
+    new_url?: LINK_OBJ
 };
 
 export const createFromBody: CREATE_FROM_BODY = (body, options) => {
@@ -16,24 +16,25 @@ export const createFromBody: CREATE_FROM_BODY = (body, options) => {
         const ERR_MESSAGE = new REQ_NOT_FOUND_ERROS("USER");
 
         if (options._strict) {
-            if (!(body._id && body.username && body.email)) throw error(401, {
+            if (!(body.username && body.email && body.password)) throw error(401, {
                 message: ERR_MESSAGE.MISSING_DETAILS()
             });
 
             const new_user: USER = {
-                _id: body._id,
                 username: body.username,
                 email: body.email,
                 profile_pic: "",
+                password: body.password,
                 is_premium_user: false,
+                createdAt: body?.createdAt ?? new Date().toDateString(),
             }
 
             return { status: 200, new_user };
         }
 
-        const accepted_user_keys = ["_id", "username", "email", "profile_pic", "is_premium_user"];
+        const accepted_user_keys = ["_id", "username", "email", "profile_pic", "is_premium_user", "createdAt", "updatedAt"];
 
-        let new_user: object = {};
+        let new_user: any = {};
 
         for (const key in body) {
             if (accepted_user_keys.includes(key)) new_user = { ...new_user, [key]: body[key] };
@@ -49,12 +50,11 @@ export const createFromBody: CREATE_FROM_BODY = (body, options) => {
         const ERR_MESSAGE = new REQ_NOT_FOUND_ERROS("URL");
 
         if (options._strict) {
-            if (!(body._id && body.user_id && body.short_link && body.original)) throw error(401, {
+            if (!(body.user_id && body.short_link && body.original)) throw error(401, {
                 message: ERR_MESSAGE.MISSING_DETAILS()
             });
 
             const new_url: LINK_OBJ = {
-                _id: body._id,
                 user_id: body.user_id,
                 short_link: body.short_link,
                 original: body.original,
@@ -68,7 +68,7 @@ export const createFromBody: CREATE_FROM_BODY = (body, options) => {
 
         const accepted_url_keys = ["user_id", "short_link", "original", "clicks", "status", "alias"];
 
-        let new_url: object = {};
+        let new_url: any = {};
 
         for (const key in body) {
             if (accepted_url_keys.includes(key)) new_url = { ...new_url, [key]: body[key] };

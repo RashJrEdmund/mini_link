@@ -1,11 +1,3 @@
-// import bcrypt from "bcrypt"
-// import jwt from "jsonwebtoken";
-// import { nanoid } from "nanoid";
-
-import { SALT_ROUNDS } from "../constants/constants";
-
-// console.log({ SALT_ROUNDS }, { jwt }, { bcrypt });
-
 type ValidateUrlType = (url: string) => boolean;
 
 type ValidateEmailType = (email: string) => boolean;
@@ -25,28 +17,3 @@ export const validateEmail: ValidateEmailType = (email) => {
 export const checkIsEmailOrUsername: CheckEmailUsername = (value) => {
     return true;
 }
-
-export class BCRYPT {
-    static hash = (password: string) => {
-        // return bcrypt.hash(password, SALT_ROUNDS);
-        return true;
-    }
-
-    static compare = (hash: string) => {
-
-        return true;
-    }
-}
-
-export class TOKEN_SERVICE {
-    static sign = (token: string) => {
-        // return bcrypt.hash(password, SALT_ROUNDS);
-        return true;
-    }
-
-    static verify = (token: string) => {
-        return true;
-    }
-}
-
-// console.log("bcrypt ", BCRYPT, bcrypt);
