@@ -1,30 +1,28 @@
-// import bcrypt from "bcrypt"
-// import jwt from "jsonwebtoken";
-// import { nanoid } from "nanoid";
+import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken";
 
-import { SALT_ROUNDS } from "./constants";
-
-// console.log({ SALT_ROUNDS }, { jwt }, { bcrypt });
+import { JWT_PRIVATE_KEY, SALT_ROUNDS } from "./constants";
+import type { WithId } from "mongodb";
 
 export class BCRYPT {
-    static hash = (password: string) => {
-        // return bcrypt.hash(password, SALT_ROUNDS);
-        return true;
+    static hash = async (password: string) => {
+        return bcrypt.hash(password, SALT_ROUNDS);
     }
 
-    static compare = (hash: string) => {
-
-        return true;
+    static compare = async (_plain_password: string, prev_hash: string) => {
+        return bcrypt.compare(_plain_password, prev_hash);
     }
 }
-
 export class TOKEN_SERVICE {
-    static sign = (token: string) => {
-        // return bcrypt.hash(password, SALT_ROUNDS);
-        return true;
+    static sign = (_user: WithId<Document>) => {
+        return jwt.sign(
+            { bearer_id: _user._id, bearer_email: _user.email },
+            JWT_PRIVATE_KEY,
+            { expiresIn: "1h" }
+        );
     }
 
     static verify = (token: string) => {
-        return true;
+        return jwt.verify(token, JWT_PRIVATE_KEY);
     }
 }

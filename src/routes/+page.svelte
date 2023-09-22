@@ -15,7 +15,7 @@
     onMount(() => {
         if (!data.LINK_DATA) return;
         LINK_STORE.set(data.LINK_DATA);
-        console.log(data);
+        console.log({data});
     });
 </script>
 

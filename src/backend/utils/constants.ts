@@ -2,7 +2,8 @@ import {
     MONGO_CONNECT_URL,
     HASH_SALT_ROUNDS,
     APP_BASE_URL,
-    BASE_SHORTEN_URL as BSU
+    BASE_SHORTEN_URL as BSU,
+    JWT_PRIVATE_KEY as JWT_PK
 } from "$env/static/private";
 
 type S = string;
@@ -18,3 +19,5 @@ export const BASE_URL: S = APP_BASE_URL;
 export const BASE_SHORTEN_URL: S = BSU;
 
 export const SHORTEN_LENGTH: N = 10;
+
+export const JWT_PRIVATE_KEY = JWT_PK

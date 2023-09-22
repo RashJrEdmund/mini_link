@@ -1,4 +1,11 @@
-import { getUrls, getUserUrls, createUrl, updateUrl, deleteUrl } from "./urls";
+import {
+    getUrls,
+    getUserUrls,
+    createUrl,
+    updateUrl,
+    deleteUrl
+} from "./urls";
+
 import {
     getUsers,
     createUsers,

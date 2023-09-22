@@ -26,6 +26,10 @@ export default class REQ_NOT_FOUND_ERROS implements REQ_ERROS_INTFC {
         this.identifier = _identifier
     }
 
+    static NOT_ALLOWED = () => "NOT_ALLOWED";
+
+    static INCORRECT_EMAIL_OR_PASSWORD = () => "INCORRECT_EMAIL_OR_PASSWORD";
+
     MISSING_DETAILS = () => {
         return `MISSING_${this.identifier}_DETAILS`;
     }

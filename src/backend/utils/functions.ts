@@ -32,7 +32,7 @@ export const createFromBody: CREATE_FROM_BODY = (body, options) => {
             return { status: 200, new_user };
         }
 
-        const accepted_user_keys = ["_id", "username", "email", "profile_pic", "is_premium_user", "createdAt", "updatedAt"];
+        const accepted_user_keys = ["_id", "username", "email", "profile_pic", "is_premium_user", "createdAt", "updatedAt", "password"];
 
         let new_user: any = {};
 

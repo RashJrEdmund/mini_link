@@ -1,6 +1,11 @@
 import type { USER } from "$services/types";
 import USER_REPO from "./user.repo";
 import { createObjectId } from "$backend/utils/utils";
+import { BCRYPT } from "$backend/utils/validation";
+import { error } from "@sveltejs/kit";
+import REQ_NOT_FOUND_ERROS from "$backend/utils/REQ_ERROR";
+
+const ERR_MESSAGE = new REQ_NOT_FOUND_ERROS("USER");
 
 export default class USER_SERVICE {
     static getAllUsers = () => {
@@ -16,20 +21,29 @@ export default class USER_SERVICE {
     }
 
     static createUser = async (user: USER) => {
-        const { email } = user;
+        try {
+            const { email } = user;
 
-        const prev_user = await this.getByEmail(email);
+            const prev_user = await this.getByEmail(email);
 
-        if (prev_user) return prev_user;
+            if (prev_user) return prev_user;
 
-        const _id = createObjectId();
+            const password_hash = await BCRYPT.hash(user.password); // returns the password hash
 
-        await USER_REPO.createUser({
-            ...user,
-            _id
-        });
+            const _id = createObjectId();
 
-        return this.getById(_id.toString());
+            await USER_REPO.createUser({
+                ...user,
+                _id,
+                password: password_hash,
+            });
+
+            return this.getById(_id.toString());
+        } catch (er: any) {
+            throw error(er.status ?? 500, {
+                message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+            });
+        }
     }
 
     static editUser = async (_id: string, user: USER) => {

@@ -5,11 +5,11 @@ import type { LINK_OBJ } from "$services/types";
 const httpclient = new HTTPCLIENT();
 
 const getUrls = async () => {
-    httpclient.GET(BASE_URL + "/url");
+    return httpclient.GET(BASE_URL + "/url");
 }
 
 const getUserUrls = async (_id: string) => {
-    httpclient.GET(BASE_URL + `/url/user/${_id}`);
+    return httpclient.GET(BASE_URL + `/url/user/${_id}`);
 }
 
 const createUrl = async (_url: LINK_OBJ) => {
@@ -31,3 +31,8 @@ export {
     updateUrl,
     deleteUrl,
 }
+
+console.log(getUrls()
+    .then(res => res.json())
+    .then(res => console.log({ res }))
+)
