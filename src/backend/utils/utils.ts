@@ -1,4 +1,4 @@
-import { error } from "@sveltejs/kit";
+import { error, type Cookies } from "@sveltejs/kit";
 import { ObjectId } from "mongodb";
 import REQ_NOT_FOUND_ERROS from "./REQ_ERROR";
 
@@ -8,7 +8,7 @@ export const headers = {
     "Access-Control-Allow-Methods": "*"
 }
 
-export const stringify = (obj: object, _spacing = 4) => {
+export const stringify = (obj: any, _spacing = 4) => {
     return JSON.stringify(obj, null, _spacing);
 }
 
@@ -24,4 +24,24 @@ export const createObjectId = (_id?: string) => {
     }
 }
 
-// console.log("\n object id \n", createObjectId().toString(), "\n");
+export const clearAllCookies = (cookies: Cookies) => {
+    const existing = cookies.getAll();
+
+    if (!existing) return;
+
+    for (const { name } of existing) {
+        cookies.delete(name);
+    }
+
+    return { existing, now: cookies.getAll() }
+}
+
+export const removeObjectKeys = (object: any, arrKeys: string[]) => {
+    const newObject = { ...object };
+
+    for (const key of arrKeys) {
+        delete newObject[key];
+    }
+
+    return newObject;
+}

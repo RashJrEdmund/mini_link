@@ -30,6 +30,10 @@ export default class REQ_NOT_FOUND_ERROS implements REQ_ERROS_INTFC {
 
     static INCORRECT_EMAIL_OR_PASSWORD = () => "INCORRECT_EMAIL_OR_PASSWORD";
 
+    static MISSING_TOKEN = () => "MISSING_TOKEN";
+
+    static BEAER_NOT_FOUND = () => "BEAER_NOT_FOUND";
+
     MISSING_DETAILS = () => {
         return `MISSING_${this.identifier}_DETAILS`;
     }

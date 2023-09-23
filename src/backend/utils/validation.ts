@@ -13,10 +13,11 @@ export class BCRYPT {
         return bcrypt.compare(_plain_password, prev_hash);
     }
 }
+
 export class TOKEN_SERVICE {
     static sign = (_user: WithId<Document>) => {
         return jwt.sign(
-            { bearer_id: _user._id, bearer_email: _user.email },
+            { ..._user, bearer_id: _user._id },
             JWT_PRIVATE_KEY,
             { expiresIn: "1h" }
         );
