@@ -1,10 +1,9 @@
 import { stringify, headers, clearAllCookies } from "$backend/utils/utils";
 import REQ_NOT_FOUND_ERROS from "$backend/utils/REQ_ERROR";
-import { error } from "console";
 import { createFromBody } from "$backend/utils/functions";
 import USER_SERVICE from "../user/user.service";
 import AUTH_SERVICE from "./auth.service";
-import type { RequestHandler } from "@sveltejs/kit";
+import { error, type RequestHandler } from "@sveltejs/kit";
 import { custom_logger } from "$services/functions/utils";
 
 const ERR_MESSAGE = new REQ_NOT_FOUND_ERROS("USER");
@@ -56,13 +55,13 @@ export class AUTH_CONTROLLER {
         });
 
         try {
-            const { status, new_user: { email, password } } = createFromBody(body, { _type: "USER", _strict: false }); // strict mode is recomended for creation
+            const { status, new_user: user } = createFromBody(body, { _type: "USER", _strict: false }); // strict mode is recomended for creation
 
-            if (status !== 200 || !email || !password) throw error(404, {
+            if (status !== 200 || !user?.email || !user?.password) throw error(404, {
                 message: ERR_MESSAGE.MISSING_DETAILS(),
             });
 
-            const user_and_token = await AUTH_SERVICE.loginWithEmailPassword(email, password);
+            const user_and_token = await AUTH_SERVICE.loginWithEmailPassword(user.email, user.password);
 
             cookies.set("token", user_and_token.token, { path: "/" }); // setting the token to cookies
 
@@ -79,17 +78,15 @@ export class AUTH_CONTROLLER {
     static CURRENT_USER: RequestHandler = async ({ cookies }) => {
         const token = cookies.get("token");
 
-        console.log({ token, type: typeof token });
-
         try {
-            if (!token) throw error(REQ_NOT_FOUND_ERROS.MISSING_TOKEN(), {
-                status: 401
+            if (!token) throw error(401, {
+                message: REQ_NOT_FOUND_ERROS.MISSING_TOKEN(),
             });
 
             const bearer = await AUTH_SERVICE.verifyUserToken(token);
 
-            if (!bearer) throw error(REQ_NOT_FOUND_ERROS.BEAER_NOT_FOUND(), {
-                status: 401
+            if (!bearer) throw error(401, {
+                message: REQ_NOT_FOUND_ERROS.BEAER_NOT_FOUND(),
             });
 
             custom_logger("bearer", bearer, { clear: true });
@@ -100,7 +97,6 @@ export class AUTH_CONTROLLER {
         } catch (er: any) {
             throw error(er?.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
-                er
             });
         }
     }

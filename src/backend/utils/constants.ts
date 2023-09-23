@@ -1,9 +1,10 @@
 import {
     MONGO_CONNECT_URL,
     HASH_SALT_ROUNDS,
-    APP_BASE_URL,
+    API_BASE_URL as A_B_U,
     BASE_SHORTEN_URL as BSU,
-    JWT_PRIVATE_KEY as JWT_PK
+    JWT_PRIVATE_KEY as JWT_PK,
+    TOKEN_EXPIRERY_TIME as T_E_T
 } from "$env/static/private";
 
 type S = string;
@@ -14,10 +15,12 @@ export const SALT_ROUNDS: N = +HASH_SALT_ROUNDS;
 
 export const MONGO_URL: S = MONGO_CONNECT_URL;
 
-export const BASE_URL: S = APP_BASE_URL;
+export const API_BASE_URL: S = A_B_U;
 
 export const BASE_SHORTEN_URL: S = BSU;
 
-export const SHORTEN_LENGTH: N = 10;
+export const JWT_PRIVATE_KEY: S = JWT_PK;
 
-export const JWT_PRIVATE_KEY = JWT_PK
+export const TOKEN_EXPIRERY_TIME: S = T_E_T;
+
+export const SHORTEN_LENGTH: N = 10;

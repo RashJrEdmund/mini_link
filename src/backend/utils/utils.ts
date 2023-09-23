@@ -27,7 +27,7 @@ export const createObjectId = (_id?: string) => {
 export const clearAllCookies = (cookies: Cookies) => {
     const existing = cookies.getAll();
 
-    if (!existing) return;
+    if (!existing) return { existing: null, now: null };
 
     for (const { name } of existing) {
         cookies.delete(name);

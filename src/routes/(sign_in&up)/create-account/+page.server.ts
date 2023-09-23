@@ -2,8 +2,6 @@ import { fail, type Actions } from "@sveltejs/kit";
 
 export const actions: Actions = {
     default: async (e) => {
-        console.log("\n \n ===== EVENT ===== \n", e);
-
         const { request, cookies } = e;
 
         const data = await request.formData();

@@ -1,8 +1,7 @@
 import { stringify, headers } from "$backend/utils/utils";
-import { json, type RequestHandler } from "@sveltejs/kit";
+import { error, json, type RequestHandler } from "@sveltejs/kit";
 import REQ_NOT_FOUND_ERROS from "$backend/utils/REQ_ERROR";
 import USER_SERVICE from "./user.service";
-import { error } from "console";
 import { createFromBody } from "$backend/utils/functions";
 
 const ERR_MESSAGE = new REQ_NOT_FOUND_ERROS("USER");

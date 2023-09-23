@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
 
-import { JWT_PRIVATE_KEY, SALT_ROUNDS } from "./constants";
+import { JWT_PRIVATE_KEY, SALT_ROUNDS, TOKEN_EXPIRERY_TIME } from "./constants";
 import type { WithId } from "mongodb";
 
 export class BCRYPT {
@@ -19,7 +19,7 @@ export class TOKEN_SERVICE {
         return jwt.sign(
             { ..._user, bearer_id: _user._id },
             JWT_PRIVATE_KEY,
-            { expiresIn: "1h" }
+            { expiresIn: TOKEN_EXPIRERY_TIME }
         );
     }
 

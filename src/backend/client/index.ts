@@ -1,4 +1,14 @@
-import {
+// ========== AUTH_EXPORTS ==========
+
+export {
+    getCurrentUser,
+    loginWithEmailPassword,
+} from "./auth";
+
+
+// ========== URL_EXPORTS ==========
+
+export {
     getUrls,
     getUserUrls,
     createUrl,
@@ -6,22 +16,12 @@ import {
     deleteUrl
 } from "./urls";
 
-import {
+// ========== USER_EXPORTS ==========
+
+export {
     getUsers,
+    getOneUser,
     createUsers,
     updateUser,
     deleteUser,
-} from "./users"
-
-export {
-    getUrls,
-    getUserUrls,
-    createUrl,
-    updateUrl,
-    deleteUrl,
-
-    getUsers,
-    createUsers,
-    updateUser,
-    deleteUser
-}
+} from "./users";
