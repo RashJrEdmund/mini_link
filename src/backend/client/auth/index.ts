@@ -3,8 +3,10 @@ import { API_BASE_URL } from "$backend/utils/constants";
 
 const httpclient = new HTTPCLIENT();
 
-const getCurrentUser = async () => {
-    return httpclient.GET(API_BASE_URL + "/users/auth/current-user");
+const getCurrentUser = async (token: string) => {
+    return httpclient.GET(API_BASE_URL + "/users/auth/current-user", {
+        "Authorization": "Bearer " + token,
+    });
 }
 
 const loginWithEmailPassword = async (_user: { email: string, password: string }) => {

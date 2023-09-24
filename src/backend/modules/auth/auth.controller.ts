@@ -75,8 +75,13 @@ export class AUTH_CONTROLLER {
         }
     }
 
-    static CURRENT_USER: RequestHandler = async ({ cookies }) => {
-        const token = cookies.get("token");
+    static CURRENT_USER: RequestHandler = async ({ request: { headers } }) => {
+        // const token = cookies.get("token");
+        const authoraztion = headers.get("Authorization");
+
+        const token = authoraztion?.split(" ").pop();
+
+        custom_logger("AUTHORIZATION, HEADERS, TOKEN", { authoraztion, headers, token }, { clear: false });
 
         try {
             if (!token) throw error(401, {

@@ -2,11 +2,11 @@
 
 import { start_mongo } from "../backend/db/mongo";
 import { custom_logger } from "$services/functions/utils";
-import type { Handle } from "@sveltejs/kit";
+import { redirect, type Handle } from "@sveltejs/kit";
 import { getCurrentUser } from "$backend/client";
 
 
-export const handle: Handle = ({ resolve, event }) => {
+export const handle: Handle = async ({ resolve, event }) => {
     console.log("got into handle")
     start_mongo().then(() => {
         console.log("mongo started...");
@@ -14,13 +14,13 @@ export const handle: Handle = ({ resolve, event }) => {
         custom_logger("ERROR", er);
     });
 
-    // const { cookies } = event;
-    // const token = cookies.get("token");
-    // let res = await getCurrentUser();
+    const { cookies } = event;
+    const token = cookies.get("token");
 
-    // res = await res.json();
+    if (!token) throw redirect(300, "/login");
+    const res = await getCurrentUser(token);
 
-    // console.log({ res, token }, "hello");
+    console.log({ res, token }, "hello");
 
     // cookies.set("hook", "i am the handle hook");
 
