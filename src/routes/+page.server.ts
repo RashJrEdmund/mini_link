@@ -7,8 +7,12 @@ import { custom_logger } from "$services/functions/utils";
 import { redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types"
 
+import { hooks } from '@sveltejs/kit';
+
 export const load: PageServerLoad = async (props) => {
     const { params, cookies, locals } = props;
+
+    console.log("in main layout \n", { locals, hooks });
 
     const token = cookies.get("token");
 
@@ -16,18 +20,16 @@ export const load: PageServerLoad = async (props) => {
 
     const cks = cookies.getAll();
 
-    console.log({ locals });
-
     const userUrls = await getUserUrls(_id);
 
     const userData = await getOneUser(_id);
 
     // if (!token) throw redirect(300, "/login");
 
-    // const currentUser = await getCurrentUser(token);
+    const { data } = await getCurrentUser(token);
 
-    // if (currentUser.email) locals.currentUser = currentUser;
-    // else throw redirect(300, "/login");
+    if (data) locals.currentUser = data;
+    else throw redirect(300, "/login");
 
     return {
         message: "Hello Svelte",

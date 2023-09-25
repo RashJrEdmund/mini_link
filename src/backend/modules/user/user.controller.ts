@@ -1,4 +1,4 @@
-import { stringify, headers } from "$backend/utils/utils";
+import { stringifyData, headers } from "$backend/utils/utils";
 import { error, json, type RequestHandler } from "@sveltejs/kit";
 import REQ_NOT_FOUND_ERROS from "$backend/utils/REQ_ERROR";
 import USER_SERVICE from "./user.service";
@@ -38,7 +38,7 @@ export default class USER_CONTROLLER {
                 message: ERR_MESSAGE.NOT_FOUND(),
             });
 
-            return new Response(stringify(user), {
+            return new Response(stringifyData(user), {
                 headers
             });
         } catch (er: any) {
@@ -66,7 +66,7 @@ export default class USER_CONTROLLER {
                 message: ERR_MESSAGE.MISSING_DETAILS(),
             });
 
-            return new Response(stringify(update_user), {
+            return new Response(stringifyData(update_user), {
                 headers
             });
         } catch (er: any) {

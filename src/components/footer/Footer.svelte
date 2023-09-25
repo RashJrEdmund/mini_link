@@ -2,6 +2,8 @@
     import { COLOR_PALETTE_STORE, THEME } from "../../store/store";
     import SpanTag from "../atoms/SpanTag.svelte";
     import A_Tag from "../atoms/A_Tag.svelte";
+    
+    export let current_user;
 </script>
 
 <footer

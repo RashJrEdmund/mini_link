@@ -1,6 +1,6 @@
 import { error, json, type RequestHandler } from "@sveltejs/kit";
 import URL_SERVICE from "./url.service";
-import { stringify, headers } from "$backend/utils/utils";
+import { stringifyData, headers } from "$backend/utils/utils";
 import { createFromBody } from "$backend/utils/functions";
 import REQ_NOT_FOUND_ERROS from "$backend/utils/REQ_ERROR";
 
@@ -15,12 +15,13 @@ export default class URL_CONTROLLER {
                 message: ERR_MESSAGE.NONE_FOUND(),
             });
 
-            return new Response(stringify(urls), {
+            return new Response(stringifyData(urls), {
                 headers
             });
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+                data: null,
             });
         }
     };
@@ -39,12 +40,13 @@ export default class URL_CONTROLLER {
                 message: ERR_MESSAGE.NOT_FOUND_UNDER_USER(),
             });
 
-            return new Response(stringify(userUrls), {
+            return new Response(stringifyData(userUrls), {
                 headers
             });
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+                data: null
             });
         }
     };
@@ -63,12 +65,13 @@ export default class URL_CONTROLLER {
                 message: ERR_MESSAGE.NOT_FOUND(),
             });
 
-            return new Response(stringify(url), {
+            return new Response(stringifyData(url), {
                 headers
             });
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+                data: null
             });
         }
     }
@@ -89,12 +92,13 @@ export default class URL_CONTROLLER {
 
             const url = await URL_SERVICE.createUrl(new_url);
 
-            return new Response(stringify(url), {
+            return new Response(stringifyData(url), {
                 headers
             });
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+                data: null
             });
         }
     }
@@ -117,12 +121,13 @@ export default class URL_CONTROLLER {
                 message: ERR_MESSAGE.MISSING_DETAILS(),
             });
 
-            return new Response(stringify(update_url), {
+            return new Response(stringifyData(update_url), {
                 headers
             });
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+                data: null
             });
         }
     }
@@ -159,6 +164,7 @@ export default class URL_CONTROLLER {
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+                data: null
             });
         }
     }

@@ -8,8 +8,8 @@ export const headers = {
     "Access-Control-Allow-Methods": "*"
 }
 
-export const stringify = (obj: any, _spacing = 4) => {
-    return JSON.stringify(obj, null, _spacing);
+export const stringifyData = (obj: any, _spacing = 4) => {
+    return JSON.stringify({ data: obj }, null, _spacing);
 }
 
 export const createObjectId = (_id?: string) => {

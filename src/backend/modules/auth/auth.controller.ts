@@ -1,10 +1,9 @@
-import { stringify, headers, clearAllCookies } from "$backend/utils/utils";
+import { stringifyData, headers } from "$backend/utils/utils";
 import REQ_NOT_FOUND_ERROS from "$backend/utils/REQ_ERROR";
 import { createFromBody } from "$backend/utils/functions";
 import USER_SERVICE from "../user/user.service";
 import AUTH_SERVICE from "./auth.service";
 import { error, type RequestHandler } from "@sveltejs/kit";
-import { custom_logger } from "$services/functions/utils";
 
 const ERR_MESSAGE = new REQ_NOT_FOUND_ERROS("USER");
 
@@ -35,12 +34,13 @@ export class AUTH_CONTROLLER {
 
             cookies.set("token", user_and_token.token, { path: "/", secure: true }); // setting the token to cookies
 
-            return new Response(stringify(user_and_token), {
+            return new Response(stringifyData(user_and_token), {
                 headers
             });
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+                data: null
             });
         }
     }
@@ -65,23 +65,21 @@ export class AUTH_CONTROLLER {
 
             cookies.set("token", user_and_token.token, { path: "/" }); // setting the token to cookies
 
-            return new Response(stringify(user_and_token), {
+            return new Response(stringifyData(user_and_token), {
                 headers
             });
         } catch (er: any) {
             throw error(er?.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+                data: null
             });
         }
     }
 
     static CURRENT_USER: RequestHandler = async ({ request: { headers } }) => {
-        // const token = cookies.get("token");
         const authoraztion = headers.get("Authorization");
 
         const token = authoraztion?.split(" ").pop();
-
-        custom_logger("AUTHORIZATION, HEADERS, TOKEN", { authoraztion, headers, token }, { clear: false });
 
         try {
             if (!token) throw error(401, {
@@ -94,14 +92,13 @@ export class AUTH_CONTROLLER {
                 message: REQ_NOT_FOUND_ERROS.BEAER_NOT_FOUND(),
             });
 
-            custom_logger("bearer", bearer, { clear: true });
-
-            return new Response(stringify(bearer), {
+            return new Response(stringifyData(bearer), {
                 headers
             });
         } catch (er: any) {
             throw error(er?.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+                data: null,
             });
         }
     }

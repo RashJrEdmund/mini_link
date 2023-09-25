@@ -6,6 +6,8 @@
     import HeaderText from "../atoms/HeaderText.svelte";
     import ToggleTheme from "../toggle_theme/ToggleTheme.svelte";
     import ATag from "../atoms/A_Tag.svelte";
+
+    export let current_user;
 </script>
 
 <nav

@@ -12,12 +12,11 @@
 
     import toast, { Toaster } from "svelte-french-toast";
 
-	onMount(async () => {
-		fetch("http://localhost:5173/api/urls")
-			.then((data) => data.json())
-			.then((data) => console.log("this is data \n", data))
-			.catch((err) => console.warn("and error occured", err));
-	})
+	export let data;
+
+	const { current_user } = data;
+
+	console.log("this current user", data);
 </script>
 
 <Toaster />
@@ -31,7 +30,7 @@
 	class="app min-h-[100vh] h-fit"
 >
 	<div class="w-full mx-auto min-h-[100vh]">
-		<Navbar />
+		<Navbar {current_user} />
 		<!-- <Header /> -->
 
 		<main
@@ -40,7 +39,7 @@
 			<slot />
 		</main>
 
-		<Footer />
+		<Footer {current_user} />
 	</div>
 </div>
 
