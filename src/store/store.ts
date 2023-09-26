@@ -33,7 +33,4 @@ export const LINK_STORE = writable<LINK_OBJ[]>([]);
 
 export const LOADING = writable<boolean>(false);
 
-
-console.log("ran 1", theme_modes);
-
-console.log("ran 2", theme_modes);
+export const CURRENT_USER = writable(null);

@@ -4,13 +4,14 @@
     export let alt: string = "image text"; // alt text
     export let draggable: "true" | "false" = "false";
 
-    export let action = () => null;
+    export let action: () => void = () => null;
 
     export let circle: boolean = false;
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <!-- svelte-ignore a11y-click-events-have-key-events -->
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <img
     {src}
     {alt}

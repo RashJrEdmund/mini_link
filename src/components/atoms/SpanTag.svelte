@@ -9,7 +9,7 @@
     export let box: boolean = false;
     export let sx: string = ""; // add extra styling
 
-    export let action = () => null;
+    export let action: () => void = () => null;
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->

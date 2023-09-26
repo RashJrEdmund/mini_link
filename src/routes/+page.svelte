@@ -5,7 +5,7 @@
     import SpanTag from "../components/atoms/SpanTag.svelte";
     import Form from "../components/form/Form.svelte";
     import MiniLinkTable from "../components/mini_table/MiniLinkTable.svelte";
-    import { APP_NAME, LINK_STORE } from "../store/store";
+    import { APP_NAME, CURRENT_USER, LINK_STORE } from "../store/store";
     import { onMount } from "svelte";
 
     let chances = "0" + 5;
@@ -15,7 +15,10 @@
     onMount(() => {
         if (!data.LINK_DATA) return;
         LINK_STORE.set(data.LINK_DATA);
-        console.log({data});
+        
+        if (data.current_user) {
+
+        }
     });
 </script>
 
@@ -24,7 +27,7 @@
     <meta name="mini link" content="url shortener app" />
 </svelte:head>
 
-<section class="home">
+<section class="home" >
     <section
         class="flex flex-col gap-6 items-center justify-center w-full pt-[90px] md:pt-[100px]"
     >
@@ -46,7 +49,7 @@
     </section>
 
     <section class="w-full pt-[90px] md:pt-[130px]">
-        <MiniLinkTable />
+        <MiniLinkTable current_user={$CURRENT_USER} />
     </section>
 </section>
 

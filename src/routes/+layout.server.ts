@@ -18,6 +18,6 @@ export const load: PageServerLoad = async (props) => {
     custom_logger("current_user", { res, locals }, { clear: false });
 
     return {
-        currentUser: res.data,
+        current_user: res.data,
     }
 }

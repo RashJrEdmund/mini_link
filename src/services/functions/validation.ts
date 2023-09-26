@@ -15,5 +15,6 @@ export const validateEmail: ValidateEmailType = (email) => {
 }
 
 export const checkIsEmailOrUsername: CheckEmailUsername = (value) => {
-    return true;
+    const emailRegex = /^([\w\d.+-]{3,})@(\w{3,}).[a-zA-Z]{2,}$/;
+    return emailRegex.test(value);
 }

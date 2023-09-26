@@ -1,21 +1,28 @@
 <script lang="ts">
     import CopyIcon from "$lib/icons/copy_icon.svg";
-    import { LINK_STORE } from "../../store/store";
+    import { CURRENT_USER, LINK_STORE } from "../../store/store";
     import SpanTag from "../atoms/SpanTag.svelte";
     import Img_Tag from "../atoms/Img_Tag.svelte";
     import { fade, scale } from "svelte/transition";
-    import { onDestroy } from "svelte";
+    import { onDestroy, onMount } from "svelte";
     import ActionButtons from "./ActionButtons.svelte";
     import type { LINK_OBJ } from "$services/types";
     import toast from "svelte-french-toast";
+    import { getUserUrls } from "$backend/client";
 
-    type COPY = (short_link: string) => void;
+    export let current_user: any = null;
 
-    let linkData: LINK_OBJ[];
+    type COPY = (short_link: string) => void | null;
+
+    let linkData: LINK_OBJ[] = [];
 
     const unsubscribe = LINK_STORE.subscribe((val) => {
         linkData = val;
     });
+
+    const unsubscribe_user = CURRENT_USER.subscribe((data) => {
+        // current_user = data
+    })
 
     const copyLink: COPY =  (short_link) => {
         navigator.clipboard.writeText(short_link)
@@ -23,7 +30,25 @@
             .catch(() => toast.error("try again"));
     }
 
-    onDestroy(() => unsubscribe());
+
+    onMount(() => {
+        if (current_user) {
+            console.log("current_user b34 promise toast", {current_user})
+            toast.promise(
+                getUserUrls(current_user.id),
+                {
+                    loading: "loading urls",
+                    success: "finished loading",
+                    error: "an error occured",
+                }
+            )
+        }
+    })
+
+    onDestroy(() => {
+        unsubscribe();
+        unsubscribe_user();
+    });
 </script>
 
 <main>
@@ -53,7 +78,7 @@
                                 </SpanTag>
 
                                 <Img_Tag
-                                    action={() => copyLink(link.short_link)}
+                                    action={() => copyLink(link.short_link ?? "")}
                                     src={CopyIcon}
                                     alt="copy icon"
                                     title={`copy link ${link?.alias ? 'to '+ link.alias : ""}`}
@@ -65,11 +90,11 @@
                     <td data-cell="original">{link.original}</td>
                     <td data-cell="clicks">{link.clicks}</td>
                     <td data-cell="status">{link.status}</td>
-                    <td data-cell="date"
-                        >{new Date(link.createdAt).toDateString()}</td
-                    >
+                    <td data-cell="date">
+                        {new Date(link?.createdAt ?? Date.now()).toDateString()}
+                    </td>
                     <td data-cell="actions" class="flex items-center">
-                        <ActionButtons linkId={link.id} />
+                        <ActionButtons linkId={link._id ?? ""} />
                     </td>
                 </tr>
             {:else}

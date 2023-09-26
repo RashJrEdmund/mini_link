@@ -16,12 +16,8 @@ export const handle: Handle = async ({ resolve, event }) => {
     // });
     const token = cookies.get("token");
 
-    locals.current_user = "rash";
-
     locals.token = token;
 
-
-    // // throw redirect(300, "/login")
     // const res = await getCurrentUser(token);
 
     // console.log({ res, token }, "hello");

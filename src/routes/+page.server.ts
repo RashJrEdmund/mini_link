@@ -24,12 +24,12 @@ export const load: PageServerLoad = async (props) => {
 
     const userData = await getOneUser(_id);
 
-    // if (!token) throw redirect(300, "/login");
+    if (!token) throw redirect(300, "/login");
 
     const { data } = await getCurrentUser(token);
 
-    if (data) locals.currentUser = data;
-    else throw redirect(300, "/login");
+    // if (data) locals.currentUser = data;
+    // else throw redirect(300, "/login");
 
     return {
         message: "Hello Svelte",
@@ -37,6 +37,6 @@ export const load: PageServerLoad = async (props) => {
         LINK_DATA: userUrls,
         userData,
         cks,
-        // currentUser
+        current_user: data,
     }
 }
