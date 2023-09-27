@@ -4,7 +4,8 @@
 ## mini_link
 
 ### what's a URL
-    URL stands for Uniform Resource Locator. A URL is nothing more than the address of a given unique resource on the Web.
+    URL stands for Uniform Resource Locator. A URL is nothing more than the
+    address of a given unique resource on the Web.
 
 see GitHub [project for mini link](https://github.com/users/RashJrEdmund/projects/6)
 

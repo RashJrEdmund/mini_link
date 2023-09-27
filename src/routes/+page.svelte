@@ -15,9 +15,9 @@
     onMount(() => {
         if (!data.LINK_DATA) return;
         LINK_STORE.set(data.LINK_DATA);
-        
-        if (data.current_user) {
 
+        if (data.current_user) {
+            // do shit
         }
     });
 </script>

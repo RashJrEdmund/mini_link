@@ -23,7 +23,6 @@ export const handle: Handle = async ({ resolve, event }) => {
     // console.log({ res, token }, "hello");
 
     // cookies.set("hook", "i am the handle hook");
-    
 
     const response = await resolve(event);
     return response;
