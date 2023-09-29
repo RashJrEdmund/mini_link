@@ -11,13 +11,6 @@ import { hooks } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async (props) => {
 
-    setTimeout(() => {
-        console.clear();
-        console.log("redirecting...")
-        throw redirect(301, "/login")
-    }, 1500);
-    return;
-
     const { params, cookies, locals } = props;
 
     console.log("in main layout \n", { locals, hooks });
