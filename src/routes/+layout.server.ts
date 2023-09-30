@@ -10,8 +10,9 @@ export const load: PageServerLoad = async (props) => {
         const user_urls = await getUserUrls(locals.current_user._id);
 
         return {
-            current_user: { ...locals.current_user, status: 200 },
+            current_user: { ...locals.current_user },
             user_urls: user_urls.data,
+            status: 200
         }
     }
 
@@ -27,8 +28,10 @@ export const load: PageServerLoad = async (props) => {
         custom_logger("current_user", { user_urls, locals }, { clear: false });
 
         return {
-            current_user: { ...res.data, status: 200, token },
-            user_urls: user_urls.data
+            current_user: { ...res.data },
+            user_urls: user_urls.data,
+            status: 200,
+            token
         }
     }
 
