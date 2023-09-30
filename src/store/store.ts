@@ -1,6 +1,6 @@
 import { readable, writable } from "svelte/store";
 import { COLOR_PALETTE } from "$services/theme/colors_pallete";
-import type { COLOR_PALETTE_TYPE, LINK_OBJ, THEME_MODE } from "$services/types";
+import type { COLOR_PALETTE_TYPE, LINK_OBJ, THEME_MODE, USER } from "$services/types";
 import { LOCALSTORAGE } from "$services/functions/storage";
 import { browser } from '$app/environment';
 
@@ -33,4 +33,4 @@ export const LINK_STORE = writable<LINK_OBJ[]>([]);
 
 export const LOADING = writable<boolean>(false);
 
-export const CURRENT_USER = writable(null);
+export const CURRENT_USER = writable<USER | null>(null);

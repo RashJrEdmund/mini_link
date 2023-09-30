@@ -22,7 +22,9 @@ export const actions: Actions = {
             status: 404,
         };
 
-        const { token, data: { user } } = res;
+        const { data: { user, token } } = res;
+
+        console.log({ token, user })
 
         cookies.set("token", token, { path: "/" });
         locals.current_user = user;

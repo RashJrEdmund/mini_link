@@ -1,23 +1,39 @@
-import { getCurrentUser } from "$backend/client";
+import { getCurrentUser, getUserUrls } from "$backend/client";
 import { custom_logger } from "$services/functions/utils";
-import { redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types"
 
 export const load: PageServerLoad = async (props) => {
-    return {
-        current_user: "rash"
-    }
     const { cookies, locals } = props;
 
-    const token = cookies.get("token");
+    console.log("CURRENT_LOCAL USER", locals)
+    if (locals.current_user) {
+        const user_urls = await getUserUrls(locals.current_user._id);
+
+        return {
+            current_user: { ...locals.current_user, status: 200 },
+            user_urls: user_urls.data,
+        }
+    }
+
+    const token = cookies.get("token") ?? "";
+    console.log("CURRENT_LOCAL USER", locals, { token });
 
     const res = await getCurrentUser(token); // TODO: take off the .slice
 
-    if (res.data) locals.current_user = res.data;
+    if (res.data) {
+        locals.current_user = res.data;
+        const user_urls = await getUserUrls(res.data._id as string);
 
-    custom_logger("current_user", { res, locals }, { clear: false });
+        custom_logger("current_user", { user_urls, locals }, { clear: false });
+
+        return {
+            current_user: { ...res.data, status: 200, token },
+            user_urls: user_urls.data
+        }
+    }
 
     return {
-        current_user: { ...res.data, token },
+        current_user: null,
+        user_urls: null,
     }
 }

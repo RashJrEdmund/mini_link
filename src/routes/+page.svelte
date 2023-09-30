@@ -5,7 +5,7 @@
     import SpanTag from "../components/atoms/SpanTag.svelte";
     import Form from "../components/form/Form.svelte";
     import MiniLinkTable from "../components/mini_table/MiniLinkTable.svelte";
-    import { APP_NAME, CURRENT_USER, LINK_STORE } from "../store/store";
+    import { APP_NAME } from "../store/store";
     import { onMount } from "svelte";
 
     let chances = "0" + 5;
@@ -13,12 +13,7 @@
     export let data: PageData; // page data
 
     onMount(() => {
-        if (!data.LINK_DATA) return;
-        LINK_STORE.set(data.LINK_DATA);
-
-        if (data.current_user) {
-            // do shit
-        }
+        // TODO +=> check if data.current_user is a premium user and get his number of chances left;
     });
 </script>
 
@@ -49,7 +44,7 @@
     </section>
 
     <section class="w-full pt-[90px] md:pt-[130px]">
-        <MiniLinkTable current_user={$CURRENT_USER} />
+        <MiniLinkTable />
     </section>
 </section>
 

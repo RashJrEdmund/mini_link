@@ -20,8 +20,6 @@
 
     let isValidEmail: boolean = false;
 
-    console.log({ form });
-
     $: (() => {
         if (email) isValidEmail = validateEmail(email);
         else isValidEmail = true;

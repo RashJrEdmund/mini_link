@@ -6,6 +6,8 @@
     import { LOCALSTORAGE } from "$services/functions/storage";
     import type { THEME_MODE } from "$services/types";
 
+    export let sx: string = ""; // add extra styling
+
     const TOGGLE_BG = {
         light: lightBg,
         dark: darkBg,
@@ -31,7 +33,7 @@
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <section
     on:click={toggleAppTheme}
-    class="them_icon_holder"
+    class={`them_icon_holder ${sx}`}
     style={`background-color: ${$COLOR_PALETTE_STORE[$THEME].bg_gray};`}
 >
     <span

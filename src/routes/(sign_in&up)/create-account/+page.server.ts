@@ -45,7 +45,7 @@ export const actions: Actions = {
             message: res.message ?? "An error occured, please try again",
         }
 
-        const { token, data: { user } } = res;
+        const { data: { user, token } } = res;
 
         cookies.set("token", token, { path: "/" });
         locals.current_user = user;
