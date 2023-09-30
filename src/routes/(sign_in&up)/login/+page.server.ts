@@ -1,24 +1,36 @@
-import { fail, type Actions } from "@sveltejs/kit";
-
-const longActualToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTBjNDYxOWY5ODExM2RmNzJmOTUzMTYiLCJ1c2VybmFtZSI6Im9yYXNodXMiLCJlbWFpbCI6Im9yYXNodXNlZG11bmRAZ21haWwuY29tIiwicHJvZmlsZV9waWMiOiIiLCJpc19wcmVtaXVtX3VzZXIiOmZhbHNlLCJjcmVhdGVkQXQiOiJXZWQgU2VwIDEzIDIwMjMiLCJiZWFyZXJfaWQiOiI2NTBjNDYxOWY5ODExM2RmNzJmOTUzMTYiLCJpYXQiOjE2OTU3MjcwNTgsImV4cCI6MTY5NTczMDY1OH0.xtb-o_3r_Z1YtwTLKuHlRrxphAImsSHHP4B5aF2J-No";
+import { loginWithEmailPassword } from "$backend/client";
+import type { Actions } from "@sveltejs/kit";
 
 export const actions: Actions = {
     default: async (e) => {
-        const { request, cookies } = e;
+        const { request, cookies, locals } = e;
 
         const data = await request.formData();
-        const email = data.get("email");
-        const password = data.get("password");
+        const email = data.get("email") as string;
+        const password = data.get("password") as string;
 
-        console.log(" \n \n ===== DATA ===== \n", data);
-
-        if (!email || !password) return fail(401, {
+        if (!email || !password) return {
             message: "Missing form fields",
             email: email ?? "",
-        });
+            status: 401,
+        };
 
-        cookies.set("token", longActualToken, { path: "/" });
+        const res = await loginWithEmailPassword({ email, password });
 
-        return { message: "Logged in", status: 200 };
+        if (!res.data) return {
+            message: "Incorrect email or password",
+            status: 404,
+        };
+
+        const { token, data: { user } } = res;
+
+        cookies.set("token", token, { path: "/" });
+        locals.current_user = user;
+
+        return {
+            message: `welcome back ${user.username || user.email}`,
+            status: 200,
+            current_user: user,
+        };
     },
 };

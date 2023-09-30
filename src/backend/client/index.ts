@@ -3,6 +3,7 @@
 export {
     getCurrentUser,
     loginWithEmailPassword,
+    createUsers,
 } from "./auth";
 
 
@@ -21,7 +22,6 @@ export {
 export {
     getUsers,
     getOneUser,
-    createUsers,
     updateUser,
     deleteUser,
 } from "./users";

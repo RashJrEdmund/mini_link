@@ -1,23 +1,13 @@
-type INDENTIFIER = "USER" | "URL"
+import type { USER } from "$services/types";
+import type { REQ_ERROS_INTFC } from "./REQ_ERROS_INTFC";
 
-type _options = {
+export type INDENTIFIER = "USER" | "URL"
+
+export type _options = {
     _strict: boolean,
 }
 
-type STR_FNC = () => string;
-
-interface REQ_ERROS_INTFC {
-    identifier: INDENTIFIER,
-    MISSING_DETAILS: STR_FNC,
-    AN_ERROR_OCCURED: STR_FNC,
-    NOT_FOUND: (_options: _options) => string,
-    NOT_FOUND_UNDER_USER: STR_FNC,
-    NONE_FOUND: STR_FNC,
-    UNRECOGNIZED_ENTITY: STR_FNC,
-    URECOGNISED_STRING_FOR_OBJECT_ID: STR_FNC,
-    UNRECOGNIZED_FIELD: (field: string) => string,
-    FETCH_URL_NOT_SPECIFIED: STR_FNC,
-}
+export type STR_FNC = () => string;
 
 export default class REQ_NOT_FOUND_ERROS implements REQ_ERROS_INTFC {
     identifier
@@ -59,9 +49,15 @@ export default class REQ_NOT_FOUND_ERROS implements REQ_ERROS_INTFC {
     }
 
     NOT_FOUND_UNDER_USER = () => {
-        if (this.identifier !== "URL") throw new Error("INVALID_TYPE");
+        if (this.identifier !== "URL") return "INVALID_IDENTIFIER";
 
         return `NO_URLS_FOUND_FOR_THIS_USER`;
+    };
+
+    FIELD_ALREADY_EXITS = (field_name: keyof USER, value?: string) => {
+        if (this.identifier !== "USER") return "INVALID_IDENTIFIER";
+
+        return `USER_${field_name.toUpperCase()}${value ? `: ${value} ` : "_"}IS_TAKEN`;
     };
 
     UNRECOGNIZED_FIELD = (field: string) => {

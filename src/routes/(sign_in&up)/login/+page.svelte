@@ -7,13 +7,14 @@
     import TextField from "../../../components/atoms/TextField.svelte";
     import { COLOR_PALETTE_STORE, THEME } from "../../../store/store";
     import { validateEmail } from "$services/functions/validation";
-    import { goto } from '$app/navigation';
     
     import type { ActionData } from "./$types";
+    import { goto } from "$app/navigation";
+    import { onMount } from "svelte";
 
     export let form: ActionData; // the object returned from the default action on +page.server.ts;
 
-    let email: string = form?.email ?? "";
+    let email: string = form?.email as string ?? "";
     let password: string = "";
     let showpassword: boolean = false;
 
@@ -25,6 +26,10 @@
         if (email) isValidEmail = validateEmail(email);
         else isValidEmail = true;
     })();
+
+    onMount(() => {
+        if (form?.current_user && form?.status === 200) goto("/");
+    });
 </script>
 
 <form
@@ -34,7 +39,7 @@
 >
     <HeaderText text="Login" small />
 
-    <SpanTag pink_alert={+form?.status !== 200} success={+form?.status === 200}>{form?.message || ""}</SpanTag>
+    <SpanTag pink_alert={form?.status !== 200} success={form?.status === 200}>{form?.message || ""}</SpanTag>
 
     <TextField
         bind:value={email}

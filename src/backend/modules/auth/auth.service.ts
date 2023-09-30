@@ -25,8 +25,6 @@ export default class AUTH_SERVICE {
 
         const match = await BCRYPT.compare(password, prev_user.password);
 
-        console.log({ prev_user, match });
-
         if (!match) throw error(401, {
             message: REQ_NOT_FOUND_ERROS.INCORRECT_EMAIL_OR_PASSWORD(),
         });

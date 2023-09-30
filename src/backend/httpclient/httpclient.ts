@@ -9,18 +9,24 @@ interface CLIENT_ITF {
 }
 
 export default class HTTPCLIENT implements CLIENT_ITF {
-    _headers = { ...headers };
-    _req_er = new REQ_NOT_FOUND_ERROS("URL");
+    _headers
+    _req_er
+
+    constructor() {
+        this._headers = { ...headers };
+        this._req_er = new REQ_NOT_FOUND_ERROS("URL");
+    }
 
     GET = (_url: string, _headers = {}) => {
         if (!_url) throw new Error(this._req_er.FETCH_URL_NOT_SPECIFIED());
 
         return fetch(_url, {
             headers: {
-                ...headers,
+                ...this._headers,
                 ..._headers
             },
-        }).then(res => res.json());
+        }).then(res => res.json())
+            .catch(err => { throw err });
     }
 
     POST = (_url: string, body: BodyInit, _headers = {}) => {
@@ -32,8 +38,9 @@ export default class HTTPCLIENT implements CLIENT_ITF {
                 ...this._headers,
                 ..._headers
             },
-            body
-        }).then(res => res.json());
+            body: JSON.stringify(body),
+        }).then(res => res.json())
+            .catch(err => { throw err });
     }
 
     PUT = (_url: string, body: BodyInit, _headers = {}) => {
@@ -45,8 +52,9 @@ export default class HTTPCLIENT implements CLIENT_ITF {
                 ...this._headers,
                 ..._headers
             },
-            body
-        }).then(res => res.json());
+            body: JSON.stringify(body),
+        }).then(res => res.json())
+            .catch(err => { throw err });
     }
 
     DELETE = (_url: string, _headers = {}) => {
@@ -58,6 +66,7 @@ export default class HTTPCLIENT implements CLIENT_ITF {
                 ...this._headers,
                 ..._headers
             }
-        }).then(res => res.json());
+        }).then(res => res.json())
+            .catch(err => { throw err });
     }
 }

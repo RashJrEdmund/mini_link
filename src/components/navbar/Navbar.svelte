@@ -8,8 +8,6 @@
     import ATag from "../atoms/A_Tag.svelte";
 
     export let current_user;
-
-    console.log("this current user in nav bar", current_user)
 </script>
 
 <nav

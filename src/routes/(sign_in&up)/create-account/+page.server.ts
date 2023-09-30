@@ -1,32 +1,59 @@
 import { createUsers } from "$backend/client";
-import { fail, type Actions, redirect } from "@sveltejs/kit";
-
-const longActualToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTBjNDYxOWY5ODExM2RmNzJmOTUzMTYiLCJ1c2VybmFtZSI6Im9yYXNodXMiLCJlbWFpbCI6Im9yYXNodXNlZG11bmRAZ21haWwuY29tIiwicHJvZmlsZV9waWMiOiIiLCJpc19wcmVtaXVtX3VzZXIiOmZhbHNlLCJjcmVhdGVkQXQiOiJXZWQgU2VwIDEzIDIwMjMiLCJiZWFyZXJfaWQiOiI2NTBjNDYxOWY5ODExM2RmNzJmOTUzMTYiLCJpYXQiOjE2OTU3MjcwNTgsImV4cCI6MTY5NTczMDY1OH0.xtb-o_3r_Z1YtwTLKuHlRrxphAImsSHHP4B5aF2J-No";
+import { validateEmail } from "$services/functions/validation";
+import type { Actions } from "@sveltejs/kit";
 
 export const actions: Actions = {
     default: async (e) => {
         const { request, cookies, locals } = e;
 
         const data = await request.formData();
-        const username = data.get("username");
-        const email = data.get("email");
-        const password = data.get("password");
-        const confirm_password = data.get("confirm_password");
+        const username = data.get("username") as string;
+        const email = data.get("email") as string;
+        const password = data.get("password") as string;
+        const confirm_password = data.get("confirm_password") as string;
 
-        if (password !== confirm_password) return fail(401, {
+        if (password !== confirm_password) return {
             message: "Passwords don't match",
             username: username ?? "",
             email: email ?? "",
-        });
+            status: 401,
+        };
 
-        if (!email || !password) return fail(409, { // conflic
+        if (!email || !password) return {
             message: "Missing email or password",
             username: username ?? "",
             email: email ?? "",
+            status: 409,
+        };
+
+        if (!validateEmail(email)) return {
+            message: "Invalid Email",
+            username: username ?? "",
+            email: email ?? "",
+            status: 409,
+        };
+
+        const res = await createUsers({
+            email,
+            password,
+            username,
+            is_premium_user: false,
+            profile_pic: ""
         });
 
-        cookies.set("token", longActualToken, { path: "/" });
+        if (!res.data) return {
+            message: res.message ?? "An error occured, please try again",
+        }
 
-        return { message: "Account created" };
+        const { token, data: { user } } = res;
+
+        cookies.set("token", token, { path: "/" });
+        locals.current_user = user;
+
+        return {
+            message: "Account Created",
+            status: 200,
+            current_user: res.data
+        }
     },
 };

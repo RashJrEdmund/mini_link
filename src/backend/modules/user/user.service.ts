@@ -26,7 +26,9 @@ export default class USER_SERVICE {
 
             const prev_user = await this.getByEmail(email);
 
-            if (prev_user) return prev_user;
+            if (prev_user) throw error(401, {
+                message: ERR_MESSAGE.FIELD_ALREADY_EXITS("email"),
+            });
 
             const password_hash = await BCRYPT.hash(user.password); // returns the password hash
 

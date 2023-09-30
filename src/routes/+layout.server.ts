@@ -4,6 +4,9 @@ import { redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types"
 
 export const load: PageServerLoad = async (props) => {
+    return {
+        current_user: "rash"
+    }
     const { cookies, locals } = props;
 
     const token = cookies.get("token");
