@@ -10,6 +10,7 @@
     export let action = () => null;
 </script>
 
+<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <p
     {...$$restProps}
     on:click={action}
