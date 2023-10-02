@@ -19,7 +19,7 @@
     <div
         class="flex items-center justify-between w-app_width_limit mx-auto py-1"
     >
-        <ATag path="/">
+        <ATag path="/" title="home">
             <HeaderText text={$APP_NAME} medium />
         </ATag>
 
@@ -27,7 +27,7 @@
             {#if current_user}
                 <ToggleTheme sx="translate-x-[-50%]" />
 
-                <ProfileHolder />
+                <ProfileHolder {current_user} />
             {:else}
                 <ATag path="/login">
                     <Button text="Login" grayed>

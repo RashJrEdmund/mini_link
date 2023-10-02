@@ -17,7 +17,6 @@
     let linkData: LINK_OBJ[] = [];
 
     const unsubscribe = LINK_STORE.subscribe((val) => {
-        console.log("subscribed to link store", val)
         linkData = val;
     });
 
@@ -30,27 +29,6 @@
             .then(() => toast.success("link copied"))
             .catch(() => toast.error("try again"));
     }
-
-    // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTBjNDYxOWY5ODExM2RmNzJmOTUzMTYiLCJ1c2VybmFtZSI6Im9yYXNodXMiLCJlbWFpbCI6Im9yYXNodXNlZG11bmRAZ21haWwuY29tIiwicHJvZmlsZV9waWMiOiIiLCJpc19wcmVtaXVtX3VzZXIiOmZhbHNlLCJjcmVhdGVkQXQiOiJXZWQgU2VwIDEzIDIwMjMiLCJiZWFyZXJfaWQiOiI2NTBjNDYxOWY5ODExM2RmNzJmOTUzMTYiLCJpYXQiOjE2OTU3MjY4NTAsImV4cCI6MTY5NTczMDQ1MH0.AP-GW3AbazNg-B6cN65bIbEyr66KG0bBjslwP-Hc40g"
-
-    // onMount(() => {
-    //     if (current_user) {
-    //         console.log("current_user b34 promise toast", {current_user})
-    //         toast.promise(
-    //             // getUserUrls(current_user.id)
-    //             fetch("http://localhost:5173/api/urls/user/" + current_user.id, {headers: {
-    //                 "Authorization": "Bearer " + token,
-    //             }}),
-    //             {
-    //                 loading: "loading urls",
-    //                 success: "finished loading",
-    //                 error: "an error occured",
-    //             }
-    //         ).then(res => {
-    //             console.log("this link data in form")
-    //         })
-    //     }
-    // })
 
     onDestroy(() => {
         unsubscribe();

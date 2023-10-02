@@ -9,6 +9,8 @@
     export let box: boolean = false;
     export let sx: string = ""; // add extra styling
 
+    export let icon: string = "";
+
     export let action: () => void = () => null;
 </script>
 
@@ -26,6 +28,7 @@
             ? $COLOR_PALETTE_STORE[$THEME].lite_blue
             : $COLOR_PALETTE_STORE[$THEME].lite_gray
     };
+       ${icon && `background-image: Url('${icon}')`};
     `}
     class={`
         $${other_tags && "flex items-center justify-center gap-[2px]"}

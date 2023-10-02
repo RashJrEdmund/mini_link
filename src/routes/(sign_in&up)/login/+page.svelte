@@ -32,6 +32,7 @@
 
 <form
     method="post"
+    on:submit|preventDefault
     style={`border-left: 1px solid ${$COLOR_PALETTE_STORE[$THEME].lite_gray}`}
     class="flex flex-col pl-3 flex-1 w-full min-h-[500px]"
 >

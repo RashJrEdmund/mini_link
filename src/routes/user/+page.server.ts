@@ -9,9 +9,13 @@ export const csr = dev;
 // it so that it gets served as a static asset in production
 export const prerender = true;
 
-export const load: PageServerLoad = async ({ locals }) => {
+export const load: PageServerLoad = async (props) => {
+    const { locals, cookies } = props;
+
     console.clear();
     console.log({ locals });
 
-    
+    const token = cookies.get("token");
+
+    console.log("this locals", { token })
 }

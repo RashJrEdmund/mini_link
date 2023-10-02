@@ -35,6 +35,7 @@
     on:click={toggleAppTheme}
     class={`them_icon_holder ${sx}`}
     style={`background-color: ${$COLOR_PALETTE_STORE[$THEME].bg_gray};`}
+    title="toggle theme"
 >
     <span
         style={`

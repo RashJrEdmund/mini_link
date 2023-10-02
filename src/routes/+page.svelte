@@ -22,7 +22,7 @@
     <meta name="mini link" content="url shortener app" />
 </svelte:head>
 
-<section class="home" >
+<section class="home" let:current_user >
     <section
         class="flex flex-col gap-6 items-center justify-center w-full pt-[90px] md:pt-[100px]"
     >
@@ -31,6 +31,10 @@
         <SpanTag>
             {$APP_NAME} is an efficient and easy-to-use URL shortening service that
             boasts your online experience.
+
+            <pre>
+                {JSON.stringify(current_user)}
+            </pre>
         </SpanTag>
 
         <!-- === Shortening form === -->

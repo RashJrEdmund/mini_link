@@ -7,13 +7,11 @@ import { custom_logger } from "$services/functions/utils";
 import { redirect } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types"
 
-import { hooks } from '@sveltejs/kit';
-
 export const load: PageServerLoad = async (props) => {
 
     const { params, cookies, locals } = props;
 
-    console.log("in main layout \n", { locals, hooks });
+    console.log("in main layout \n", { locals });
 
     const token = cookies.get("token");
 

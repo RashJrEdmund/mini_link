@@ -19,7 +19,6 @@
 	onMount(() => {
 		if (current_user) CURRENT_USER.set(current_user);
 		if (user_urls) LINK_STORE.set(user_urls);
-		console.log(data);
 	});
 </script>
 
@@ -40,7 +39,7 @@
 		<main
 			class="w-res_width mx-auto border-app_border pb-10 min-h-[60vh]"
 		>
-			<slot />
+			<slot {current_user} />
 		</main>
 
 		<Footer  {current_user} />

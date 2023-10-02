@@ -28,7 +28,8 @@ export const custom_logger: LoggerTYPe = (_label, val, options) => {
 }
 
 export const shorten_text = (text: string | undefined) => {
-    if (!text) return "username"
+    if (!text) return "username";
+
     const max_length = 15;
     return text.length <= max_length ? text : text.substring(0, max_length - 3) + "...";
 }
