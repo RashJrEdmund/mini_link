@@ -5,7 +5,7 @@ import { LOCALSTORAGE } from "$services/functions/storage";
 import { browser } from '$app/environment';
 
 if (browser) {
-    console.log(window.innerWidth);
+    console.log("window width", window.innerWidth);
 }
 
 let theme_modes: THEME_MODE = "light" // default-theme-mode

@@ -13,9 +13,15 @@
         dark: darkBg,
     };
 
+    const updateThemeCookie = (new_theme: string) => {
+        const theme_cookie_age: number = 60 * 60 * 24 * 365; // lasts for a year;
+        document.cookie = `theme=${new_theme};max-age=${theme_cookie_age};path="/"`;
+    }
+
     const toggleAppTheme = () => {
         THEME.update((prev) => {
             const new_theme: THEME_MODE = prev === "dark" ? "light" : "dark";
+            updateThemeCookie(new_theme);
             LOCALSTORAGE.save("theme_mode", new_theme);
             return new_theme;
         });

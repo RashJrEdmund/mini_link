@@ -17,7 +17,7 @@
 	const { current_user, user_urls } = data;
 
 	onMount(() => {
-		if (current_user) CURRENT_USER.set(current_user);
+		if (current_user) CURRENT_USER.update(() => current_user);
 		if (user_urls) LINK_STORE.set(user_urls);
 	});
 </script>

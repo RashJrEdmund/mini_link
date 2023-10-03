@@ -1,11 +1,12 @@
 <script lang="ts">
+    import { page } from "$app/stores";
     import Button from "../atoms/Button.svelte";
     import SpanTag from "../atoms/SpanTag.svelte";
     import LinkIcon from "$lib/icons/link_icon.svg";
     import ScissorsIcon from "$lib/icons/scissors.png";
-    import { COLOR_PALETTE_STORE, LINK_STORE, THEME } from "../../store/store";
+    import { COLOR_PALETTE_STORE, CURRENT_USER, LINK_STORE, THEME } from "../../store/store";
     import type { LINK_OBJ } from "$services/types";
-    import { onDestroy } from "svelte";
+    import { onDestroy, onMount } from "svelte";
     import { INVERT_THEME } from "$services/functions/utils"
     import { validateUrl } from "$services/functions/validation";
     import toast from "svelte-french-toast";
@@ -56,6 +57,14 @@
             }
         );
     };
+
+    $: (() => {
+        console.log("this current user in fomr 2", $CURRENT_USER)
+    })();
+
+    onMount(() => {
+        console.log("this current user in form mount", {user: $CURRENT_USER, page: $page})
+    })
 
     onDestroy(() => unsubscribe());
 </script>

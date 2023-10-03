@@ -9,7 +9,7 @@ export const COLOR_PALETTE: T = {
         bg_gray: "#181e29",
         border: "#c9ced6",
         active_link: "#144ee3",
-        inactive_link: "#e95690",
+        inactive_link: "#9f831f",
         lite_blue: "#1d9bf0",
         main_blue: "#144ee3",
         disable_btn: "#16347d",
