@@ -1,0 +1,66 @@
+<script lang="ts">
+    import { page } from "$app/stores";
+    import Button from "$components/atoms/Button.svelte";
+    import SpanTag from "$components/atoms/SpanTag.svelte";
+    import { LINKS_PER_PAGE as LPP } from "$services/constants/tableConstansts";
+    import type { LINK_OBJ } from "$services/types";
+    import { onMount } from "svelte";
+    import { CURRENT_USER, LINK_STORE } from "../../../store/store";
+
+    const user_urls = $page.data.user_urls || [];
+
+    let start = 0;
+    let end = user_urls.length >= LPP ? LPP : user_urls.length; // LINKS_PER_PAGE
+
+    let current_display = user_urls.slice(start, end);
+
+    const handlePrev = () => {
+        if (start <= 0) return;
+
+        end = start;
+        start -= LPP;
+        current_display = user_urls.slice(start, end);
+
+        LINK_STORE.set(current_display);
+    }
+
+    const handleNext = () => {
+        if (end >= user_urls.length) return;
+
+        start = end;
+        end += LPP;
+        current_display = user_urls.slice(start, end);
+
+        LINK_STORE.set(current_display);
+    }
+
+    $: current_user = $CURRENT_USER;
+
+    onMount(() => {
+        LINK_STORE.set(current_display);
+    })
+</script>
+
+{#if current_user && user_urls.length > 0}
+    <section class=" w-full flex items-center justify-end mx-auto">
+        <SpanTag sx="mx-1">
+            showing {start} - {end <= user_urls.length ? end : user_urls.length} of {user_urls.length}
+        </SpanTag>
+
+        <Button
+            in_active={start <= 0}
+            sx="mr-1 cursor-pointer"
+            action={handlePrev}
+        >
+            Prev
+        </Button>
+
+        <Button
+            in_active={end >= user_urls.length}
+            sx="cursor-pointer"
+            action={handleNext}
+        >
+            Next
+        </Button>
+    </section>
+{/if}

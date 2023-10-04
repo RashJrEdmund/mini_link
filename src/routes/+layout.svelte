@@ -3,23 +3,24 @@
 	import "../TailwindCSS.svelte";
 	import { COLOR_PALETTE_STORE, CURRENT_USER, LINK_STORE, THEME } from "../store/store";
 
-    import { onMount } from "svelte";
-
 	import Header from "./Header.svelte";
 	import Navbar from "$components/navbar/Navbar.svelte";
 	import Footer from "$components/footer/Footer.svelte";
  
     import toast, { Toaster } from "svelte-french-toast";
     import type { LayoutData } from "./$types";
+    import { invalidateAll } from "$app/navigation";
 
 	export let data: LayoutData;
 
-	const { current_user, user_urls } = data;
+	$: current_user = data.current_user
 
-	onMount(() => {
+	// $: user_urls = data.user_urls
+
+	$: (() => {
 		if (current_user) CURRENT_USER.update(() => current_user);
-		if (user_urls) LINK_STORE.set(user_urls);
-	});
+		// if (user_urls) LINK_STORE.set(user_urls);
+	})()
 </script>
 
 <Toaster />
@@ -42,7 +43,7 @@
 			<slot {current_user} />
 		</main>
 
-		<Footer  {current_user} />
+		<!-- <Footer  {current_user} /> -->
 	</div>
 </div>
 

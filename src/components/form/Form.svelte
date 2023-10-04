@@ -96,7 +96,7 @@
         bind:value={input_val}
     />
 
-    <Button text="" type="submit">
+    <Button type="submit">
         <span class="hidden md:inline">Shorten</span>
         <img
             src={ScissorsIcon}

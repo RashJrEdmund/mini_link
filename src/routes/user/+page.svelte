@@ -5,18 +5,22 @@
     import Button from "$components/atoms/Button.svelte";
     import PTag from "$components/atoms/P_Tag.svelte";
     import SpanTag from "$components/atoms/SpanTag.svelte";
+    import type { ActionData } from "./$types";
+
+	export let form: ActionData;
+
+	export let data
 
 	const current_user = $page.data.current_user || null;
 
 	$: (async () => {
-		console.log("this navigating", $navigating)
+		console.log("this navigating", $navigating, { form, data })
     })();
 </script>
 
 <svelte:head>
 	<title>About</title>
 	<meta name="description" content="About this app" />
-
 </svelte:head>
 
 <div class="text-column">
@@ -24,14 +28,15 @@
 
 	<SpanTag>
 		<pre>
-			{JSON.stringify(current_user, null, 2)}
+			{JSON.stringify({current_user}, null, 2)}
 		</pre>
 	</SpanTag>
 
-	<form class="mb-3">
-		<Button in_active>
-			Logout me out
-		</Button>
+	<form
+		action="?/logout"
+		class="mb-3"
+	>
+		<Button in_active type="submit" >log me out</Button>
 	</form>
 
 	<ATag path="/login">

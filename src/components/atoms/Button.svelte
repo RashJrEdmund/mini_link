@@ -9,11 +9,16 @@
     export let active: boolean = false;
     export let in_active: boolean = false;
 
-    export let action = () => null;
+    export let action: any = () => null;
+
+    const handleAction = () => {
+        if (in_active) return;
+        action();
+    }
 </script>
 
 <button
-    on:click={action}
+    on:click={handleAction}
     {type}
     {...$$restProps}
     style={`

@@ -25,7 +25,7 @@
         else isValidEmail = true;
     })();
 
-    $: (() => {
+    $: (async () => {
         if (form?.current_user && form?.status === 200) goto("/");
     })()
 </script>

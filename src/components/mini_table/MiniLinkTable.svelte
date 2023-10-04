@@ -5,9 +5,11 @@
     import Img_Tag from "../atoms/Img_Tag.svelte";
     import { fade, scale } from "svelte/transition";
     import { onDestroy, onMount } from "svelte";
-    import ActionButtons from "./ActionButtons.svelte";
+    import ActionButtons from "./components/ActionButtons.svelte";
     import type { LINK_OBJ } from "$services/types";
     import toast from "svelte-french-toast";
+    import TopSection from "./components/TopSection.svelte";
+    import PaginationSection from "./components/PaginationSection.svelte";
     // import { getUserUrls } from "$backend/client";
 
     type COPY = (short_link: string) => void | null;
@@ -37,7 +39,8 @@
 </script>
 
 <main>
-    <div class="table_container pb-2 mb-9">
+    <TopSection />
+    <div class="table_container pb-2 mb-2">
         <table class="w-full">
             <caption>History</caption>
             <tr>
@@ -83,7 +86,7 @@
                         {new Date(link?.createdAt ?? Date.now()).toDateString()}
                     </td>
                     <td data-cell="actions" class="flex items-center">
-                        <ActionButtons linkId={link._id ?? ""} />
+                        <ActionButtons url={link} />
                     </td>
                 </tr>
             {:else}
@@ -96,6 +99,8 @@
             {/each}
         </table>
     </div>
+
+    <PaginationSection />
 </main>
 
 <style lang="scss">
