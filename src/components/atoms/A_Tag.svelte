@@ -2,7 +2,7 @@
     import { COLOR_PALETTE_STORE, THEME } from "../../store/store";
 
     export let pink_alert: boolean = false;
-    export let success: boolean = false;
+    export let success: boolean = false; // TODO +=> make use of this
     export let is_link: boolean = false;
     export let other_tags: boolean = false;
     export let no_wrap: boolean = false;

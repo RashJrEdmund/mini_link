@@ -33,3 +33,8 @@ export const shorten_text = (text: string | undefined) => {
     const max_length = 15;
     return text.length <= max_length ? text : text.substring(0, max_length - 3) + "...";
 }
+
+
+export const getUniqueArray = (arr: any[], update: unknown) => {
+    return Array.from(new Set([...arr, update]));
+}

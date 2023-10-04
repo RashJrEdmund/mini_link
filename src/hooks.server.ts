@@ -2,7 +2,7 @@
 
 import { start_mongo } from "./backend/db/mongo";
 import { custom_logger } from "$services/functions/utils";
-// import { redirect, type Handle } from "@sveltejs/kit";
+import { redirect, type Handle } from "@sveltejs/kit";
 // import { getCurrentUser } from "$backend/client";
 
 

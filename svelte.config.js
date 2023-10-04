@@ -16,6 +16,7 @@ const config = {
 			$db: "src/backend/db",
 			$backend: "src/backend",
 			$services: "src/services",
+			$components: "src/components",
 		}
 	}
 };

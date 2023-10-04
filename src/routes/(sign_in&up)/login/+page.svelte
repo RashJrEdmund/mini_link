@@ -1,16 +1,16 @@
 <script lang="ts">
-    import ATag from "../../../components/atoms/A_Tag.svelte";
-    import Button from "../../../components/atoms/Button.svelte";
-    import HeaderText from "../../../components/atoms/HeaderText.svelte";
-    import PTag from "../../../components/atoms/P_Tag.svelte";
-    import SpanTag from "../../../components/atoms/SpanTag.svelte";
-    import TextField from "../../../components/atoms/TextField.svelte";
-    import { COLOR_PALETTE_STORE, THEME } from "../../../store/store";
-    import { validateEmail } from "$services/functions/validation";
-    
     import type { ActionData } from "./$types";
     import { goto } from "$app/navigation";
-    import { onMount } from "svelte";
+    import { enhance } from "$app/forms";
+
+    import ATag from "$components/atoms/A_Tag.svelte";
+    import Button from "$components/atoms/Button.svelte";
+    import HeaderText from "$components/atoms/HeaderText.svelte";
+    import PTag from "$components/atoms/P_Tag.svelte";
+    import SpanTag from "$components/atoms/SpanTag.svelte";
+    import TextField from "$components/atoms/TextField.svelte";
+    import { COLOR_PALETTE_STORE, THEME } from "../../../store/store";
+    import { validateEmail } from "$services/functions/validation";
 
     export let form: ActionData; // the object returned from the default action on +page.server.ts;
 
@@ -25,12 +25,13 @@
         else isValidEmail = true;
     })();
 
-    onMount(() => {
+    $: (() => {
         if (form?.current_user && form?.status === 200) goto("/");
-    });
+    })()
 </script>
 
 <form
+    use:enhance
     method="post"
     style={`border-left: 1px solid ${$COLOR_PALETTE_STORE[$THEME].lite_gray}`}
     class="flex flex-col pl-3 flex-1 w-full min-h-[500px]"

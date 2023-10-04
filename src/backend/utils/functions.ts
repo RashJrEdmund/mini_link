@@ -50,16 +50,15 @@ export const createFromBody: CREATE_FROM_BODY = (body, options) => {
         const ERR_MESSAGE = new REQ_NOT_FOUND_ERROS("URL");
 
         if (options._strict) {
-            if (!(body.user_id && body.short_link && body.original)) throw error(401, {
+            if (!(body.user_id && body.original)) throw error(401, {
                 message: ERR_MESSAGE.MISSING_DETAILS()
             });
 
             const new_url: LINK_OBJ = {
                 user_id: body.user_id,
-                short_link: body.short_link,
-                original: body.original,
+                original: body.original, // short_link generated in URL_SERVICE.createUrl(url)
                 clicks: body.clicks ?? 0,
-                status: body.staus ?? "Active",
+                status: body.status ?? "Active",
                 alias: body.alias ?? "",
             }
 

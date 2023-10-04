@@ -6,8 +6,8 @@
     import { onMount } from "svelte";
 
 	import Header from "./Header.svelte";
-	import Navbar from "../components/navbar/Navbar.svelte";
-	import Footer from "../components/footer/Footer.svelte";
+	import Navbar from "$components/navbar/Navbar.svelte";
+	import Footer from "$components/footer/Footer.svelte";
  
     import toast, { Toaster } from "svelte-french-toast";
     import type { LayoutData } from "./$types";

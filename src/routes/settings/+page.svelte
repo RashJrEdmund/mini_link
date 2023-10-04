@@ -1,6 +1,6 @@
 <script lang="ts">
-    import SpanTag from "../../components/atoms/SpanTag.svelte";
-    import P_Tag from "../../components/atoms/P_Tag.svelte";
+    import SpanTag from "$components/atoms/SpanTag.svelte";
+    import P_Tag from "$components/atoms/P_Tag.svelte";
     import { THEME } from "../../store/store";
 
     let theme_mode = $THEME;

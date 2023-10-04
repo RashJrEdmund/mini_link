@@ -1,19 +1,16 @@
 <script lang="ts">
     import { goto } from "$app/navigation";
 	import { navigating, page } from "$app/stores";
-    import Button from "../../components/atoms/Button.svelte";
-    import PTag from "../../components/atoms/P_Tag.svelte";
-    import SpanTag from "../../components/atoms/SpanTag.svelte";
+    import ATag from "$components/atoms/A_Tag.svelte";
+    import Button from "$components/atoms/Button.svelte";
+    import PTag from "$components/atoms/P_Tag.svelte";
+    import SpanTag from "$components/atoms/SpanTag.svelte";
 
 	const current_user = $page.data.current_user || null;
 
 	$: (async () => {
 		console.log("this navigating", $navigating)
     })();
-
-	if (navigating) {
-		if (current_user) goto("/")
-	}
 </script>
 
 <svelte:head>
@@ -31,9 +28,15 @@
 		</pre>
 	</SpanTag>
 
-	<form>
+	<form class="mb-3">
 		<Button in_active>
 			Logout me out
 		</Button>
 	</form>
+
+	<ATag path="/login">
+		<Button>
+			switch accounts
+		</Button>
+	</ATag>
 </div>

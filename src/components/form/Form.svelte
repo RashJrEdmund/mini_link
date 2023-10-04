@@ -7,9 +7,11 @@
     import { COLOR_PALETTE_STORE, CURRENT_USER, LINK_STORE, THEME } from "../../store/store";
     import type { LINK_OBJ } from "$services/types";
     import { onDestroy, onMount } from "svelte";
-    import { INVERT_THEME } from "$services/functions/utils"
+    import { INVERT_THEME, getUniqueArray } from "$services/functions/utils"
     import { validateUrl } from "$services/functions/validation";
     import toast from "svelte-french-toast";
+    import getUserOrAgentId from "$services/functions/user_id";
+    import TOAST_SERVICE from "$services/functions/toast";
 
     let linkData: LINK_OBJ[] | null;
 
@@ -17,9 +19,15 @@
         linkData = val;
     });
 
+    const { current_user } = $page.data
+
     let input_val = "";
 
-    const hanldeSubmit = () => {
+    const hanldeSubmit = async (e) => {
+        const formEl = e.target as HTMLFormElement;
+
+        const my_toaster = new TOAST_SERVICE(toast);
+    
         if (!input_val.trim()) return toast("👀",
             {
                 icon: "👀",
@@ -27,35 +35,35 @@
             }
         );
 
-        if (!validateUrl(input_val)) return toast("Not a valid URL",
-            {
-                icon: "🚫",
-                style: `border-radius: 10px; background: ${$COLOR_PALETTE_STORE[INVERT_THEME($THEME)].bg}; color: ${$COLOR_PALETTE_STORE[INVERT_THEME($THEME)].lite_gray};`
-            }
-        );
+        if (!validateUrl(input_val)) {
+            input_val = "";
+            return my_toaster.NOT_A_VALID_URL();
+        }
+
+        const user_id = getUserOrAgentId(current_user);
 
         console.log("input_val validation", validateUrl(input_val));
 
         const newLink: LINK_OBJ = {
-            user_id: "1",
-            _id: crypto.randomUUID(),
+            user_id,
             original: input_val, // short_link generated in the backend
             clicks: 0,
             status: "Active",
             alias: "",
-            createdAt: Date.now(),
+            createdAt: new Date().toDateString(),
         };
 
-        LINK_STORE.update((currentData) => [...currentData, newLink]);
+        fetch(formEl.action, {
+            method: "POST",
+            body: JSON.stringify(newLink)
+        }).then(_ => _.json())
+            .then(({ data }) => {
+                LINK_STORE.update((currentData) => getUniqueArray(currentData, data));
+                my_toaster.NEW_LINK_ADDED();
+            })
+            .catch(() => my_toaster.AN_ERROR_OCCURE());
 
         input_val = "";
-
-        toast("new link added",
-            {
-                icon: "✅",
-                style: `border-radius: 10px; background: ${$COLOR_PALETTE_STORE[INVERT_THEME($THEME)].bg}; color: ${$COLOR_PALETTE_STORE[INVERT_THEME($THEME)].lite_gray};`
-            }
-        );
     };
 
     $: (() => {
@@ -63,13 +71,14 @@
     })();
 
     onMount(() => {
-        console.log("this current user in form mount", {user: $CURRENT_USER, page: $page})
+        console.log("this current user in form mount", {user: current_user, page: $page})
     })
 
     onDestroy(() => unsubscribe());
 </script>
 
 <form
+    action="/api/urls"
     on:submit|preventDefault={hanldeSubmit}
     class="flex items-center justify-center gap-1 border-[2px] border-app_border rounded-full p-[5px_9px] sm:p-1 sm:px-2"
 >

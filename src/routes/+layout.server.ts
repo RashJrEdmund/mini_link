@@ -1,6 +1,5 @@
 import { getCurrentUser, getUserUrls } from "$backend/client";
 import { custom_logger } from "$services/functions/utils";
-import type { Action } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types"
 
 export const load: PageServerLoad = async (props) => {
