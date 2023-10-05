@@ -58,6 +58,7 @@
             body: JSON.stringify(newLink)
         }).then(_ => _.json())
             .then(({ data }) => {
+                console.log("data", data)
                 LINK_STORE.update((currentData) => getUniqueArray(currentData, data));
                 my_toaster.NEW_LINK_ADDED();
             })

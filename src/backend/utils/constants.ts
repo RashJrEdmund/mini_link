@@ -11,7 +11,7 @@ type S = string;
 
 type N = number;
 
-export const SALT_ROUNDS: N = +HASH_SALT_ROUNDS;
+export const SALT_ROUNDS: N = Number(HASH_SALT_ROUNDS);
 
 export const MONGO_URL: S = MONGO_CONNECT_URL;
 

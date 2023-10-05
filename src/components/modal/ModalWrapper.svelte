@@ -23,7 +23,7 @@
     }
 
     $: (() => {
-        if (is_open) window.style = "overflow: hidden;"
+        if (is_open) document.style = "overflow: hidden;"
     })()
 </script>
 
@@ -42,7 +42,7 @@
         style={`background-color: ${$COLOR_PALETTE_STORE[$THEME].app_bg}`}
         class="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[min(97vw,_300px)] flex flex-col items-start rounded p-2 z-20"
     >
-        <SpanTag>{title}</SpanTag>
+        <SpanTag sx="border-b w-full pb-1">{title}</SpanTag>
 
         <div class="flex flex-col items-center justify-center my-2">
             <slot />
