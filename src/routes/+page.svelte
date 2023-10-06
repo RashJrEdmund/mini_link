@@ -13,10 +13,10 @@
 
     export let data: PageData; // page data
 
-    $: current_user = $page.data;
+    $: current_user = $page.data.current_user || null
 
     onMount(() => {
-        console.log("htis home page data", {data, current_user})
+        console.log("htis home page data", data, current_user)
         // TODO +=> check if data.current_user is a premium user and get his number of chances left;
     });
 </script>

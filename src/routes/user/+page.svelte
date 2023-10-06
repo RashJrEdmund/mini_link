@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { goto } from "$app/navigation";
 	import { navigating, page } from "$app/stores";
     import ATag from "$components/atoms/A_Tag.svelte";
     import Button from "$components/atoms/Button.svelte";
@@ -17,11 +16,6 @@
 		console.log("this navigating", $navigating, { form, data })
     })();
 </script>
-
-<svelte:head>
-	<title>About</title>
-	<meta name="description" content="About this app" />
-</svelte:head>
 
 <div class="text-column">
 	<PTag>current_user</PTag>
