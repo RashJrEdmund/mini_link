@@ -34,7 +34,7 @@ export default class URL_SERVICE {
             ...url,
             _id,
             user_id: createObjectId(url.user_id),
-            short_link: BASE_SHORTEN_URL + nanoid(SHORTEN_LENGTH) // generating short_link
+            short_link: `${BASE_SHORTEN_URL}/${nanoid(SHORTEN_LENGTH)}` // generating short_link
         });
 
         return this.getById(_id.toString());

@@ -1,13 +1,13 @@
-import express from "express";
-import dotenv from "dotenv";
+import express, { Application } from "express";
+import { PORT } from "./services/constants";
+import App from "./services/express/express.app";
 
-dotenv.config();
+(async () => {
+    const app: Application = express();
 
-const app = express();
-const PORT = process.env.PORT || 8000;
+    const server_message = `listening on \nhttp://localhost:${PORT}/ \n\n`
 
-app.get('/', (_, res) => {
-    res.send("hello rash")
-});
-
-app.listen(PORT, () => console.log(`listening on \n\n http://localhost:${PORT}/ \n`))
+    App(app)
+        .then(() => app.listen(PORT, () => console.log(server_message)))
+        .catch(console.log);
+})();
