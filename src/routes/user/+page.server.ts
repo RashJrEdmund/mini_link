@@ -17,8 +17,6 @@ export const load: PageServerLoad = async (props) => {
     console.log({ locals });
 
     const token = cookies.get("token");
-
-    console.log("this locals", { token })
 }
 
 export const actions: Actions = {

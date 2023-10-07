@@ -40,7 +40,7 @@
 		<main
 			class="w-res_width mx-auto border-app_border pb-10 min-h-[60vh]"
 		>
-			<slot {current_user} />
+			<slot />
 		</main>
 
 		<!-- <Footer  {current_user} /> -->

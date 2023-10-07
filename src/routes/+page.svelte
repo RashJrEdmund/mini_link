@@ -42,7 +42,7 @@
 
         {#if current_user}
             <SpanTag>
-                You can create as many as <SpanTag success>unlimited</SpanTag> more links.
+                You can create as many as <SpanTag success>unlimited</SpanTag> links.
                 previlages for logged in users only
             </SpanTag>
         {:else}

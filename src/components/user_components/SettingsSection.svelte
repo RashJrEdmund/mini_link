@@ -10,7 +10,7 @@
     };
 </script>
 
-<main>
+<section>
     <ul>
         <li>
             <P_Tag box_transparent sx="flex flex-col gap-1">
@@ -39,4 +39,4 @@
             </P_Tag>
         </li>
     </ul>
-</main>
+</section>

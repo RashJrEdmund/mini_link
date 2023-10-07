@@ -3,20 +3,24 @@
 	import { page } from "$app/stores";
     import PTag from "$components/atoms/P_Tag.svelte";
     import { onMount } from "svelte";
-    import type { ActionData } from "./$types";
     import { COLOR_PALETTE_STORE, THEME } from "../../store/store";
 
-	const current_user = $page.data.current_user || null;
+	export let data;
+    let component_did_mount: boolean = false;
+
+	$: current_user = data.current_user || null;
+
+    $: () => {
+        console.clear();
+        console.log("here", current_user);
+		// if (component_did_mount && !current_user) goto("/");
+	}
 
     onMount(() => {
-        // if (!current_user) goto("/")
+        if (!current_user) goto("/");
+        component_did_mount = true;
     })
 </script>
-
-<svelte:head>
-	<title>About</title>
-	<meta name="description" content="About this app" />
-</svelte:head>
 
 <div class="text-column">
     {#if current_user}
