@@ -8,6 +8,7 @@
     export let grayed: boolean = false;
     export let active: boolean = false;
     export let in_active: boolean = false;
+    export let danger: boolean = false;
 
     export let action: any = () => null;
 
@@ -27,6 +28,7 @@
                 ? $COLOR_PALETTE_STORE[$THEME].bg_gray
                 : active
                 ? $COLOR_PALETTE_STORE[$THEME].active_link
+                : danger ? $COLOR_PALETTE_STORE[$THEME].main_pink
                 : in_active
                 ? $COLOR_PALETTE_STORE[$THEME].inactive_link
                 : $COLOR_PALETTE_STORE[$THEME].main_blue

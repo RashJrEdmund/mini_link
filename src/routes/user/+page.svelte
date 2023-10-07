@@ -49,18 +49,26 @@
 
 	<LineSeperator sx="mt-4"/>
 
-	<form
-		use:enhance
-		action="?/logout"
-		method="post"
-		class="mb-3"
-	>
-		<Button in_active type="submit" >log me out</Button>
-	</form>
+	<div class="w-full flex flex-wrap items-center justify-end py-2 gap-2">
+		<ATag path="/login" sx="ml-1">
+			<Button>
+				switch accounts
+			</Button>
+		</ATag>
 
-	<ATag path="/login">
-		<Button>
-			switch accounts
-		</Button>
-	</ATag>
+		<form
+			use:enhance
+			action="?/logout"
+			method="post"
+			class="ml-1"
+		>
+			<Button in_active type="submit" >log me out</Button>
+		</form>
+
+		<ATag sx="ml-1">
+			<Button danger>
+				Delete accounts
+			</Button>
+		</ATag>
+	</div>
 </div>
