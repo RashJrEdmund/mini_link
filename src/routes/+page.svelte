@@ -8,6 +8,8 @@
     import MiniLinkTable from "$components/mini_table/MiniLinkTable.svelte";
     import { APP_NAME } from "../store/store";
     import { onMount } from "svelte";
+    import PTag from "$components/atoms/P_Tag.svelte";
+    import GetAnalytics from "$components/mini_table/GetAnalytics.svelte";
 
     let chances = "0" + 5;
 
@@ -55,7 +57,11 @@
     </section>
 
     <section class="w-full pt-[90px] md:pt-[130px]">
-        <MiniLinkTable />
+        {#if current_user}
+            <MiniLinkTable />
+        {:else}
+            <GetAnalytics />
+        {/if}
     </section>
 </section>
 

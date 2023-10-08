@@ -12,6 +12,7 @@
     import toast from "svelte-french-toast";
     import getUserOrAgentId from "$services/functions/user_id";
     import TOAST_SERVICE from "$services/functions/toast";
+    import TemporalLinkHolder from "./TemporalLinkHolder.svelte";
 
     let linkData: LINK_OBJ[] | null;
 
@@ -107,3 +108,5 @@
         />
     </Button>
 </form>
+
+<TemporalLinkHolder />
