@@ -29,6 +29,8 @@
 
                 <ProfileHolder {current_user} />
             {:else}
+                <ToggleTheme />
+
                 <ATag path="/login">
                     <Button text="Login" grayed>
                         <img src={LoginIcon} alt="login icon" />
@@ -42,8 +44,6 @@
                 <!-- <ATag path="/create-account" sx="hidden sm:inline">
                     <Button text="Register Now" />
                 </ATag> -->
-
-                <ToggleTheme />
             {/if}
         </section>
     </div>

@@ -1,3 +1,4 @@
+import toast from "svelte-french-toast";
 import type { THEME_MODE } from "../types";
 
 type InvertBoolean = (bool: boolean) => boolean;
@@ -6,6 +7,8 @@ type LoggerTYPe = (_label: string, val: any, options?: {
     clear?: boolean,
     type?: "warn" | "error" | "log",
 }) => void;
+
+type COPY = (short_link: string) => void | null;
 
 export const invertBooleanValue: InvertBoolean = (bool) => {
     return !bool;
@@ -37,4 +40,10 @@ export const shorten_text = (text: string | undefined) => {
 
 export const getUniqueArray = (arr: any[], update: unknown) => {
     return Array.from(new Set([...arr, update]));
+}
+
+export const copyLink: COPY =  (short_link) => {
+    navigator.clipboard.writeText(short_link)
+        .then(() => toast.success("link copied"))
+        .catch(() => toast.error("try again"));
 }

@@ -10,10 +10,8 @@ import PTag from "$components/atoms/P_Tag.svelte";
 <div class="w-[min(500px,_97vw)] mx-auto">
     <PTag>
         <SpanTag>
-            <ATag is_link path="/login" sx="font-bold">Login to</ATag>
+            <ATag is_link path="/login" sx="font-bold mr-[3px]">Login to</ATag>
+            get and see analytics for the links you shorten.
         </SpanTag>
-    </PTag>
-    <PTag>
-        get and see analytics for the links you shorten.
     </PTag>
 </div>

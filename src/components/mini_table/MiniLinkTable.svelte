@@ -10,9 +10,8 @@
     import toast from "svelte-french-toast";
     import TopSection from "./components/TopSection.svelte";
     import PaginationSection from "./components/PaginationSection.svelte";
+    import { copyLink } from "$services/functions/utils";
     // import { getUserUrls } from "$backend/client";
-
-    type COPY = (short_link: string) => void | null;
 
     let current_user: any = null;
 
@@ -25,12 +24,6 @@
     const unsubscribe_user = CURRENT_USER.subscribe((data) => {
         current_user = data
     });
-
-    const copyLink: COPY =  (short_link) => {
-        navigator.clipboard.writeText(short_link)
-            .then(() => toast.success("link copied"))
-            .catch(() => toast.error("try again"));
-    }
 
     onDestroy(() => {
         unsubscribe();

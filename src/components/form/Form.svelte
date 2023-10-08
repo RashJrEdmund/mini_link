@@ -24,17 +24,16 @@
 
     let input_val = "";
 
+    let temp_link: LINK_OBJ;
+
     const hanldeSubmit = async (e) => {
         const formEl = e.target as HTMLFormElement;
 
         const my_toaster = new TOAST_SERVICE(toast);
+
+        console.log("formEl.action,", formEl.action)
     
-        if (!input_val.trim()) return toast("👀",
-            {
-                icon: "👀",
-                style: `border-radius: 10px; background: ${$COLOR_PALETTE_STORE[INVERT_THEME($THEME)].bg}; color: ${$COLOR_PALETTE_STORE[INVERT_THEME($THEME)].lite_gray};`
-            }
-        );
+        if (!input_val.trim()) return my_toaster.STARE(); // 👀
 
         if (!validateUrl(input_val)) {
             input_val = "";
@@ -59,9 +58,9 @@
             body: JSON.stringify(newLink)
         }).then(_ => _.json())
             .then(({ data }) => {
-                console.log("data", data)
                 LINK_STORE.update((currentData) => getUniqueArray(currentData, data));
                 my_toaster.NEW_LINK_ADDED();
+                temp_link = data;
             })
             .catch(() => my_toaster.AN_ERROR_OCCURE());
 
@@ -109,4 +108,4 @@
     </Button>
 </form>
 
-<TemporalLinkHolder />
+<TemporalLinkHolder {temp_link} />
