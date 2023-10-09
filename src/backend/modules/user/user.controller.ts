@@ -20,6 +20,8 @@ export default class USER_CONTROLLER {
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+                data: null,
+                status: er.status ?? 500,
             });
         }
     }
@@ -44,6 +46,8 @@ export default class USER_CONTROLLER {
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+                data: null,
+                status: er.status ?? 500,
             });
         }
     }
@@ -72,6 +76,8 @@ export default class USER_CONTROLLER {
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+                data: null,
+                status: er.status ?? 500,
             });
         }
     }
@@ -108,6 +114,8 @@ export default class USER_CONTROLLER {
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+                data: null,
+                status: er.status ?? 500,
             });
         }
     }

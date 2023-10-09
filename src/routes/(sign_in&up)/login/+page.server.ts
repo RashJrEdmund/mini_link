@@ -17,7 +17,7 @@ export const actions: Actions = {
 
         const res = await loginWithEmailPassword({ email, password });
 
-        if (!res.data) return {
+        if (!res.data || res.status !== 200) return {
             message: "Incorrect email or password",
             status: 404,
         };

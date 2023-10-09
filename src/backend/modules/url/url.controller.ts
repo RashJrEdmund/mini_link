@@ -22,6 +22,7 @@ export default class URL_CONTROLLER {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
                 data: null,
+                status: er.status ?? 500,
             });
         }
     };
@@ -46,7 +47,8 @@ export default class URL_CONTROLLER {
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
-                data: null
+                data: null,
+                status: er.status ?? 500,
             });
         }
     };
@@ -71,7 +73,8 @@ export default class URL_CONTROLLER {
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
-                data: null
+                data: null,
+                status: er.status ?? 500,
             });
         }
     }
@@ -98,7 +101,8 @@ export default class URL_CONTROLLER {
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
-                data: null
+                data: null,
+                status: er.status ?? 500,
             });
         }
     }
@@ -127,7 +131,8 @@ export default class URL_CONTROLLER {
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
-                data: null
+                data: null,
+                status: er.status ?? 500,
             });
         }
     }
@@ -164,7 +169,8 @@ export default class URL_CONTROLLER {
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
-                data: null
+                data: null,
+                status: er.status ?? 500,
             });
         }
     }

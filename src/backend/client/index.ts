@@ -6,7 +6,6 @@ export {
     createUsers,
 } from "./auth";
 
-
 // ========== URL_EXPORTS ==========
 
 export {
@@ -25,3 +24,13 @@ export {
     updateUser,
     deleteUser,
 } from "./users";
+
+// ========== VISITOR_EXPORTS ==========
+
+export {
+    getVisitor,
+    getOneVisitor,
+    registerVisitor,
+    updateVisitor,
+    deleteVisitor,
+} from "./visitors";

@@ -2,14 +2,20 @@ import { error, type Cookies } from "@sveltejs/kit";
 import { ObjectId } from "mongodb";
 import REQ_NOT_FOUND_ERROS from "./REQ_ERROR";
 
+type STRINGIFY = (obj: any, options?: {
+    _spacing?: number,
+    status?: number,
+}
+) => string;
+
 export const headers = {
     "Content-Type": "application/json",
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "*"
 }
 
-export const stringifyData = (obj: any, _spacing = 4) => {
-    return JSON.stringify({ data: obj }, null, _spacing);
+export const stringifyData: STRINGIFY = (obj: any, options = { _spacing: 4, status: 200 }) => {
+    return JSON.stringify({ data: obj, status: options.status }, null, options._spacing);
 }
 
 export const createObjectId = (_id?: string) => {

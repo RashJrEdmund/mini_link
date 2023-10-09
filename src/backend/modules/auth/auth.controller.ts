@@ -40,7 +40,8 @@ export class AUTH_CONTROLLER {
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
-                data: null
+                data: null,
+                status: 500,
             });
         }
     }
@@ -71,7 +72,8 @@ export class AUTH_CONTROLLER {
         } catch (er: any) {
             throw error(er?.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
-                data: null
+                data: null,
+                status: 500,
             });
         }
     }
@@ -92,13 +94,14 @@ export class AUTH_CONTROLLER {
                 message: REQ_NOT_FOUND_ERROS.BEAER_NOT_FOUND(),
             });
 
-            return new Response(stringifyData(bearer), {
+            return new Response(stringifyData({ user: bearer }), {
                 headers
             });
         } catch (er: any) {
             throw error(er?.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
                 data: null,
+                status: 500,
             });
         }
     }

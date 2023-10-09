@@ -1,5 +1,7 @@
+import { createUrl } from "$backend/client";
 import { custom_logger } from "$services/functions/utils";
 import { validateUrl } from "$services/functions/validation";
+import type { LINK_OBJ } from "$services/types";
 import type { Actions } from "@sveltejs/kit";
 
 export const actions: Actions = {
@@ -23,8 +25,48 @@ export const actions: Actions = {
         //     status: 409,
         // };
 
+        // if (current_user) {
+        //     const newLink: LINK_OBJ = {
+        //         user_id: current_user.user_id,
+        //         visitor_id: "",
+        //         original: input_val, // short_link generated in the backend
+        //         clicks: 0,
+        //         status: "Active",
+        //         alias: "",
+        //         createdAt: new Date().toDateString(),
+        //     };
+
+        //     const res = await createUrl(newLink);
+
+        //     return {
+        //         message: res.message || "",
+        //         data: res.data,
+        //         status: 200
+        //     }
+        // }
+
+        // if (current_user) {
+        //     const newLink: LINK_OBJ = {
+        //         user_id: current_user.user_id,
+        //         visitor_id: visitor_data,
+        //         original: input_val, // short_link generated in the backend
+        //         clicks: 0,
+        //         status: "Active",
+        //         alias: "",
+        //         createdAt: new Date().toDateString(),
+        //     };
+
+        //     const res = await createUrl(newLink);
+
+        //     return {
+        //         message: res.message || "",
+        //         data: res.data,
+        //         status: 200
+        //     }
+        // }
+
         custom_logger("current_user", current_user);
-        custom_logger("visitor_data", visitor_data)
+        custom_logger("visitor_data", visitor_data);
     }
 }
 
