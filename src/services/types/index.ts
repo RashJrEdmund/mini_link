@@ -25,6 +25,7 @@ export type COLOR_PALETTE_TYPE = {
 export type LINK_OBJ = {
     _id?: string;
     user_id: string; // null for not logged in users
+    visitor_id?: string,
     short_link?: string;
     original: string;
     clicks: string | number;

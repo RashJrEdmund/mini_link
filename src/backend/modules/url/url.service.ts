@@ -13,8 +13,8 @@ export default class URL_SERVICE {
         return URL_REPO.getById(createObjectId(_id));
     }
 
-    static getByOriginal = (original: string) => {
-        return URL_REPO.getByOriginal(original);
+    static getByOriginal = (original: string, user_id: string) => {
+        return URL_REPO.getByOriginal(original, createObjectId(user_id));
     }
 
     static getUserUrls = (user_id: string) => {
@@ -22,11 +22,11 @@ export default class URL_SERVICE {
     }
 
     static createUrl = async (url: LINK_OBJ) => {
-        const { original } = url;
+        const { original, user_id } = url;
 
-        const prev_url = await this.getByOriginal(original);
+        const prev_url_by_user = await this.getByOriginal(original, user_id);
 
-        if (prev_url) return prev_url;
+        if (prev_url_by_user) return prev_url_by_user; // previous url by user bcs another user could have shortened thesame url.
 
         const _id = createObjectId();
 

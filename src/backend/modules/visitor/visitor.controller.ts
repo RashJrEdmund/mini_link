@@ -3,14 +3,13 @@ import { error, json, type RequestHandler } from "@sveltejs/kit";
 import REQ_NOT_FOUND_ERROS from "$backend/utils/REQ_ERROR";
 import VISITOR_SERVICE from "./visitor.service";
 import { createFromBody } from "$backend/utils/functions";
+import { custom_logger } from "$services/functions/utils";
 
 const ERR_MESSAGE = new REQ_NOT_FOUND_ERROS("VISITOR");
 
 export default class VISITOR_CONTROLLER {
     static CREATE_VISITOR: RequestHandler = async (e) => {
         const body = await e.request.json();
-
-        const { cookies } = e
 
         if (!body) throw error(404, {
             message: ERR_MESSAGE.NOT_FOUND(),
@@ -23,15 +22,15 @@ export default class VISITOR_CONTROLLER {
                 message: ERR_MESSAGE.MISSING_DETAILS(),
             });
 
+            custom_logger("new visitor", new_visitor);
+
             const visitor = await VISITOR_SERVICE.createVisitor(new_visitor);
 
             if (!visitor) throw error(404, {
                 message: ERR_MESSAGE.NOT_FOUND(),
             });
 
-            const visitor_and_chances = AUTH_SERVICE.signvisitorToken(visitor);
-
-            return new Response(stringifyData(visitor_and_chances), {
+            return new Response(stringifyData(visitor), {
                 headers
             });
         } catch (er: any) {
@@ -50,7 +49,7 @@ export default class VISITOR_CONTROLLER {
                 message: ERR_MESSAGE.NONE_FOUND(),
             });
 
-            return json(visitors, {
+            return new Response(stringifyData(visitors), {
                 headers
             });
         } catch (er: any) {

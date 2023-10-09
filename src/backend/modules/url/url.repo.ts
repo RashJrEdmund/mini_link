@@ -11,8 +11,8 @@ export default class URL_REPO {
         return URLS.findOne({ _id });
     }
 
-    static getByOriginal = (original: string) => {
-        return URLS.findOne({ original });
+    static getByOriginal = (original: string, user_id: ObjectId) => {
+        return URLS.findOne({ original, user_id }); // getting both bcs another user might shorten the same link with another user.
     }
 
     static getUserUrls = (user_id: ObjectId) => {

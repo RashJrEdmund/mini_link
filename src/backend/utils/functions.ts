@@ -1,6 +1,7 @@
 import type { LINK_OBJ, USER, VISITOR_OBJ } from "$services/types";
 import { error } from "@sveltejs/kit";
 import REQ_NOT_FOUND_ERROS from "./REQ_ERROR";
+import { MIN_VISITOR_CHANCES } from "./constants";
 
 type CREATE_FROM_BODY = (body: any, options: {
     _type: "USER" | "URL" | "VISITOR",
@@ -59,7 +60,7 @@ export const createFromBody: CREATE_FROM_BODY = (body, options) => {
                 visitor_id: body.visitor_id,
                 user_id: "",
                 links: body.links || [],
-                chances: 0,
+                chances: MIN_VISITOR_CHANCES,
                 createdAt: body?.createdAt ?? new Date().toDateString(),
             }
 
@@ -90,6 +91,7 @@ export const createFromBody: CREATE_FROM_BODY = (body, options) => {
 
             const new_url: LINK_OBJ = {
                 user_id: body.user_id,
+                visitor_id: body.visitor_id || "",
                 original: body.original, // short_link generated in URL_SERVICE.createUrl(url)
                 clicks: body.clicks ?? 0,
                 status: body.status ?? "Active",
@@ -99,7 +101,7 @@ export const createFromBody: CREATE_FROM_BODY = (body, options) => {
             return { status: 200, new_url };
         }
 
-        const accepted_url_keys: (keyof LINK_OBJ)[] = ["user_id", "short_link", "original", "clicks", "status", "alias"];
+        const accepted_url_keys: (keyof LINK_OBJ)[] = ["user_id", "visitor_id", "short_link", "original", "clicks", "status", "alias"];
 
         let new_url: any = {};
 

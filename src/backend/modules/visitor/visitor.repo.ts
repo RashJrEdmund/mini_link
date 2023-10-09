@@ -1,4 +1,4 @@
-import VISITORS from "$db/users";
+import VISITORS from "$db/visitors";
 import type { VISITOR_OBJ } from "$services/types";
 import type { ObjectId, OptionalId } from "mongodb";
 

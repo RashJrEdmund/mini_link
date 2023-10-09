@@ -14,7 +14,7 @@ export default class USER_CONTROLLER {
                 message: ERR_MESSAGE.NONE_FOUND(),
             });
 
-            return json(users, {
+            return new Response(stringifyData(users), {
                 headers
             });
         } catch (er: any) {

@@ -3,7 +3,6 @@
     import Button from "$components/atoms/Button.svelte";
     import SpanTag from "$components/atoms/SpanTag.svelte";
     import { LINKS_PER_PAGE as LPP } from "$services/constants/tableConstansts";
-    import type { LINK_OBJ } from "$services/types";
     import { onMount } from "svelte";
     import { CURRENT_USER, LINK_STORE } from "../../../store/store";
 
@@ -47,20 +46,22 @@
             showing {start} - {end <= user_urls.length ? end : user_urls.length} of {user_urls.length}
         </SpanTag>
 
-        <Button
-            in_active={start <= 0}
-            sx="mr-1 cursor-pointer"
-            action={handlePrev}
-        >
-            Prev
-        </Button>
+        {#if user_urls.length > LPP}
+            <Button
+                in_active={start <= 0}
+                sx="mr-1 cursor-pointer"
+                action={handlePrev}
+            >
+                Prev
+            </Button>
 
-        <Button
-            in_active={end >= user_urls.length}
-            sx="cursor-pointer"
-            action={handleNext}
-        >
-            Next
-        </Button>
+            <Button
+                in_active={end >= user_urls.length}
+                sx="cursor-pointer"
+                action={handleNext}
+            >
+                Next
+            </Button>
+        {/if}
     </section>
 {/if}
