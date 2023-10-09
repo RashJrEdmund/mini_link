@@ -1,5 +1,5 @@
 import { loginWithEmailPassword } from "$backend/client";
-import { redirect, type Actions } from "@sveltejs/kit";
+import type { Actions } from "@sveltejs/kit";
 
 export const actions: Actions = {
     default: async (e) => {

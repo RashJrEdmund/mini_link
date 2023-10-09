@@ -8,7 +8,6 @@
     import MiniLinkTable from "$components/mini_table/MiniLinkTable.svelte";
     import { APP_NAME } from "../store/store";
     import { onMount } from "svelte";
-    import PTag from "$components/atoms/P_Tag.svelte";
     import GetAnalytics from "$components/mini_table/GetAnalytics.svelte";
 
     let chances = "0" + 5;
@@ -42,12 +41,7 @@
         <!-- === Shortening form === -->
         <Form />
 
-        {#if current_user}
-            <SpanTag>
-                You can create as many as <SpanTag success>unlimited</SpanTag> links.
-                previlages for logged in users only
-            </SpanTag>
-        {:else}
+        {#if !current_user}
             <SpanTag>
                 You can create <SpanTag pink_alert>{chances}</SpanTag> more links.
                 <A_Tag is_link path="/login">Login</A_Tag>

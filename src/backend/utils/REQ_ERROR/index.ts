@@ -1,7 +1,7 @@
-import type { USER } from "$services/types";
+import type { USER, VISITOR_OBJ } from "$services/types";
 import type { REQ_ERROS_INTFC } from "./REQ_ERROS_INTFC";
 
-export type INDENTIFIER = "USER" | "URL"
+export type INDENTIFIER = "USER" | "URL" | "VISITOR"
 
 export type _options = {
     _strict: boolean,
@@ -54,10 +54,10 @@ export default class REQ_NOT_FOUND_ERROS implements REQ_ERROS_INTFC {
         return `NO_URLS_FOUND_FOR_THIS_USER`;
     };
 
-    FIELD_ALREADY_EXITS = (field_name: keyof USER, value?: string) => {
-        if (this.identifier !== "USER") return "INVALID_IDENTIFIER";
+    FIELD_ALREADY_EXITS = (field_name: keyof USER | keyof VISITOR_OBJ, value?: string) => {
+        if (this.identifier !== "USER" || this.identifier !== "VISITOR") return "INVALID_IDENTIFIER";
 
-        return `USER_${field_name.toUpperCase()}${value ? `: ${value} ` : "_"}IS_TAKEN`;
+        return `${this.identifier}_${field_name.toUpperCase()}${value ? `: ${value} ` : "_"}IS_TAKEN`;
     };
 
     UNRECOGNIZED_FIELD = (field: string) => {

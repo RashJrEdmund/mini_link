@@ -1,9 +1,10 @@
 import { getCurrentUser, getUserUrls } from "$backend/client";
+import { arr_themes } from "$services/constants/theme_data.server";
 import type { PageServerLoad } from "./$types"
 
 export const load: PageServerLoad = async (props) => {
     const { cookies, locals } = props;
-    const arr_themes = ["dark", "light"];
+    
 
     const theme = arr_themes.includes(cookies.get("theme")) ? cookies.get("theme") : "light";
 

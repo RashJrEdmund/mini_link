@@ -13,19 +13,6 @@
     import getUserOrAgentId from "$services/functions/user_id";
     import TOAST_SERVICE from "$services/functions/toast";
     import TemporalLinkHolder from "./TemporalLinkHolder.svelte";
-    import { enhance } from "$app/forms";
-    
-    import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-svelte';
-
-    // Set to true fo fetch data when component is mounted
-
-    const { getData, data: visitor_data, isLoading, error } = useVisitorData({ extendedResult: true }, { immediate: true });
-
-    $: {
-        if ($visitor_data) {
-            console.log("form visitor", $visitor_data)
-        }
-    }
 
     let linkData: LINK_OBJ[] | null;
 
@@ -78,13 +65,20 @@
         input_val = "";
     };
 
+    $: (() => {
+        console.log("this current user in fomr 2", $CURRENT_USER)
+    })();
+
+    onMount(() => {
+        console.log("this current user in form mount", {user: current_user, page: $page})
+    })
+
     onDestroy(() => unsubscribe());
 </script>
 
 <form
-    action="?/newLink"
-    method="POST"
-    use:enhance
+    action="/api/urls"
+    on:submit|preventDefault={hanldeSubmit}
     class="flex items-center justify-center gap-1 border-[2px] border-app_border rounded-full p-[5px_9px] sm:p-1 sm:px-2"
 >
     <SpanTag other_tags>
@@ -94,17 +88,11 @@
 
     <input
         type="text"
-        name="input_val"
+        name="form_field"
         placeholder="https://long_url_example.com..."
         style={`color: ${$COLOR_PALETTE_STORE[$THEME].lite_gray}`}
         class="border-l-2 border-l-main_blue bg-transparent p-1 rounded-none w-full sm:w-fit sm:min-w-[300px] md:min-w-[450px]"
         bind:value={input_val}
-    />
-
-    <input
-        type="hidden"
-        name="visitor_data"
-        value={JSON.stringify($visitor_data)}
     />
 
     <Button type="submit">

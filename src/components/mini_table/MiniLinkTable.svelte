@@ -45,7 +45,7 @@
                 <th>Actions</th>
             </tr>
             {#each linkData as link (link._id)}
-                <tr in:scale out:fade={{ duration: 300 }}>
+                <tr>
                     <td data-cell="mini link">
                         <span class="flex flex-col">
                             {link.alias}

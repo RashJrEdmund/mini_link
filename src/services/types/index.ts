@@ -44,9 +44,12 @@ export type USER = {
     updatedAt?: string,
 }
 
-export type USER_AGENT = {
-    _id: string, // This is going to bet the user-agent from the request header. also add finger print from fingerprintJs
-    links: LINK_OBJ[], // this is going to 
+export type VISITOR_OBJ = {
+    _id?: string, // normal _id from mongodb
+    links?: LINK_OBJ[], // this is going to 
+    visitor_id: string, // from fingerprintjs
+    chances: number,
+    user_id?: string, // just incase.
     createdAt: string,
-    updatedAt: string,
+    updatedAt?: string,
 }

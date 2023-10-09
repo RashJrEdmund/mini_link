@@ -7,8 +7,9 @@
     import ToggleTheme from "../toggle_theme/ToggleTheme.svelte";
     import ATag from "../atoms/A_Tag.svelte";
     import ProfileHolder from "../profile_holder/ProfileHolder.svelte";
+    import type { USER } from "$services/types";
 
-    export let current_user;
+    export let current_user: USER;
     console.log("this is current_user in navbar", current_user)
 </script>
 
