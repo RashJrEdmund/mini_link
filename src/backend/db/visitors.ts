@@ -1,5 +1,5 @@
 import db from "./mongo";
 
-const VISITOR = db.collection("visitor");
+const VISITOR = db.collection("visitors");
 
 export default VISITOR;

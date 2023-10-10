@@ -49,8 +49,8 @@ export type VISITOR_OBJ = {
     _id?: string, // normal _id from mongodb
     links?: LINK_OBJ[], // this is going to 
     visitor_id: string, // from fingerprintjs
-    chances: number,
-    user_id?: string, // just incase.
+    chances?: number,
+    user_id?: string | null, // just incase.
     createdAt: string,
     updatedAt?: string,
 }

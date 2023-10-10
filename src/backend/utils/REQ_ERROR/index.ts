@@ -55,7 +55,7 @@ export default class REQ_NOT_FOUND_ERROS implements REQ_ERROS_INTFC {
     };
 
     FIELD_ALREADY_EXITS = (field_name: keyof USER | keyof VISITOR_OBJ, value?: string) => {
-        if (this.identifier !== "USER" || this.identifier !== "VISITOR") return "INVALID_IDENTIFIER";
+        // if (this.identifier !== "USER" || this.identifier !== "VISITOR") return "INVALID_IDENTIFIER";
 
         return `${this.identifier}_${field_name.toUpperCase()}${value ? `: ${value} ` : "_"}IS_TAKEN`;
     };
