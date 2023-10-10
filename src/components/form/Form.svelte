@@ -1,11 +1,13 @@
 <script lang="ts">
+    import type { LINK_OBJ } from "$services/types";
+    import type { ActionData } from "../../routes/$types";
+
     import { page } from "$app/stores";
     import Button from "../atoms/Button.svelte";
     import SpanTag from "../atoms/SpanTag.svelte";
     import LinkIcon from "$lib/icons/link_icon.svg";
     import ScissorsIcon from "$lib/icons/scissors.png";
     import { COLOR_PALETTE_STORE, CURRENT_USER, LINK_STORE, THEME } from "../../store/store";
-    import type { LINK_OBJ } from "$services/types";
     import { onDestroy, onMount } from "svelte";
     import { INVERT_THEME, getUniqueArray } from "$services/functions/utils"
     import { validateUrl } from "$services/functions/validation";
@@ -14,7 +16,7 @@
     import TOAST_SERVICE from "$services/functions/toast";
     import TemporalLinkHolder from "./TemporalLinkHolder.svelte";
     import { enhance } from "$app/forms";
-    
+
     import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-svelte';
 
     // Set to true fo fetch data when component is mounted
@@ -77,6 +79,15 @@
 
         input_val = "";
     };
+
+    export let form: ActionData;
+
+    $: ( async () => {
+        if (form?.data) {
+            console.log({form});
+            temp_link = form.data
+        }
+    })()
 
     onDestroy(() => unsubscribe());
 </script>

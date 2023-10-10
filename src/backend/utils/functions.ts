@@ -85,12 +85,12 @@ export const createFromBody: CREATE_FROM_BODY = (body, options) => {
         const ERR_MESSAGE = new REQ_NOT_FOUND_ERROS("URL");
 
         if (options._strict) { // strict mode is good for creation
-            if (!(body.user_id && body.original)) throw error(401, {
+            if (!((body.user_id || body.visitor_id) && body.original)) throw error(401, {
                 message: ERR_MESSAGE.MISSING_DETAILS()
             });
 
             const new_url: LINK_OBJ = {
-                user_id: body.user_id,
+                user_id: body.user_id || "",
                 visitor_id: body.visitor_id || "",
                 original: body.original, // short_link generated in URL_SERVICE.createUrl(url)
                 clicks: body.clicks ?? 0,

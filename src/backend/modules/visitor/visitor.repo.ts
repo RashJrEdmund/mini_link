@@ -1,5 +1,4 @@
 import VISITORS from "$db/visitors";
-import type { VISITOR_OBJ } from "$services/types";
 import type { ObjectId, OptionalId } from "mongodb";
 
 export default class USER_REPO {
@@ -19,11 +18,11 @@ export default class USER_REPO {
         return VISITORS.insertOne(visitor);
     }
 
-    static editVisitor = (_id: ObjectId, visitor: VISITOR_OBJ) => {
-        return VISITORS.findOneAndUpdate({ _id }, { $set: { ...visitor } });
+    static editVisitor = (visitor_id: string, update: any) => {
+        return VISITORS.findOneAndUpdate({ visitor_id }, { $set: { ...update } });
     }
 
-    static delete = (_id: ObjectId) => {
-        return VISITORS.findOneAndDelete({ _id });
+    static delete = (visitor_id: string) => {
+        return VISITORS.findOneAndDelete({ visitor_id });
     }
 }

@@ -22,7 +22,7 @@ export default class VISITOR_CONTROLLER {
                 message: ERR_MESSAGE.MISSING_DETAILS(),
             });
 
-            custom_logger("new visitor", new_visitor);
+            custom_logger("NEW VISITOR LOADING", new_visitor);
 
             const visitor = await VISITOR_SERVICE.createVisitor(new_visitor);
 
@@ -62,15 +62,15 @@ export default class VISITOR_CONTROLLER {
         }
     }
 
-    static GET_ONE_VISITOR: RequestHandler = async (e) => {
-        const { params: { _id } } = e;
+    static GET_ONE_AND_CURRENT_VISITOR: RequestHandler = async (e) => {
+        const { params: { visitor_id } } = e;
 
-        if (!_id) throw error(404, {
+        if (!visitor_id) throw error(404, {
             message: ERR_MESSAGE.NOT_FOUND(),
         });
 
         try {
-            const visitor = await VISITOR_SERVICE.getBy_id(_id);
+            const visitor = await VISITOR_SERVICE.getByVisitorId(visitor_id);
 
             if (!visitor) throw error(404, {
                 message: ERR_MESSAGE.NOT_FOUND(),
@@ -91,16 +91,16 @@ export default class VISITOR_CONTROLLER {
     static EDIT_VISITOR: RequestHandler = async (req) => {
         const body = await req.request.json();
 
-        const { params: { _id } } = req;
+        const { params: { visitor_id } } = req;
 
         try {
             const { status, new_visitor: prev_visitor } = createFromBody(body, { _type: "VISITOR", _strict: false });
 
-            if (!_id || status !== 200 || !prev_visitor) throw error(404, {
+            if (!visitor_id || status !== 200 || !prev_visitor) throw error(404, {
                 message: ERR_MESSAGE.MISSING_DETAILS(),
             });
 
-            const update_user = await VISITOR_SERVICE.editVisitor(_id, prev_visitor);
+            const update_user = await VISITOR_SERVICE.editVisitor(visitor_id, prev_visitor);
 
             if (!update_user) throw error(500, {
                 message: ERR_MESSAGE.MISSING_DETAILS(),
@@ -119,18 +119,18 @@ export default class VISITOR_CONTROLLER {
     }
 
     static DELETE_VISITOR: RequestHandler = async (req) => {
-        const { params: { _id } } = req;
+        const { params: { visitor_id } } = req;
 
-        if (!_id) throw error(404, {
+        if (!visitor_id) throw error(404, {
             message: ERR_MESSAGE.NOT_FOUND(),
         });
 
         try {
-            const res = await VISITOR_SERVICE.delete(_id);
+            const res = await VISITOR_SERVICE.delete(visitor_id);
 
             if (!res) return json(
                 {
-                    message: `VISITOR_ID: ${_id} NOT FOUND`
+                    message: `VISITOR_ID: ${visitor_id} NOT FOUND`
                 },
                 {
                     status: 404,
@@ -140,7 +140,7 @@ export default class VISITOR_CONTROLLER {
 
             return json(
                 {
-                    message: `VISITOR: ${res._id ?? _id} SUCCESFULLY DELETED`
+                    message: `VISITOR: ${res.visitor_id ?? visitor_id} SUCCESFULLY DELETED`
                 },
                 {
                     status: 404,

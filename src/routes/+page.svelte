@@ -1,6 +1,6 @@
 <script lang="ts">
     import { page } from "$app/stores";
-    import type { PageData } from "./$types";
+    import type { ActionData, PageData } from "./$types";
     import A_Tag from "$components/atoms/A_Tag.svelte";
     import HeaderText from "$components/atoms/HeaderText.svelte";
     import SpanTag from "$components/atoms/SpanTag.svelte";
@@ -9,15 +9,17 @@
     import { APP_NAME } from "../store/store";
     import { onMount } from "svelte";
     import GetAnalytics from "$components/mini_table/GetAnalytics.svelte";
-
-    let chances = "0" + 5;
+    import VisitorMessage from "$components/visitormessage/VisitorMessage.svelte";
 
     export let data: PageData; // page data
 
-    $: current_user = $page.data.current_user || null
+    export let form: ActionData;
+
+    $: current_user = $page.data.current_user || null;
+    $: visitor = $page.data.visitor || null;
 
     onMount(() => {
-        console.log("htis home page data", data, current_user)
+        console.log("htis home page data", $page)
         // TODO +=> check if data.current_user is a premium user and get his number of chances left;
     });
 </script>
@@ -39,14 +41,10 @@
         </SpanTag>
 
         <!-- === Shortening form === -->
-        <Form />
+        <Form {form} />
 
         {#if !current_user}
-            <SpanTag>
-                You can create <SpanTag pink_alert>{chances}</SpanTag> more links.
-                <A_Tag is_link path="/login">Login</A_Tag>
-                Now to enjoy Unlimited usage
-            </SpanTag>
+            <VisitorMessage bind:visitor /> <!-- the visitor message-->
         {/if}
     </section>
 

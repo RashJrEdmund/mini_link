@@ -1,8 +1,20 @@
 import { createUrl, registerVisitor } from "$backend/client";
 import { custom_logger } from "$services/functions/utils";
 import { validateUrl } from "$services/functions/validation";
-import type { LINK_OBJ, VISITOR_OBJ } from "$services/types";
+import type { LINK_OBJ, USER, VISITOR_OBJ } from "$services/types";
 import type { Actions } from "@sveltejs/kit";
+
+import type { PageServerLoad } from "./$types"
+
+export const load: PageServerLoad = async (props) => {
+    const { cookies, locals } = props;
+
+    custom_logger("SOME DATA", "some data", { clear: true });
+
+    return {
+        somedata: "somedata in apge"
+    }
+}
 
 export const actions: Actions = {
     newLink: async ({ request, cookies, locals }) => {
@@ -11,23 +23,23 @@ export const actions: Actions = {
 
         const visitor_data = JSON.parse(data.get("visitor_data") as string);
 
-        const current_user = locals.current_user;
+        const current_user: USER = locals.current_user;
 
-        // if (!input_val) return {
-        //     message: "STARE",
-        //     data: null,
-        //     status: 401,
-        // };
+        if (!input_val) return {
+            message: "STARE",
+            data: null,
+            status: 401,
+        };
 
-        // if (!validateUrl(input_val)) return {
-        //     message: "NOT_A_VALID_URL",
-        //     data: null,
-        //     status: 409,
-        // };
+        if (!validateUrl(input_val)) return {
+            message: "NOT_A_VALID_URL",
+            data: null,
+            status: 409,
+        };
 
         if (current_user) {
             const newLink: LINK_OBJ = {
-                user_id: current_user.user_id,
+                user_id: current_user._id as string,
                 visitor_id: "",
                 original: input_val, // short_link generated in the backend
                 clicks: 0,
@@ -38,8 +50,10 @@ export const actions: Actions = {
 
             const res = await createUrl(newLink);
 
+            custom_logger("form res", res)
+
             return {
-                message: res.message || "",
+                message: res?.message || "",
                 data: res.data,
                 status: 200
             }
@@ -50,24 +64,26 @@ export const actions: Actions = {
 
             let visitor_id;
 
-            if (visitor) visitor_id = visitor.visitorId;
+            if (visitor) visitor_id = visitor.visitor_id;
             else {
+                visitor_id = visitor_data.visitorId;
+
                 const _new_visitor: VISITOR_OBJ = { // the rest of the object created in the from body function
                     links: [], // this is going to 
-                    visitor_id: visitor_data.visitorId, // from fingerprintjs
+                    visitor_id, // from fingerprintjs
                     user_id: null, // just incase.
                     createdAt: new Date().toDateString()
                 }
 
                 const vis_res = await registerVisitor(_new_visitor);
 
-                if (vis_res.data) visitor_id = vis_res.data.visitor_id;
+                cookies.set("visitor_id", visitor_id, { path: "/" });
 
                 locals.visitor = vis_res.data;
             }
 
             const newLink: LINK_OBJ = {
-                user_id: current_user.user_id,
+                user_id: "",
                 visitor_id,
                 original: input_val, // short_link generated in the backend
                 clicks: 0,
@@ -78,12 +94,12 @@ export const actions: Actions = {
 
             const res = await createUrl(newLink);
 
-            custom_logger("this url res", res);
+            // custom_logger("this url res", res);
 
             return {
-                message: res.message || "",
+                message: res?.message || "",
                 data: res.data,
-                status: 200
+                status: res.status
             }
         }
 

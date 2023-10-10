@@ -1,5 +1,4 @@
 import USERS from "$db/users";
-import type { USER } from "$services/types";
 import type { ObjectId, OptionalId } from "mongodb";
 
 export default class USER_REPO {
@@ -19,8 +18,8 @@ export default class USER_REPO {
         return USERS.insertOne(user);
     }
 
-    static editUser = (_id: ObjectId, user: USER) => {
-        return USERS.findOneAndUpdate({ _id }, { $set: { ...user } });
+    static editUser = (_id: ObjectId, update: any) => {
+        return USERS.findOneAndUpdate({ _id }, { $set: { ...update } });
     }
 
     static delete = (_id: ObjectId) => {

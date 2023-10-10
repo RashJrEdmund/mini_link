@@ -11,25 +11,25 @@ const getAllVisitor: () => Promise<{ data: VISITOR_OBJ[] | null, status: number,
     return httpclient.GET(VISITOR_BASE_URL);
 }
 
-const getOneVisitor: (_id: string) => VISITOR_API_RETURN_TYPE = async (_id) => {
-    return httpclient.GET(VISITOR_BASE_URL + `/${_id}`); // get one visitor
+const getOneAndCurrentVisitor: (visitor_id: string) => VISITOR_API_RETURN_TYPE = async (visitor_id) => {
+    return httpclient.GET(VISITOR_BASE_URL + `/${visitor_id}`); // get one visitor
 }
 
 const registerVisitor: (visitor: VISITOR_OBJ) => VISITOR_API_RETURN_TYPE = async (visitor) => {
     return httpclient.POST(VISITOR_BASE_URL, visitor);
 }
 
-const updateVisitor: (_id: string, update: any) => VISITOR_API_RETURN_TYPE = async (_id, update) => {
-    return httpclient.PUT(VISITOR_BASE_URL + `/${_id}`, update); // create visitor
+const updateVisitor: (visitor_id: string, update: any) => VISITOR_API_RETURN_TYPE = async (visitor_id, update) => {
+    return httpclient.PUT(VISITOR_BASE_URL + `/${visitor_id}`, update); // create visitor
 }
 
-const deleteVisitor: (_id: string) => VISITOR_API_RETURN_TYPE = async (_id) => {
-    return httpclient.DELETE(VISITOR_BASE_URL + `/${_id}`); // delete visitor
+const deleteVisitor: (visitor_id: string) => VISITOR_API_RETURN_TYPE = async (visitor_id) => {
+    return httpclient.DELETE(VISITOR_BASE_URL + `/${visitor_id}`); // delete visitor
 }
 
 export {
     getAllVisitor,
-    getOneVisitor,
+    getOneAndCurrentVisitor,
     registerVisitor,
     updateVisitor,
     deleteVisitor,

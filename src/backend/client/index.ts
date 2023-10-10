@@ -28,8 +28,7 @@ export {
 // ========== VISITOR_EXPORTS ==========
 
 export {
-    getVisitor,
-    getOneVisitor,
+    getOneAndCurrentVisitor,
     registerVisitor,
     updateVisitor,
     deleteVisitor,
