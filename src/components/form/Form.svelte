@@ -21,11 +21,11 @@
 
     // Set to true fo fetch data when component is mounted
 
-    const { getData, data: visitor_data, isLoading, error } = useVisitorData({ extendedResult: true }, { immediate: true });
+    const { getData, data: visitor_fingerprint, isLoading, error } = useVisitorData({ extendedResult: true }, { immediate: true });
 
     $: {
-        if ($visitor_data) {
-            console.log("form visitor", $visitor_data)
+        if ($visitor_fingerprint) {
+            console.log("form visitor", $visitor_fingerprint)
         }
     }
 
@@ -35,57 +35,33 @@
         linkData = val;
     });
 
-    const { current_user } = $page.data
+    $: current_user = $page.data.current_user || null;
 
-    let input_val = "";
+    let visitor_data = $visitor_fingerprint || null;
 
     let temp_link: LINK_OBJ;
 
-    const hanldeSubmit = async (e) => {
-        const formEl = e.target as HTMLFormElement;
-
-        const my_toaster = new TOAST_SERVICE(toast);
-    
-        if (!input_val.trim()) return my_toaster.STARE(); // 👀
-
-        if (!validateUrl(input_val)) {
-            input_val = "";
-            return my_toaster.NOT_A_VALID_URL();
-        }
-
-        const user_id = getUserOrAgentId(current_user);
-
-        console.log("input_val validation", validateUrl(input_val));
-
-        const newLink: LINK_OBJ = {
-            user_id,
-            original: input_val, // short_link generated in the backend
-            clicks: 0,
-            status: "Active",
-            alias: "",
-            createdAt: new Date().toDateString(),
-        };
-
-        fetch(formEl.action, {
-            method: "POST",
-            body: JSON.stringify(newLink)
-        }).then(_ => _.json())
-            .then(({ data }) => {
-                LINK_STORE.update((currentData) => getUniqueArray(currentData, data));
-                my_toaster.NEW_LINK_ADDED();
-                temp_link = data;
-            })
-            .catch(() => my_toaster.AN_ERROR_OCCURE());
-
-        input_val = "";
-    };
-
     export let form: ActionData;
+
+    export let visitor: any;
+
+    $: (() => {
+        if (visitor) {
+            visitor_data.chances = visitor.chances;
+        }
+    })();
 
     $: ( async () => {
         if (form?.data) {
+            const my_toaster = new TOAST_SERVICE(toast);
             console.log({form});
-            temp_link = form.data
+
+            if (form.message === "NEW_LINK_ADDED") my_toaster.NEW_LINK_ADDED();
+            else if (form.message === "NOT_A_VALID_URL") my_toaster.NOT_A_VALID_URL();
+            else if (form.message === "STARE") my_toaster.STARE();
+            else if (form.message === "OUT_OF_CHANCES") my_toaster.OUT_OF_CHANCES();
+
+            temp_link = form.data;
         }
     })()
 
@@ -109,13 +85,12 @@
         placeholder="https://long_url_example.com..."
         style={`color: ${$COLOR_PALETTE_STORE[$THEME].lite_gray}`}
         class="border-l-2 border-l-main_blue bg-transparent p-1 rounded-none w-full sm:w-fit sm:min-w-[300px] md:min-w-[450px]"
-        bind:value={input_val}
     />
 
     <input
         type="hidden"
         name="visitor_data"
-        value={JSON.stringify($visitor_data)}
+        value={JSON.stringify({ ...visitor_data })}
     />
 
     <Button type="submit">

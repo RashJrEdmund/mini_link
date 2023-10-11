@@ -16,7 +16,7 @@
     export let form: ActionData;
 
     $: current_user = $page.data.current_user || null;
-    $: visitor = $page.data.visitor || null;
+    $: visitor = $page.data.visitor || 0;
 
     onMount(() => {
         console.log("htis home page data", $page)
@@ -41,10 +41,10 @@
         </SpanTag>
 
         <!-- === Shortening form === -->
-        <Form {form} />
+        <Form {form} bind:visitor={visitor} />
 
         {#if !current_user}
-            <VisitorMessage bind:visitor /> <!-- the visitor message-->
+            <VisitorMessage bind:visitor={visitor} /> <!-- the visitor message-->
         {/if}
     </section>
 

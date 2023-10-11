@@ -1,5 +1,6 @@
 import { getCurrentUser, getOneAndCurrentVisitor, getUserUrls } from "$backend/client";
 import { arr_themes } from "$services/constants/theme_data.server";
+import { custom_logger } from "$services/functions/utils";
 import type { PageServerLoad } from "./$types"
 
 export const load: PageServerLoad = async (props) => {
@@ -41,11 +42,10 @@ export const load: PageServerLoad = async (props) => {
 
     const { data: visitorData } = await getOneAndCurrentVisitor(visitor_id);
 
-    // console.log("this visitor_id", { visitor_id, visitorData });
-
     if (visitorData) {
         locals.visitor = visitorData;
 
+        // custom_logger("this visitor_id", { visitor_id, visitorData, locals });
         return {
             current_user: null,
             user_urls: null,

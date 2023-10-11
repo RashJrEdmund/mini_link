@@ -53,7 +53,7 @@ export const actions: Actions = {
             custom_logger("form res", res)
 
             return {
-                message: res?.message || "",
+                message: "NEW_LINK_ADDED",
                 data: res.data,
                 status: 200
             }
@@ -61,6 +61,16 @@ export const actions: Actions = {
 
         if (!current_user) {
             const visitor = locals.visitor;
+            const chances = visitor_data.chances;
+
+            if (chances !== undefined && chances <= 0) {
+                custom_logger("cledaring", "clearing")
+                return {
+                    message: "OUT_OF_CHANCES",
+                    data: null,
+                    status: 401,
+                };
+            }
 
             let visitor_id;
 
@@ -97,7 +107,7 @@ export const actions: Actions = {
             // custom_logger("this url res", res);
 
             return {
-                message: res?.message || "",
+                message: "NEW_LINK_ADDED",
                 data: res.data,
                 status: res.status
             }
@@ -107,7 +117,6 @@ export const actions: Actions = {
         // custom_logger("visitor_data", visitor_data);
     }
 }
-
 
 /* 
 const hanldeSubmit = async (e) => {

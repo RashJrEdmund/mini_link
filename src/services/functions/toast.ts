@@ -35,6 +35,13 @@ export default class TOAST_SERVICE {
         }
     );
 
+    OUT_OF_CHANCES = () => this.toast("You are out of chances",
+        {
+            icon: "🚫",
+            style: `border-radius: 10px; background: ${this.color_palette_store[INVERT_THEME(this.theme)].bg}; color: ${this.color_palette_store[INVERT_THEME(this.theme)].lite_gray};`
+        }
+    );
+
     AN_ERROR_OCCURE = () => this.toast("An error occured",
         {
             icon: "⚠️",

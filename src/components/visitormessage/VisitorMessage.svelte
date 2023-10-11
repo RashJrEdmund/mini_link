@@ -12,7 +12,7 @@
         }
     })();
 
-    console.log("visitor", visitor)
+    console.log("visitor", visitor);
 </script>
 
 <SpanTag>
