@@ -27,9 +27,7 @@ export default class VISITOR_SERVICE {
 
             const prev_visitor = await this.getByVisitorId(visitor_id);
 
-            if (prev_visitor) throw error(401, {
-                message: ERR_MESSAGE.FIELD_ALREADY_EXITS("visitor_id"),
-            });
+            if (prev_visitor) return prev_visitor;
 
             const _id = createObjectId();
 

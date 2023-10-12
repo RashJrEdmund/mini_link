@@ -2,21 +2,25 @@
     import A_Tag from "$components/atoms/A_Tag.svelte";
     import SpanTag from "$components/atoms/SpanTag.svelte";
 
-    let chances = "0" + 5;
+    $: chances = "05";
+
+    const parseChances = (value: number | string) => {
+        if (+value > 9) return String(value);
+        return "0" + value;
+    }
 
     export let visitor: any;
 
     $: (() => {
         if (visitor) {
-            chances = visitor.chances
+            console.log("this visitor in visitor message", visitor)
+            chances = parseChances(visitor.chances);
         }
     })();
-
-    console.log("visitor", visitor);
 </script>
 
 <SpanTag>
-    You can create <SpanTag pink_alert>{chances}</SpanTag> more links.
-    <A_Tag is_link path="/login">Login</A_Tag>
-    Now to enjoy Unlimited usage
+    You are limited to shortening only <SpanTag pink_alert>{chances}</SpanTag> links.
+    <A_Tag is_link path="/login">Login</A_Tag> now or <A_Tag is_link path="/create-account">create an account</A_Tag>
+    to enjoy an unlimited usage
 </SpanTag>

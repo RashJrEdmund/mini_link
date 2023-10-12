@@ -6,7 +6,7 @@
     import type { LINK_OBJ } from "$services/types";
     import { copyLink } from "$services/functions/utils";
 
-    export let temp_link: LINK_OBJ;
+    export let temp_link: LINK_OBJ | null;
 </script>
 
 <DivTag

@@ -22,9 +22,9 @@ export default class VISITOR_CONTROLLER {
                 message: ERR_MESSAGE.MISSING_DETAILS(),
             });
 
-            custom_logger("NEW VISITOR LOADING", new_visitor);
-
             const visitor = await VISITOR_SERVICE.createVisitor(new_visitor);
+
+            custom_logger("NEW VISITOR LOADING", visitor);
 
             if (!visitor) throw error(404, {
                 message: ERR_MESSAGE.NOT_FOUND(),

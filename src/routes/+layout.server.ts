@@ -1,4 +1,5 @@
 import { getCurrentUser, getOneAndCurrentVisitor, getUserUrls } from "$backend/client";
+import { MIN_VISITOR_CHANCES } from "$backend/utils/constants";
 import { arr_themes } from "$services/constants/theme_data.server";
 import { custom_logger } from "$services/functions/utils";
 import type { PageServerLoad } from "./$types"
@@ -38,21 +39,30 @@ export const load: PageServerLoad = async (props) => {
         }
     }
 
-    const visitor_id = cookies.get("visitor_id") ?? "";
+    const visitor = JSON.parse(cookies.get("visitor") || "null");
+
+    const visitor_id = visitor?.visitor_id || "_";
 
     const { data: visitorData } = await getOneAndCurrentVisitor(visitor_id);
 
     if (visitorData) {
         locals.visitor = visitorData;
 
-        // custom_logger("this visitor_id", { visitor_id, visitorData, locals });
+        cookies.set("visitor", JSON.stringify(visitorData), { path: "/" });
+
+        custom_logger("this visitor_id", { visitor_id, visitorData, cokie_vis: cookies.getAll() });
         return {
             current_user: null,
             user_urls: null,
             theme,
             visitor: visitorData,
         }
+    } else {
+        cookies.delete("visitor_id");
+        cookies.delete("visitor");
     }
+
+    custom_logger("NO VISITOR ID NOR USER TOKEN DETECTED", null);
 
     return {
         current_user: null,

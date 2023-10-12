@@ -10,16 +10,17 @@
     import { onMount } from "svelte";
     import GetAnalytics from "$components/mini_table/GetAnalytics.svelte";
     import VisitorMessage from "$components/visitormessage/VisitorMessage.svelte";
+    import IncognitoGaurd from "$components/incognito_gaurd/IncognitoGaurd.svelte";
 
     export let data: PageData; // page data
 
     export let form: ActionData;
 
     $: current_user = $page.data.current_user || null;
-    $: visitor = $page.data.visitor || 0;
+    $: visitor = $page.data.visitor || null;
 
     onMount(() => {
-        console.log("htis home page data", $page)
+        console.log("this home page data", $page)
         // TODO +=> check if data.current_user is a premium user and get his number of chances left;
     });
 </script>
@@ -41,11 +42,13 @@
         </SpanTag>
 
         <!-- === Shortening form === -->
-        <Form {form} bind:visitor={visitor} />
+        <IncognitoGaurd>
+            <Form {form} />
 
-        {#if !current_user}
-            <VisitorMessage bind:visitor={visitor} /> <!-- the visitor message-->
-        {/if}
+            {#if !current_user}
+                <VisitorMessage bind:visitor={visitor} /> <!-- the visitor message-->
+            {/if}
+        </IncognitoGaurd>
     </section>
 
     <section class="w-full pt-[90px] md:pt-[130px]">

@@ -4,17 +4,17 @@ import { validateUrl } from "$services/functions/validation";
 import type { LINK_OBJ, USER, VISITOR_OBJ } from "$services/types";
 import type { Actions } from "@sveltejs/kit";
 
-import type { PageServerLoad } from "./$types"
+// import type { PageServerLoad } from "./$types"
 
-export const load: PageServerLoad = async (props) => {
-    const { cookies, locals } = props;
+// export const load: PageServerLoad = async (props) => {
+//     const { cookies, locals } = props;
 
-    custom_logger("SOME DATA", "some data", { clear: true });
+//     custom_logger("SOME DATA", "some data", { clear: true });
 
-    return {
-        somedata: "somedata in apge"
-    }
-}
+//     return {
+//         somedata: "somedata in apge"
+//     }
+// }
 
 export const actions: Actions = {
     newLink: async ({ request, cookies, locals }) => {
@@ -23,7 +23,7 @@ export const actions: Actions = {
 
         const visitor_data = JSON.parse(data.get("visitor_data") as string);
 
-        const current_user: USER = locals.current_user;
+        const current_user: USER | null = locals.current_user || null;
 
         if (!input_val) return {
             message: "STARE",
@@ -59,59 +59,64 @@ export const actions: Actions = {
             }
         }
 
-        if (!current_user) {
-            const visitor = locals.visitor;
-            const chances = visitor_data.chances;
+        // NO USER SECTION. WILL CHECK FOR VISITORS AND ALL
 
-            if (chances !== undefined && chances <= 0) {
-                custom_logger("cledaring", "clearing")
-                return {
-                    message: "OUT_OF_CHANCES",
-                    data: null,
-                    status: 401,
-                };
-            }
+        const visitor = JSON.parse(cookies.get("visitor") || "null");
+        // const visitor_chances = cookies.get("visitor_chances");
 
-            let visitor_id;
+        custom_logger("THIS VISITOR", visitor)
 
-            if (visitor) visitor_id = visitor.visitor_id;
-            else {
-                visitor_id = visitor_data.visitorId;
-
-                const _new_visitor: VISITOR_OBJ = { // the rest of the object created in the from body function
-                    links: [], // this is going to 
-                    visitor_id, // from fingerprintjs
-                    user_id: null, // just incase.
-                    createdAt: new Date().toDateString()
-                }
-
-                const vis_res = await registerVisitor(_new_visitor);
-
-                cookies.set("visitor_id", visitor_id, { path: "/" });
-
-                locals.visitor = vis_res.data;
-            }
-
-            const newLink: LINK_OBJ = {
-                user_id: "",
-                visitor_id,
-                original: input_val, // short_link generated in the backend
-                clicks: 0,
-                status: "Active",
-                alias: "",
-                createdAt: new Date().toDateString(),
-            };
-
-            const res = await createUrl(newLink);
-
-            // custom_logger("this url res", res);
-
+        if (visitor && +visitor.chances <= 0) {
             return {
-                message: "NEW_LINK_ADDED",
-                data: res.data,
-                status: res.status
-            }
+                message: "OUT_OF_CHANCES",
+                data: null,
+                status: 401,
+            };
         }
+
+        let visitor_id;
+
+        if (visitor && visitor.visitor_id === visitor_data.visitorId) {
+            custom_logger("vistor already exits", { visitor });
+            visitor_id = visitor.visitor_id;
+        }
+        else {
+            visitor_id = visitor_data.visitorId;
+
+            const _new_visitor: VISITOR_OBJ = { // the rest of the object created in the from body function
+                links: [], // this is going to 
+                visitor_id, // from fingerprintjs
+                user_id: null, // just incase.
+                createdAt: new Date().toDateString()
+            }
+
+            const vis_res = await registerVisitor(_new_visitor);
+
+            cookies.set("visitor", JSON.stringify(vis_res.data), { path: "/" });
+
+            custom_logger("new visitor", vis_res);
+        }
+
+        const newLink: LINK_OBJ = {
+            user_id: "",
+            visitor_id,
+            original: input_val, // short_link generated in the backend
+            clicks: 0,
+            status: "Active",
+            alias: "",
+            createdAt: new Date().toDateString(),
+        };
+
+        const res = await createUrl(newLink);
+
+        // custom_logger("this url res", res);
+
+        return {
+            message: "NEW_LINK_ADDED",
+            data: res.data,
+            status: res.status
+        }
+
 
         // custom_logger("current_user", current_user);
         // custom_logger("visitor_data", visitor_data);

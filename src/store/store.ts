@@ -16,7 +16,7 @@ if (browser) {
 
     const localTheme = LOCALSTORAGE.get("theme_mode");
 
-    console.log("theme_mode", theme_modes, typeof theme_modes, localTheme.length, localTheme);
+    console.log("theme_mode", theme_modes, typeof theme_modes, localTheme?.length, localTheme);
 }
 
 /* ========== READEABBLE_ITEMS ========== */

@@ -12,7 +12,7 @@ const getAllVisitor: () => Promise<{ data: VISITOR_OBJ[] | null, status: number,
 }
 
 const getOneAndCurrentVisitor: (visitor_id: string) => VISITOR_API_RETURN_TYPE = async (visitor_id) => {
-    return httpclient.GET(VISITOR_BASE_URL + `/${visitor_id}`); // get one visitor
+    return httpclient.GET(VISITOR_BASE_URL + `/${visitor_id ?? "_"}`); // get one visitor
 }
 
 const registerVisitor: (visitor: VISITOR_OBJ) => VISITOR_API_RETURN_TYPE = async (visitor) => {

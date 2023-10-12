@@ -21,13 +21,7 @@
 
     // Set to true fo fetch data when component is mounted
 
-    const { getData, data: visitor_fingerprint, isLoading, error } = useVisitorData({ extendedResult: true }, { immediate: true });
-
-    $: {
-        if ($visitor_fingerprint) {
-            console.log("form visitor", $visitor_fingerprint)
-        }
-    }
+    const { getData, data: visitor_data, isLoading, error } = useVisitorData({ extendedResult: true }, { immediate: true });
 
     let linkData: LINK_OBJ[] | null;
 
@@ -35,24 +29,12 @@
         linkData = val;
     });
 
-    $: current_user = $page.data.current_user || null;
-
-    let visitor_data = $visitor_fingerprint || null;
-
     let temp_link: LINK_OBJ;
 
     export let form: ActionData;
 
-    export let visitor: any;
-
-    $: (() => {
-        if (visitor) {
-            visitor_data.chances = visitor.chances;
-        }
-    })();
-
-    $: ( async () => {
-        if (form?.data) {
+    $: (async () => {
+        if (form) {
             const my_toaster = new TOAST_SERVICE(toast);
             console.log({form});
 
@@ -61,7 +43,7 @@
             else if (form.message === "STARE") my_toaster.STARE();
             else if (form.message === "OUT_OF_CHANCES") my_toaster.OUT_OF_CHANCES();
 
-            temp_link = form.data;
+            temp_link = form?.data;
         }
     })()
 
@@ -90,7 +72,7 @@
     <input
         type="hidden"
         name="visitor_data"
-        value={JSON.stringify({ ...visitor_data })}
+        value={JSON.stringify({ ...$visitor_data })}
     />
 
     <Button type="submit">
