@@ -1,4 +1,5 @@
 import { loginWithEmailPassword } from "$backend/client";
+import { SET_COOKIE_OPTIONS } from "$services/constants/cookie_options";
 import type { Actions } from "@sveltejs/kit";
 
 export const actions: Actions = {
@@ -24,10 +25,7 @@ export const actions: Actions = {
 
         const { data: { user, token } } = res;
 
-        console.log({ token, user })
-
-        cookies.set("token", token, { path: "/" });
-        locals.current_user = user;
+        cookies.set("token", token, SET_COOKIE_OPTIONS);
 
         return {
             message: `welcome back ${user.username || user.email}`,

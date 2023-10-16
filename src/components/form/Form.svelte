@@ -8,11 +8,9 @@
     import LinkIcon from "$lib/icons/link_icon.svg";
     import ScissorsIcon from "$lib/icons/scissors.png";
     import { COLOR_PALETTE_STORE, CURRENT_USER, LINK_STORE, THEME } from "../../store/store";
-    import { onDestroy, onMount } from "svelte";
+    import { onDestroy } from "svelte";
     import { INVERT_THEME, getUniqueArray } from "$services/functions/utils"
-    import { validateUrl } from "$services/functions/validation";
     import toast from "svelte-french-toast";
-    import getUserOrAgentId from "$services/functions/user_id";
     import TOAST_SERVICE from "$services/functions/toast";
     import TemporalLinkHolder from "./TemporalLinkHolder.svelte";
     import { enhance } from "$app/forms";
@@ -31,12 +29,14 @@
 
     let temp_link: LINK_OBJ;
 
+    $: current_user = $page.data.current_user || null;
+    $: visitor = $page.data.visitor || null;
+
     export let form: ActionData;
 
     $: (async () => {
         if (form) {
             const my_toaster = new TOAST_SERVICE(toast);
-            console.log({form});
 
             if (form.message === "NEW_LINK_ADDED") my_toaster.NEW_LINK_ADDED();
             else if (form.message === "NOT_A_VALID_URL") my_toaster.NOT_A_VALID_URL();
@@ -66,7 +66,7 @@
         name="input_val"
         placeholder="https://long_url_example.com..."
         style={`color: ${$COLOR_PALETTE_STORE[$THEME].lite_gray}`}
-        class="border-l-2 border-l-main_blue bg-transparent p-1 rounded-none w-full sm:w-fit sm:min-w-[300px] md:min-w-[450px]"
+        class="md:border-l-2 border-l-main_blue bg-transparent p-1 rounded-none w-full sm:w-fit sm:min-w-[300px] md:min-w-[450px]"
     />
 
     <input
@@ -81,7 +81,7 @@
             src={ScissorsIcon}
             draggable="false"
             alt="scissors icon"
-            class="h-[30px] w-[30px]"
+            class="h-[17px] w-[20px]"
         />
     </Button>
 </form>

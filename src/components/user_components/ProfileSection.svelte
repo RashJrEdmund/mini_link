@@ -18,7 +18,6 @@
 	let profile_display_info: { key: string, val: string }[] = [];
 
 	onMount(() => {
-		console.log("this user data in user route");
 		if (current_user) {
 		
 		   profile_display_info = user_display_fields.map(({ ui_key, api_res }) => ({

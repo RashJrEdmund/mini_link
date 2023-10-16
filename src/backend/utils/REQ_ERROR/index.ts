@@ -48,10 +48,12 @@ export default class REQ_NOT_FOUND_ERROS implements REQ_ERROS_INTFC {
         return `URECOGNISED_STRING_FOR_OBJECT_ID`;
     }
 
-    NOT_FOUND_UNDER_USER = () => {
+    NOT_FOUND_UNDER_IDENTIFIER = (_identifier: "USER" | "VISITOR") => {
         if (this.identifier !== "URL") return "INVALID_IDENTIFIER";
 
-        return `NO_URLS_FOUND_FOR_THIS_USER`;
+        if (_identifier !== "USER" || _identifier !== "VISITOR") return "INVALID_IDENTIFIER_ARGUMENT";
+
+        return `NO_URLS_FOUND_FOR_THIS_${_identifier}`;
     };
 
     FIELD_ALREADY_EXITS = (field_name: keyof USER | keyof VISITOR_OBJ, value?: string) => {

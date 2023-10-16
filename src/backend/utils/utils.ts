@@ -1,6 +1,7 @@
 import { error, type Cookies } from "@sveltejs/kit";
 import { ObjectId } from "mongodb";
 import REQ_NOT_FOUND_ERROS from "./REQ_ERROR";
+import { DEL_COOKIE_OPTIONS } from "$services/constants/cookie_options";
 
 type STRINGIFY = (obj: any, options?: {
     _spacing?: number,
@@ -36,7 +37,7 @@ export const clearAllCookies = (cookies: Cookies) => {
     if (!existing) return { existing: null, now: null };
 
     for (const { name } of existing) {
-        cookies.delete(name);
+        cookies.delete(name, DEL_COOKIE_OPTIONS);
     }
 
     return { existing, now: cookies.getAll() }

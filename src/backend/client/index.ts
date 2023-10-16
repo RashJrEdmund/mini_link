@@ -11,6 +11,7 @@ export {
 export {
     getUrls,
     getUserUrls,
+    getVisitorUrls,
     createUrl,
     updateUrl,
     deleteUrl

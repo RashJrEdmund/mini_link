@@ -13,7 +13,6 @@
 
     $: (() => {
         if (visitor) {
-            console.log("this visitor in visitor message", visitor)
             chances = parseChances(visitor.chances);
         }
     })();

@@ -4,16 +4,19 @@
     import SpanTag from "../atoms/SpanTag.svelte";
     import Img_Tag from "../atoms/Img_Tag.svelte";
     import { fade, scale } from "svelte/transition";
-    import { onDestroy, onMount } from "svelte";
+    import { onDestroy } from "svelte";
     import ActionButtons from "./components/ActionButtons.svelte";
     import type { LINK_OBJ } from "$services/types";
-    import toast from "svelte-french-toast";
     import TopSection from "./components/TopSection.svelte";
     import PaginationSection from "./components/PaginationSection.svelte";
     import { copyLink } from "$services/functions/utils";
     // import { getUserUrls } from "$backend/client";
 
     let current_user: any = null;
+
+    export let allow_anlytics_view: boolean = false; // default value is false
+
+    export let user_urls: LINK_OBJ[] = []; // could be for the anonymous user or for the logged in user.
 
     let linkData: LINK_OBJ[] = [];
 
@@ -39,10 +42,12 @@
             <tr>
                 <th>Short Link</th>
                 <th>Original Link</th>
-                <th>Clicks</th>
-                <th>Status</th>
-                <th>Date</th>
-                <th>Actions</th>
+                {#if allow_anlytics_view}
+                    <th>Clicks</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                {/if}
             </tr>
             {#each linkData as link (link._id)}
                 <tr>
@@ -69,18 +74,20 @@
                         </span>
                     </td>
                     <td data-cell="original">{link.original}</td>
-                    <td data-cell="clicks">{link.clicks}</td>
-                    <td data-cell="status">
-                        <SpanTag success={link.status === "Active"} pink_alert={link.status === "Inactive"} title={`this link is currently ${link.status}`}>
-                            {link.status}
-                        </SpanTag>
-                    </td>
-                    <td data-cell="date">
-                        {new Date(link?.createdAt ?? Date.now()).toDateString()}
-                    </td>
-                    <td data-cell="actions" class="flex items-center">
-                        <ActionButtons url={link} />
-                    </td>
+                   {#if allow_anlytics_view}
+                        <td data-cell="clicks">{link.clicks}</td>
+                        <td data-cell="status">
+                            <SpanTag success={link.status === "Active"} pink_alert={link.status === "Inactive"} title={`this link is currently ${link.status}`}>
+                                {link.status}
+                            </SpanTag>
+                        </td>
+                        <td data-cell="date">
+                            {new Date(link?.createdAt ?? Date.now()).toDateString()}
+                        </td>
+                        <td data-cell="actions" class="flex items-center">
+                            <ActionButtons url={link} />
+                        </td>
+                   {/if}
                 </tr>
             {:else}
                 <tr id="no_links">
@@ -93,7 +100,7 @@
         </table>
     </div>
 
-    <PaginationSection />
+    <PaginationSection bind:user_urls />
 </main>
 
 <style lang="scss">

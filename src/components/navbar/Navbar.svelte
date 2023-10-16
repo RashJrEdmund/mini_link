@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { APP_NAME, COLOR_PALETTE_STORE, CURRENT_USER, THEME } from "../../store/store";
+    import { APP_NAME, COLOR_PALETTE_STORE, THEME } from "../../store/store";
     import LoginIcon from "$lib/icons/login_icon.svg";
 
     import Button from "../atoms/Button.svelte";
@@ -10,7 +10,6 @@
     import type { USER } from "$services/types";
 
     export let current_user: USER;
-    console.log("this is current_user in navbar", current_user)
 </script>
 
 <nav

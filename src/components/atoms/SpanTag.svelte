@@ -4,7 +4,7 @@
 
     // $: theme = $page.data.theme;
 
-    // console.log("this them in span", theme) TODO +=> CHECK THIS OUT
+    // console.log("this theme in span", theme) TODO +=> CHECK THIS OUT
 
     export let pink_alert: boolean = false;
     export let success: boolean = false;

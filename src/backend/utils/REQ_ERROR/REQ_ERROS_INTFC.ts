@@ -6,7 +6,7 @@ export interface REQ_ERROS_INTFC {
     MISSING_DETAILS: STR_FNC;
     AN_ERROR_OCCURED: STR_FNC;
     NOT_FOUND: (_options: _options) => string;
-    NOT_FOUND_UNDER_USER: STR_FNC;
+    NOT_FOUND_UNDER_IDENTIFIER: (_identifier: "USER" | "VISITOR") => string;
     FIELD_ALREADY_EXITS: (field_name: keyof USER | keyof VISITOR_OBJ, value?: string) => string;
     NONE_FOUND: STR_FNC;
     UNRECOGNIZED_ENTITY: STR_FNC;

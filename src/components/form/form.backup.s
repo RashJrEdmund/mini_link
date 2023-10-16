@@ -40,8 +40,6 @@
 
         const user_id = getUserOrAgentId(current_user);
 
-        console.log("input_val validation", validateUrl(input_val));
-
         const newLink: LINK_OBJ = {
             user_id,
             original: input_val, // short_link generated in the backend
@@ -64,14 +62,6 @@
 
         input_val = "";
     };
-
-    $: (() => {
-        console.log("this current user in fomr 2", $CURRENT_USER)
-    })();
-
-    onMount(() => {
-        console.log("this current user in form mount", {user: current_user, page: $page})
-    })
 
     onDestroy(() => unsubscribe());
 </script>

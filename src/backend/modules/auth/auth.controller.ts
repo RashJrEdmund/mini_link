@@ -4,6 +4,7 @@ import { createFromBody } from "$backend/utils/functions";
 import USER_SERVICE from "../user/user.service";
 import AUTH_SERVICE from "./auth.service";
 import { error, type RequestHandler } from "@sveltejs/kit";
+import { SET_COOKIE_OPTIONS } from "$services/constants/cookie_options";
 
 const ERR_MESSAGE = new REQ_NOT_FOUND_ERROS("USER");
 
@@ -32,7 +33,7 @@ export class AUTH_CONTROLLER {
 
             const user_and_token = AUTH_SERVICE.signUserToken(user);
 
-            cookies.set("token", user_and_token.token, { path: "/", secure: true }); // setting the token to cookies
+            cookies.set("token", user_and_token.token, SET_COOKIE_OPTIONS); // setting the token to cookies
 
             return new Response(stringifyData(user_and_token), {
                 headers
@@ -64,7 +65,7 @@ export class AUTH_CONTROLLER {
 
             const user_and_token = await AUTH_SERVICE.loginWithEmailPassword(user.email, user.password);
 
-            cookies.set("token", user_and_token.token, { path: "/" }); // setting the token to cookies
+            cookies.set("token", user_and_token.token, SET_COOKIE_OPTIONS); // setting the token to cookies
 
             return new Response(stringifyData(user_and_token), {
                 headers

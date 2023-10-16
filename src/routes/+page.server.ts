@@ -1,5 +1,5 @@
-import { createUrl, registerVisitor } from "$backend/client";
-import { custom_logger } from "$services/functions/utils";
+import { createUrl, getOneAndCurrentVisitor, registerVisitor } from "$backend/client";
+import { SET_COOKIE_OPTIONS } from "$services/constants/cookie_options";
 import { validateUrl } from "$services/functions/validation";
 import type { LINK_OBJ, USER, VISITOR_OBJ } from "$services/types";
 import type { Actions } from "@sveltejs/kit";
@@ -9,21 +9,19 @@ import type { Actions } from "@sveltejs/kit";
 // export const load: PageServerLoad = async (props) => {
 //     const { cookies, locals } = props;
 
-//     custom_logger("SOME DATA", "some data", { clear: true });
-
 //     return {
 //         somedata: "somedata in apge"
 //     }
 // }
 
 export const actions: Actions = {
-    newLink: async ({ request, cookies, locals }) => {
+    newLink: async ({ request, cookies }) => {
         const data = await request.formData();
         const input_val = data.get("input_val") as string;
 
         const visitor_data = JSON.parse(data.get("visitor_data") as string);
 
-        const current_user: USER | null = locals.current_user || null;
+        const current_user: USER | null = JSON.parse(cookies.get("current_user") || "null");
 
         if (!input_val) return {
             message: "STARE",
@@ -39,7 +37,7 @@ export const actions: Actions = {
 
         if (current_user) {
             const newLink: LINK_OBJ = {
-                user_id: current_user._id as string,
+                user_id: current_user._id || "",
                 visitor_id: "",
                 original: input_val, // short_link generated in the backend
                 clicks: 0,
@@ -50,8 +48,6 @@ export const actions: Actions = {
 
             const res = await createUrl(newLink);
 
-            custom_logger("form res", res)
-
             return {
                 message: "NEW_LINK_ADDED",
                 data: res.data,
@@ -61,10 +57,7 @@ export const actions: Actions = {
 
         // NO USER SECTION. WILL CHECK FOR VISITORS AND ALL
 
-        const visitor = JSON.parse(cookies.get("visitor") || "null");
-        // const visitor_chances = cookies.get("visitor_chances");
-
-        custom_logger("THIS VISITOR", visitor)
+        let visitor = JSON.parse(cookies.get("visitor") || "null");
 
         if (visitor && +visitor.chances <= 0) {
             return {
@@ -74,10 +67,15 @@ export const actions: Actions = {
             };
         }
 
+        if (!visitor) {
+            const { data } = await getOneAndCurrentVisitor(visitor_data.visitorId);
+
+            visitor = data;
+        }
+
         let visitor_id;
 
         if (visitor && visitor.visitor_id === visitor_data.visitorId) {
-            custom_logger("vistor already exits", { visitor });
             visitor_id = visitor.visitor_id;
         }
         else {
@@ -92,9 +90,9 @@ export const actions: Actions = {
 
             const vis_res = await registerVisitor(_new_visitor);
 
-            cookies.set("visitor", JSON.stringify(vis_res.data), { path: "/" });
+            cookies.set("visitor", JSON.stringify(vis_res.data), SET_COOKIE_OPTIONS);
 
-            custom_logger("new visitor", vis_res);
+            cookies.set("visitor_id", visitor_id, { path: "/", httpOnly: true, secure: false });
         }
 
         const newLink: LINK_OBJ = {
@@ -109,57 +107,10 @@ export const actions: Actions = {
 
         const res = await createUrl(newLink);
 
-        // custom_logger("this url res", res);
-
         return {
             message: "NEW_LINK_ADDED",
             data: res.data,
             status: res.status
         }
-
-
-        // custom_logger("current_user", current_user);
-        // custom_logger("visitor_data", visitor_data);
     }
 }
-
-/* 
-const hanldeSubmit = async (e) => {
-        const formEl = e.target as HTMLFormElement;
-
-        const my_toaster = new TOAST_SERVICE(toast);
-
-        if (!input_val.trim()) return my_toaster.STARE(); // 👀
-
-        if (!validateUrl(input_val)) {
-            input_val = "";
-            return my_toaster.NOT_A_VALID_URL();
-        }
-
-        const user_id = getUserOrAgentId(current_user);
-
-        console.log("input_val validation", validateUrl(input_val));
-
-        const newLink: LINK_OBJ = {
-            user_id,
-            original: input_val, // short_link generated in the backend
-            clicks: 0,
-            status: "Active",
-            alias: "",
-            createdAt: new Date().toDateString(),
-        };
-
-        fetch(formEl.action, {
-            method: "POST",
-            body: JSON.stringify(newLink)
-        }).then(_ => _.json())
-            .then(({ data }) => {
-                LINK_STORE.update((currentData) => getUniqueArray(currentData, data));
-                my_toaster.NEW_LINK_ADDED();
-                temp_link = data;
-            })
-            .catch(() => my_toaster.AN_ERROR_OCCURE());
-
-        input_val = "";
-    };
-*/

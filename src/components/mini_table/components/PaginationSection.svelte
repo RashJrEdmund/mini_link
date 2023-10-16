@@ -1,17 +1,16 @@
 <script lang="ts">
-    import { page } from "$app/stores";
     import Button from "$components/atoms/Button.svelte";
     import SpanTag from "$components/atoms/SpanTag.svelte";
     import { LINKS_PER_PAGE as LPP } from "$services/constants/tableConstansts";
     import { onMount } from "svelte";
-    import { CURRENT_USER, LINK_STORE } from "../../../store/store";
+    import { LINK_STORE } from "../../../store/store";
 
-    const user_urls = $page.data.user_urls || [];
+    export let user_urls: any[] = [];
 
-    let start = 0;
-    let end = user_urls.length >= LPP ? LPP : user_urls.length; // LINKS_PER_PAGE
+    $: start = 0;
+    $: end = user_urls.length >= LPP ? LPP : user_urls.length; // LINKS_PER_PAGE
 
-    let current_display = user_urls.slice(start, end);
+    $: current_display = user_urls.slice(start, end);
 
     const handlePrev = () => {
         if (start <= 0) return;
@@ -33,14 +32,12 @@
         LINK_STORE.set(current_display);
     }
 
-    $: current_user = $CURRENT_USER;
-
-    onMount(() => {
-        LINK_STORE.set(current_display);
-    })
+    $: (() => {
+        if (current_display) LINK_STORE.set(current_display);
+    })()
 </script>
 
-{#if current_user && user_urls.length > 0}
+{#if user_urls.length > 0}
     <section class=" w-full flex items-center justify-end mx-auto">
         <SpanTag sx="mx-1">
             showing {start} - {end <= user_urls.length ? end : user_urls.length} of {user_urls.length}

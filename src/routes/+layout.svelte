@@ -7,16 +7,17 @@
 	import Navbar from "$components/navbar/Navbar.svelte";
 	import Footer from "$components/footer/Footer.svelte";
  
-    import toast, { Toaster } from "svelte-french-toast";
+    import { Toaster } from "svelte-french-toast";
     import type { LayoutData } from "./$types";
-    import { invalidateAll } from "$app/navigation";
     import FingerPrintProvider from "$components/fingerprint/FingerPrintProvider.svelte";
+    import { custom_logger } from "$services/functions/utils";
 
 	export let data: LayoutData;
 
 	$: current_user = data.current_user
 
 	// $: user_urls = data.user_urls
+	custom_logger("this layout data", data);
 
 	$: (() => {
 		if (current_user) CURRENT_USER.update(() => current_user);

@@ -4,9 +4,9 @@ import type { COLOR_PALETTE_TYPE, LINK_OBJ, THEME_MODE, USER } from "$services/t
 import { LOCALSTORAGE } from "$services/functions/storage";
 import { browser } from '$app/environment';
 
-if (browser) {
-    console.log("window width", window.innerWidth);
-}
+// if (browser) {
+//     console.log("window width", window.innerWidth);
+// }
 
 let theme_modes: THEME_MODE = "light" // default-theme-mode
 
@@ -15,8 +15,6 @@ if (browser) {
     theme_modes = LOCALSTORAGE.get("theme_mode") === "dark" ? "dark" : "light"
 
     const localTheme = LOCALSTORAGE.get("theme_mode");
-
-    console.log("theme_mode", theme_modes, typeof theme_modes, localTheme?.length, localTheme);
 }
 
 /* ========== READEABBLE_ITEMS ========== */

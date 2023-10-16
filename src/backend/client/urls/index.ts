@@ -18,6 +18,10 @@ const getUserUrls: (_id: string) => URLS_ARR_API_RETURN_TYPE = async (_id) => {
     return httpclient.GET(URL_BASE_URL + `/user/${_id}`);
 }
 
+const getVisitorUrls: (visitor_id: string) => URLS_ARR_API_RETURN_TYPE = async (visitor_id) => {
+    return httpclient.GET(URL_BASE_URL + `/visitor/${visitor_id}`);
+}
+
 const createUrl: (_url: LINK_OBJ) => URL_API_RETURN_TYPE = async (_url: LINK_OBJ) => {
     return httpclient.POST(API_BASE_URL + "/urls", _url);
 }
@@ -33,6 +37,7 @@ const deleteUrl: (_id: string) => URL_API_RETURN_TYPE = async (_id) => {
 export {
     getUrls,
     getUserUrls,
+    getVisitorUrls,
     createUrl,
     updateUrl,
     deleteUrl,

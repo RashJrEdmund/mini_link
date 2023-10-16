@@ -1,16 +1,14 @@
 <script lang="ts">
     import { page } from "$app/stores";
     import type { ActionData, PageData } from "./$types";
-    import A_Tag from "$components/atoms/A_Tag.svelte";
     import HeaderText from "$components/atoms/HeaderText.svelte";
     import SpanTag from "$components/atoms/SpanTag.svelte";
     import Form from "$components/form/Form.svelte";
-    import MiniLinkTable from "$components/mini_table/MiniLinkTable.svelte";
     import { APP_NAME } from "../store/store";
     import { onMount } from "svelte";
-    import GetAnalytics from "$components/mini_table/GetAnalytics.svelte";
     import VisitorMessage from "$components/visitormessage/VisitorMessage.svelte";
-    import IncognitoGaurd from "$components/incognito_gaurd/IncognitoGaurd.svelte";
+    import IncognitoGaurd from "$components/gaurds/incognito_gaurd/IncognitoGaurd.svelte";
+    import TableGaurd from "$components/gaurds/table_gaurd/TableGaurd.svelte";
 
     export let data: PageData; // page data
 
@@ -20,8 +18,7 @@
     $: visitor = $page.data.visitor || null;
 
     onMount(() => {
-        console.log("this home page data", $page)
-        // TODO +=> check if data.current_user is a premium user and get his number of chances left;
+        // TODO +=> check if data.current_user is a premium user he's extra aminities;
     });
 </script>
 
@@ -52,11 +49,7 @@
     </section>
 
     <section class="w-full pt-[90px] md:pt-[130px]">
-        {#if current_user}
-            <MiniLinkTable />
-        {:else}
-            <GetAnalytics />
-        {/if}
+        <TableGaurd bind:current_user /> <!-- MINI-LINK TABLE -->
     </section>
 </section>
 

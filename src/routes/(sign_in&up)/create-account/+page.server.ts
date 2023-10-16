@@ -1,4 +1,5 @@
 import { createUsers } from "$backend/client";
+import { SET_COOKIE_OPTIONS } from "$services/constants/cookie_options";
 import { validateEmail } from "$services/functions/validation";
 import type { Actions } from "@sveltejs/kit";
 
@@ -47,7 +48,7 @@ export const actions: Actions = {
 
         const { data: { user, token } } = res;
 
-        cookies.set("token", token, { path: "/" });
+        cookies.set("token", token, SET_COOKIE_OPTIONS);
         locals.current_user = user;
 
         return {

@@ -3,8 +3,6 @@
     import HeaderText from "$components/atoms/HeaderText.svelte";
     import errorImage from "$lib/animations/error.gif";
     import { COLOR_PALETTE_STORE, THEME } from "../store/store";
-
-    console.log({ page: $page });
 </script>
 
 <main class="min-h-[calc(100vh-250px)] flex items-center justify-center">

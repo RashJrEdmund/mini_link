@@ -3,7 +3,6 @@ import { error, json, type RequestHandler } from "@sveltejs/kit";
 import REQ_NOT_FOUND_ERROS from "$backend/utils/REQ_ERROR";
 import VISITOR_SERVICE from "./visitor.service";
 import { createFromBody } from "$backend/utils/functions";
-import { custom_logger } from "$services/functions/utils";
 
 const ERR_MESSAGE = new REQ_NOT_FOUND_ERROS("VISITOR");
 
@@ -23,8 +22,6 @@ export default class VISITOR_CONTROLLER {
             });
 
             const visitor = await VISITOR_SERVICE.createVisitor(new_visitor);
-
-            custom_logger("NEW VISITOR LOADING", visitor);
 
             if (!visitor) throw error(404, {
                 message: ERR_MESSAGE.NOT_FOUND(),

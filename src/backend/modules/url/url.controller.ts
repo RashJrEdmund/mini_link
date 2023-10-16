@@ -3,6 +3,7 @@ import URL_SERVICE from "./url.service";
 import { stringifyData, headers } from "$backend/utils/utils";
 import { createFromBody } from "$backend/utils/functions";
 import REQ_NOT_FOUND_ERROS from "$backend/utils/REQ_ERROR";
+import { custom_logger } from "$services/functions/utils";
 
 const ERR_MESSAGE = new REQ_NOT_FOUND_ERROS("URL");
 
@@ -38,10 +39,36 @@ export default class URL_CONTROLLER {
             const userUrls = await URL_SERVICE.getUserUrls(user_id);
 
             if (!userUrls) throw error(404, {
-                message: ERR_MESSAGE.NOT_FOUND_UNDER_USER(),
+                message: ERR_MESSAGE.NOT_FOUND_UNDER_IDENTIFIER("USER"),
             });
 
             return new Response(stringifyData(userUrls), {
+                headers
+            });
+        } catch (er: any) {
+            throw error(er.status ?? 500, {
+                message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
+                data: null,
+                status: er.status ?? 500,
+            });
+        }
+    };
+
+    static GET_VISITOR_URLS: RequestHandler = async (e) => {
+        const { params: { visitor_id } } = e;
+
+        if (!visitor_id) throw error(404, {
+            message: ERR_MESSAGE.NOT_FOUND({ _strict: true }),
+        });
+
+        try {
+            const visitor_urls = await URL_SERVICE.getVisitorUrls(visitor_id);
+
+            if (!visitor_urls) throw error(404, {
+                message: ERR_MESSAGE.NOT_FOUND_UNDER_IDENTIFIER("VISITOR"),
+            });
+
+            return new Response(stringifyData(visitor_urls), {
                 headers
             });
         } catch (er: any) {
@@ -88,7 +115,7 @@ export default class URL_CONTROLLER {
 
         try {
             const { status, new_url } = createFromBody(body, { _type: "URL", _strict: true }); // strict mode is recomended for creation
-
+    
             if (status !== 200 || !new_url) throw error(404, {
                 message: ERR_MESSAGE.MISSING_DETAILS(),
             });
