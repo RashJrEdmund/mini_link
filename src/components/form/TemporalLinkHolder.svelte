@@ -5,6 +5,7 @@
     import PTag from "$components/atoms/P_Tag.svelte";
     import type { LINK_OBJ } from "$services/types";
     import { copyLink } from "$services/functions/utils";
+    import SpanTag from "$components/atoms/SpanTag.svelte";
 
     export let temp_link: LINK_OBJ | null;
 </script>
@@ -12,8 +13,8 @@
 <DivTag
     sx="min-w-[min(340px,_97vw)] min-h-[2.5rem] rounded flex items-center justify-between p-2"
 >
-    <PTag sx="">
-        {temp_link?.short_link ?? "shorten and copy here"}
+    <PTag>
+        <SpanTag success={!!temp_link?.short_link}>{temp_link?.short_link ?? "shorten and copy here"}</SpanTag>
     </PTag>
 
     {#if temp_link?.short_link}

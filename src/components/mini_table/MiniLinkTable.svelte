@@ -85,7 +85,7 @@
                             {new Date(link?.createdAt ?? Date.now()).toDateString()}
                         </td>
                         <td data-cell="actions" class="flex items-center">
-                            <ActionButtons url={link} />
+                            <ActionButtons {link} />
                         </td>
                    {/if}
                 </tr>
@@ -128,6 +128,9 @@
                 th,
                 td {
                     padding: 1rem;
+                    max-width: 700px;
+                    min-width: 100px;
+                    word-break: break-all;
 
                     &[data-cell="date"] {
                         white-space: nowrap;

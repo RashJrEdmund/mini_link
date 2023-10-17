@@ -42,6 +42,20 @@ export default class TOAST_SERVICE {
         }
     );
 
+    EDIT_COMPLETED = () => this.toast("edit completed ",
+        {
+            icon: "✅",
+            style: `border-radius: 10px; background: ${this.color_palette_store[INVERT_THEME(this.theme)].bg}; color: ${this.color_palette_store[INVERT_THEME(this.theme)].lite_gray};`
+        }
+    );
+
+    URL_DELETED = () => this.toast("url deleted",
+        {
+            icon: "✅",
+            style: `border-radius: 10px; background: ${this.color_palette_store[INVERT_THEME(this.theme)].bg}; color: ${this.color_palette_store[INVERT_THEME(this.theme)].lite_gray};`
+        }
+    );
+
     AN_ERROR_OCCURE = () => this.toast("An error occured",
         {
             icon: "⚠️",

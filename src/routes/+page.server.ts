@@ -1,5 +1,6 @@
-import { createUrl, getOneAndCurrentVisitor, registerVisitor } from "$backend/client";
+import { createUrl, deleteUrl, getOneAndCurrentVisitor, registerVisitor, updateUrl } from "$backend/client";
 import { SET_COOKIE_OPTIONS } from "$services/constants/cookie_options";
+import { custom_logger } from "$services/functions/utils";
 import { validateUrl } from "$services/functions/validation";
 import type { LINK_OBJ, USER, VISITOR_OBJ } from "$services/types";
 import type { Actions } from "@sveltejs/kit";
@@ -112,5 +113,39 @@ export const actions: Actions = {
             data: res.data,
             status: res.status
         }
-    }
+    },
+
+    edit_url: async ({ request }) => {
+        const data = await request.formData();
+        const url_id = data.get("url_id") as string;
+
+        const new_alias = data.get("alias") as string;
+
+        custom_logger("editing in progress", { url_id, new_alias });
+
+        const res = await updateUrl(url_id, { alias: new_alias });
+
+        console.log("edit done", res)
+
+        return {
+            message: "EDIT_COMPLETED",
+            data: res.data,
+            status: res.status,
+        };
+    },
+
+    delete_url: async ({ request }) => {
+        const data = await request.formData();
+        const url_id = data.get("url_id") as string;
+
+        const res = await deleteUrl(url_id);
+
+        custom_logger("DELTE RESPONSE", res);
+
+        return {
+            message: "URL_DELETED",
+            data: res.data,
+            status: res.status,
+        };
+    },
 }

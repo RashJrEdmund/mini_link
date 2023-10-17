@@ -27,25 +27,18 @@
         linkData = val;
     });
 
-    let temp_link: LINK_OBJ;
+    let temp_link: LINK_OBJ | null;
 
     $: current_user = $page.data.current_user || null;
     $: visitor = $page.data.visitor || null;
 
     export let form: ActionData;
 
-    $: (async () => {
+    $: (() => {
         if (form) {
-            const my_toaster = new TOAST_SERVICE(toast);
-
-            if (form.message === "NEW_LINK_ADDED") my_toaster.NEW_LINK_ADDED();
-            else if (form.message === "NOT_A_VALID_URL") my_toaster.NOT_A_VALID_URL();
-            else if (form.message === "STARE") my_toaster.STARE();
-            else if (form.message === "OUT_OF_CHANCES") my_toaster.OUT_OF_CHANCES();
-
-            temp_link = form?.data;
+            if (form.message === "NEW_LINK_ADDED") temp_link = form?.data;
         }
-    })()
+    })();
 
     onDestroy(() => unsubscribe());
 </script>

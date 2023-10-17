@@ -9,6 +9,8 @@
     import VisitorMessage from "$components/visitormessage/VisitorMessage.svelte";
     import IncognitoGaurd from "$components/gaurds/incognito_gaurd/IncognitoGaurd.svelte";
     import TableGaurd from "$components/gaurds/table_gaurd/TableGaurd.svelte";
+    import { handle_toast_alerts } from "$services/functions/toast_alerts";
+    import toast from "svelte-french-toast";
 
     export let data: PageData; // page data
 
@@ -16,6 +18,13 @@
 
     $: current_user = $page.data.current_user || null;
     $: visitor = $page.data.visitor || null;
+
+
+    $: (async () => {
+        if (form) {
+            handle_toast_alerts(form);
+        }
+    })();
 
     onMount(() => {
         // TODO +=> check if data.current_user is a premium user he's extra aminities;

@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { browser } from "$app/environment";
+    import { enhance } from "$app/forms";
     import Button from "$components/atoms/Button.svelte";
     import SpanTag from "$components/atoms/SpanTag.svelte";
     import { COLOR_PALETTE_STORE, THEME } from "../../store/store";
@@ -10,21 +12,22 @@
 
     export let allow_modal_close: boolean = true; // wether or not the modal should close on:click;
 
-    export let handleSuccess: Function;
     export let handleClose: Function;
+
+    export let method: "POST" | "GET";
+
+    export let form_action: string;
 
     const handleCancle = () => {
         handleClose();
     }
 
-    const handleConfirm = async () => {
-        await handleSuccess();
-        handleClose();
-    }
-
     $: (() => {
-        if (is_open) document.style = "overflow: hidden;"
-    })()
+        if (browser) {
+            if (is_open) document.body.style.overflow = "hidden";
+            else document.body.style.overflow = "unset";
+        }
+    })();
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -38,9 +41,12 @@
 {/if}
 
 {#if is_open}
-    <div
+    <form
+        use:enhance
+        {method}
+        action={form_action}
         style={`background-color: ${$COLOR_PALETTE_STORE[$THEME].app_bg}`}
-        class="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[min(97vw,_300px)] flex flex-col items-start rounded p-2 z-20"
+        class="fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] w-[min(97vw,_500px)] flex flex-col items-start rounded p-2 z-20"
     >
         <SpanTag sx="border-b w-full pb-1">{title}</SpanTag>
 
@@ -48,13 +54,13 @@
             <slot />
         </div>
 
-        <section class="flex items-center justify-between w-full">
-            <Button action={handleCancle}>
+        <section class="flex items-center self-end justify-between w-[min(100%,_230px)]">
+            <Button action={handleCancle} type="button">
                 {reject_text}
             </Button>
-            <Button action={handleConfirm}>
+            <Button type="submit">
                 {confirm_text}
             </Button>
         </section>
-    </div>
+    </form>
 {/if}
