@@ -3,8 +3,8 @@
     import DeleteIcon from "$lib/icons/delete_icon.svg";
     import { LINK_STORE } from "../../../store/store";
     import type { LINK_OBJ } from "$services/types";
-    import DeleteForm from "../forms/DeleteForm.svelte";
-    import EditForm from "../forms/EditForm.svelte";
+    import DeleteForm from "$components/modal_forms/DeleteForm.svelte";
+    import EditForm from "$components/modal_forms/EditForm.svelte";
     import SpanTag from "$components/atoms/SpanTag.svelte";
 
     export let link: LINK_OBJ | null = null

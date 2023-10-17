@@ -15,6 +15,6 @@
     />
 
     <SpanTag success sx="absolute bottom-0 left-[50%] translate-x-[-50%]  translate-y-[10px]">
-        {shorten_text(current_user?.username)}
+        {shorten_text(current_user?.username, { fallback: "username", max_length: 15 })}
     </SpanTag>
 </A_Tag>

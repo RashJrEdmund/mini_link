@@ -30,11 +30,10 @@ export const custom_logger: LoggerTYPe = (_label, val, options) => {
     );
 }
 
-export const shorten_text = (text: string | undefined) => {
-    if (!text) return "username";
+export const shorten_text = (text: string | undefined, options: { fallback?: string, max_length: number }) => {
+    if (!text) return options.fallback ?? "";
 
-    const max_length = 15;
-    return text.length <= max_length ? text : text.substring(0, max_length - 3) + "...";
+    return text.length <= options.max_length ? text : text.substring(0, options.max_length - 3) + "...";
 }
 
 
@@ -42,7 +41,7 @@ export const getUniqueArray = (arr: any[], update: unknown) => {
     return Array.from(new Set([...arr, update]));
 }
 
-export const copyLink: COPY =  (short_link) => {
+export const copyLink: COPY = (short_link) => {
     navigator.clipboard.writeText(short_link)
         .then(() => toast.success("link copied"))
         .catch(() => toast.error("try again"));

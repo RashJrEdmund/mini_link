@@ -121,11 +121,9 @@ export const actions: Actions = {
 
         const new_alias = data.get("alias") as string;
 
-        custom_logger("editing in progress", { url_id, new_alias });
-
         const res = await updateUrl(url_id, { alias: new_alias });
 
-        console.log("edit done", res)
+        custom_logger("edit done", res);
 
         return {
             message: "EDIT_COMPLETED",

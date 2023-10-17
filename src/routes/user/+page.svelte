@@ -1,6 +1,7 @@
 <script lang="ts">
     import ATag from "$components/atoms/A_Tag.svelte";
     import Button from "$components/atoms/Button.svelte";
+	import LogoutForm from "$components/modal_forms/LogoutForm.svelte"
 	import LineSeperator from "$components/atoms/LineSeperator.svelte";
     import { onMount } from "svelte";
     import type { ActionData } from "./$types";
@@ -14,11 +15,18 @@
 
 	export let data
 
+	let show_logout: boolean = false;
+
 	$: current_user = data.current_user || null;
 
 	$: (() => {
 		if (form?.message === "LOGOUT") goto("/");
 	})();
+
+	const toggleLogout = () => {
+		console.log(show_logout)
+        show_logout = !show_logout;
+    };
 
 	onMount(() => {
 		if (!current_user) goto("/");
@@ -26,6 +34,8 @@
 </script>
 
 <PageGaurd bind:current_user >
+	<LogoutForm bind:is_open={show_logout} />
+
 	<div class="text-column">
 		<!-- <SpanTag>
 			<pre>
@@ -36,7 +46,7 @@
 
 		<ProfileSection {current_user} />
 
-		<LineSeperator header="settings" />
+		<LineSeperator header="app settings" />
 
 		<SettingsSection />
 
@@ -49,14 +59,13 @@
 				</Button>
 			</ATag>
 
-			<form
+			<!-- <form
 				use:enhance
 				action="?/logout"
 				method="POST"
 				class="ml-1"
-			>
-				<Button in_active type="submit" >log me out</Button>
-			</form>
+			> -->
+			<Button pure_black action={toggleLogout}>log me out</Button>
 
 			<ATag sx="ml-1">
 				<Button danger>

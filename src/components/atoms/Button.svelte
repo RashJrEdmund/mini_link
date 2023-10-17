@@ -9,6 +9,7 @@
     export let active: boolean = false;
     export let in_active: boolean = false;
     export let danger: boolean = false;
+    export let pure_black: boolean = false;
 
     export let action: any = () => null;
 
@@ -31,6 +32,8 @@
                 : danger ? $COLOR_PALETTE_STORE[$THEME].main_pink
                 : in_active
                 ? $COLOR_PALETTE_STORE[$THEME].inactive_link
+                : pure_black 
+                ? "#000"
                 : $COLOR_PALETTE_STORE[$THEME].main_blue
         };
         color: ${$COLOR_PALETTE_STORE[$THEME].text}

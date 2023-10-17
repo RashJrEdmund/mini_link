@@ -42,6 +42,7 @@
     method="POST"
     form_action="?/delete_url"
     title="Your are about to delete a URL"
+    confirm_is_dangerous
     {handleClose}
     bind:is_open
 >

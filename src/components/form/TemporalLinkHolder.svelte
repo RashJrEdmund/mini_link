@@ -23,7 +23,7 @@
             src={CopyIcon}
             alt="copy icon"
             title={`copy link ${temp_link?.alias ? 'to '+ temp_link.alias : ""}`}
-            sx="ml-1 inline cursor-pointer"
+            sx="ml-1 inline cursor-pointer border"
         />
     {/if}
 </DivTag>

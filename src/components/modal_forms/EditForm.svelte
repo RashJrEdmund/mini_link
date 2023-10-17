@@ -34,7 +34,7 @@
         <input type="hidden" name="url_id" value={link?._id} > <!-- hidden field for url_id-->
 
         <PTag>
-            <SpanTag pink_alert>Current Alias</SpanTag> : <SpanTag success>{link?.alias || "NO IS WAS GIVEN"}</SpanTag>
+            <SpanTag pink_alert>Current Alias</SpanTag> : <SpanTag success>{link?.alias || "NO ALIAS IS WAS GIVEN"}</SpanTag>
         </PTag>
 
         <TextField

@@ -9,7 +9,7 @@
     import type { LINK_OBJ } from "$services/types";
     import TopSection from "./components/TopSection.svelte";
     import PaginationSection from "./components/PaginationSection.svelte";
-    import { copyLink } from "$services/functions/utils";
+    import { copyLink, shorten_text } from "$services/functions/utils";
     // import { getUserUrls } from "$backend/client";
 
     let current_user: any = null;
@@ -27,6 +27,12 @@
     const unsubscribe_user = CURRENT_USER.subscribe((data) => {
         current_user = data
     });
+
+    // $: (() => {
+    //     console.clear();
+    //     console.log("thi user urs", user_urls)
+    //     console.log("this also LINK_STORE data", $LINK_STORE)
+    // })();
 
     onDestroy(() => {
         unsubscribe();
@@ -54,7 +60,7 @@
                     <td data-cell="mini link">
                         <span class="flex flex-col">
                             {link.alias}
-                            <span>
+                            <span class="whitespace-nowrap">
                                 <SpanTag
                                     no_wrap
                                     is_link
@@ -73,7 +79,7 @@
                             </span>
                         </span>
                     </td>
-                    <td data-cell="original">{link.original}</td>
+                    <td data-cell="original">{shorten_text(link.original, { max_length: 100 })}</td>
                    {#if allow_anlytics_view}
                         <td data-cell="clicks">{link.clicks}</td>
                         <td data-cell="status">
