@@ -12,6 +12,10 @@ export default {
         4: "2rem",
         5: "2.5rem",
         6: "3rem",
+        7: "3.5rem",
+        8: "4rem",
+        9: "4.5rem",
+        10: "5rem",
         app_width_limit: "min(97vw, 1400px)",
         res_width: "min(97vw, 1224px)"
       },
@@ -27,7 +31,9 @@ export default {
         lite_blue: "#1d9bf0",
         main_blue: "#144ee3",
         main_pink: "#e95690",
+        main_bg: "#0b101b",
         item_border: "#c9ced6",
+        bg_blure: "#0b101b11",
         bg_gray: "#181e29",
       }
     },
