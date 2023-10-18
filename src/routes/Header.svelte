@@ -8,12 +8,15 @@
 			<li aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
 				<a href="/">Home</a>
 			</li>
-			<li aria-current={$page.url.pathname === '/about' ? 'page' : undefined}>
+			<li aria-current={$page.url.pathname === '/user' ? 'page' : undefined}>
 				<a href="/user">User</a>
 			</li>
 		</ul>
 	</nav>
 </header>
 
-<style>
+<style lang="scss">
+	[aria-current="page"] {
+		color: gold
+	}
 </style>
