@@ -5,7 +5,8 @@ import {
     BASE_SHORTEN_URL as BSU,
     JWT_PRIVATE_KEY as JWT_PK,
     TOKEN_EXPIRERY_TIME as T_E_T,
-    MIN_VISITOR_CHANCES as MVC
+    MIN_VISITOR_CHANCES as MVC,
+    ADMIN_AUTH as AU,
 } from "$env/static/private";
 
 type S = string;
@@ -26,4 +27,6 @@ export const TOKEN_EXPIRERY_TIME: S = T_E_T;
 
 export const SHORTEN_LENGTH: N = 10;
 
-export const MIN_VISITOR_CHANCES: N = +MVC
+export const MIN_VISITOR_CHANCES: N = +MVC;
+
+export const ADMIN_AUTH: S = AU; // the authorization to the api routes

@@ -16,6 +16,7 @@ const getOneAndCurrentVisitor: (visitor_id: string) => VISITOR_API_RETURN_TYPE =
 }
 
 const registerVisitor: (visitor: VISITOR_OBJ) => VISITOR_API_RETURN_TYPE = async (visitor) => {
+    console.log("got herer", 4.1, {visitor});
     return httpclient.POST(VISITOR_BASE_URL, visitor);
 }
 

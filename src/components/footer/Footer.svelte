@@ -4,7 +4,7 @@
     import A_Tag from "../atoms/A_Tag.svelte";
     import MEDIA_LINKS from "$services/constants/media_links";
     
-    export let current_user;
+    export let current_user: any;
 
     const fixed_style: string = "fixed bottom-0 left-[50%] translate-x-[-50%]"
 </script>

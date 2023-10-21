@@ -18,10 +18,35 @@
     let password: string = "";
     let confirm_password: string = "";
 
+    let loading: boolean = false;
     let showpassword: boolean = false;
     let showConfirmPassword: boolean = false;
 
     let isValidEmail: boolean = false;
+
+    const handleEnhancement = async ({ formElement, formData, action, cancel }: any) => {
+        loading = true;
+
+        if (!email || !password || !confirm_password || !isValidEmail) {
+            loading = false;
+            cancel();
+        }
+
+        // if ( password !== confirm_password) {
+        //     loading = false;
+        //     cancel();
+        // }
+
+        email = "";
+        password = "";
+        confirm_password = "";
+
+        return async ({ update, result }: any) => {
+            await update();
+            loading = false;
+            if (result.data.status === 200 && result.data.current_user) goto("/");
+        }
+    }
 
     $: (() => {
         if (email) isValidEmail = validateEmail(email);
@@ -34,14 +59,18 @@
 </script>
 
 <form
-    use:enhance
+    use:enhance={handleEnhancement}
     method="POST"
     style={`border-left: 1px solid ${$COLOR_PALETTE_STORE[$THEME].lite_gray}`}
     class="pl-3 py-3 flex-1 w-full h-fit min-h-[500px]"
 >
     <HeaderText text="Create an account" small />
 
-    <SpanTag pink_alert={form?.status !== 200} success={form?.status === 200}>{form?.message || ""}</SpanTag>
+    <SpanTag pink_alert={form?.status !== 200 && !loading} success={form?.status === 200 && !loading}>{!loading && form?.message || ""}</SpanTag>
+
+    {#if loading}
+        <SpanTag success>Loading...</SpanTag>
+    {/if}
 
     <TextField
         type="text"

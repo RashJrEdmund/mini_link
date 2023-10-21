@@ -1,4 +1,5 @@
-import { stringifyData, headers } from "$backend/utils/utils";
+import { stringifyData } from "$backend/utils/utils";
+import { createHeaders } from "$backend/httpclient/headers";
 import REQ_NOT_FOUND_ERROS from "$backend/utils/REQ_ERROR";
 import { createFromBody } from "$backend/utils/functions";
 import USER_SERVICE from "../user/user.service";
@@ -36,7 +37,7 @@ export class AUTH_CONTROLLER {
             cookies.set("token", user_and_token.token, SET_COOKIE_OPTIONS); // setting the token to cookies
 
             return new Response(stringifyData(user_and_token), {
-                headers
+                headers: createHeaders(),
             });
         } catch (er: any) {
             throw error(er.status ?? 500, {
@@ -68,7 +69,7 @@ export class AUTH_CONTROLLER {
             cookies.set("token", user_and_token.token, SET_COOKIE_OPTIONS); // setting the token to cookies
 
             return new Response(stringifyData(user_and_token), {
-                headers
+                headers: createHeaders(),
             });
         } catch (er: any) {
             throw error(er?.status ?? 500, {
@@ -96,7 +97,7 @@ export class AUTH_CONTROLLER {
             });
 
             return new Response(stringifyData({ user: bearer }), {
-                headers
+                headers: createHeaders(),
             });
         } catch (er: any) {
             throw error(er?.status ?? 500, {

@@ -1,36 +1,48 @@
 import { loginWithEmailPassword } from "$backend/client";
 import { SET_COOKIE_OPTIONS } from "$services/constants/cookie_options";
+import { custom_logger } from "$services/functions/utils";
 import type { Actions } from "@sveltejs/kit";
 
 export const actions: Actions = {
     default: async (e) => {
-        const { request, cookies, locals } = e;
+        try {
+            const { request, cookies } = e;
 
-        const data = await request.formData();
-        const email = data.get("email") as string;
-        const password = data.get("password") as string;
+            const data = await request.formData();
+            const email = data.get("email") as string;
+            const password = data.get("password") as string;
 
-        if (!email || !password) return {
-            message: "Missing form fields",
-            email: email ?? "",
-            status: 401,
-        };
+            if (!email || !password) return {
+                message: "Missing form fields",
+                email: email ?? "",
+                status: 401,
+            };
 
-        const res = await loginWithEmailPassword({ email, password });
+            console.log("got here", 1)
+            const res = await loginWithEmailPassword({ email, password });
 
-        if (!res.data || res.status !== 200) return {
-            message: "Incorrect email or password",
-            status: 404,
-        };
+            console.log("got here", 2)
+            if (!res.data || res.status !== 200) return {
+                message: "Incorrect email or password",
+                status: 404,
+            };
 
-        const { data: { user, token } } = res;
+            const { data: { user, token } } = res;
 
-        cookies.set("token", token, SET_COOKIE_OPTIONS);
+            cookies.set("token", token, SET_COOKIE_OPTIONS);
 
-        return {
-            message: `welcome back ${user.username || user.email}`,
-            status: 200,
-            current_user: user,
-        };
+            return {
+                message: `welcome back ${user.username || user.email}`,
+                status: 200,
+                current_user: user,
+            };
+        } catch(e) {
+            custom_logger("AN ERROR OCCURED", e);
+            return {
+                messsage: "AN_ERROR_OCCURED",
+                status: 500,
+                data: null,
+            }
+        }
     },
 };

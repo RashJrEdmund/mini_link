@@ -1,9 +1,9 @@
 import { error, json, type RequestHandler } from "@sveltejs/kit";
 import URL_SERVICE from "./url.service";
-import { stringifyData, headers } from "$backend/utils/utils";
+import { stringifyData } from "$backend/utils/utils";
 import { createFromBody } from "$backend/utils/functions";
 import REQ_NOT_FOUND_ERROS from "$backend/utils/REQ_ERROR";
-import { custom_logger } from "$services/functions/utils";
+import { createHeaders } from "$backend/httpclient/headers";
 
 const ERR_MESSAGE = new REQ_NOT_FOUND_ERROS("URL");
 
@@ -17,7 +17,7 @@ export default class URL_CONTROLLER {
             });
 
             return new Response(stringifyData(urls), {
-                headers
+                headers: createHeaders(),
             });
         } catch (er: any) {
             throw error(er.status ?? 500, {
@@ -43,7 +43,7 @@ export default class URL_CONTROLLER {
             });
 
             return new Response(stringifyData(userUrls), {
-                headers
+                headers: createHeaders(),
             });
         } catch (er: any) {
             throw error(er.status ?? 500, {
@@ -69,7 +69,7 @@ export default class URL_CONTROLLER {
             });
 
             return new Response(stringifyData(visitor_urls), {
-                headers
+                headers: createHeaders(),
             });
         } catch (er: any) {
             throw error(er.status ?? 500, {
@@ -95,7 +95,7 @@ export default class URL_CONTROLLER {
             });
 
             return new Response(stringifyData(url), {
-                headers
+                headers: createHeaders(),
             });
         } catch (er: any) {
             throw error(er.status ?? 500, {
@@ -107,7 +107,7 @@ export default class URL_CONTROLLER {
     }
 
     static CREATE_URL: RequestHandler = async (e) => {
-        const body = await e.request.json()
+        const body = await e.request.json();
 
         if (!body) throw error(404, {
             message: ERR_MESSAGE.NOT_FOUND(),
@@ -123,7 +123,7 @@ export default class URL_CONTROLLER {
             const url = await URL_SERVICE.createUrl(new_url);
 
             return new Response(stringifyData(url), {
-                headers
+                headers: createHeaders(),
             });
         } catch (er: any) {
             throw error(er.status ?? 500, {
@@ -153,7 +153,7 @@ export default class URL_CONTROLLER {
             });
 
             return new Response(stringifyData(update_url), {
-                headers
+                headers: createHeaders(),
             });
         } catch (er: any) {
             throw error(er.status ?? 500, {
@@ -180,7 +180,7 @@ export default class URL_CONTROLLER {
                 },
                 {
                     status: 404,
-                    headers
+                    headers: createHeaders(),
                 }
             );
 
@@ -190,7 +190,7 @@ export default class URL_CONTROLLER {
                 },
                 {
                     status: 404,
-                    headers
+                    headers: createHeaders(),
                 }
             );
         } catch (er: any) {

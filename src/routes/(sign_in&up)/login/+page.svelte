@@ -14,31 +14,60 @@
 
     export let form: ActionData; // the object returned from the default action on +page.server.ts;
 
-    let email: string = form?.email as string ?? "";
+    let email: string = "";
     let password: string = "";
     let showpassword: boolean = false;
 
     let isValidEmail: boolean = false;
+    let loading: boolean = false;
+
+    $: response = {
+        message: form?.message || "",
+        status: form?.status,
+        data: form?.data || null,
+    }
+
+    const handleEnhancement = async ({ formElement, formData, action, cancel }: any) => {
+        loading = true;
+
+        if (!email || !password || !isValidEmail) {
+            loading = false;
+            cancel();
+        }
+        email = "";
+        password = "";
+
+        return async ({ update, result }: any) => {
+            await update();
+            loading = false;
+            console.log("result in login", result)
+            if (result.data.status === 200 && result.data.current_user) goto("/");
+            else {
+                response.status = result.data.status;
+                response.message = result.data.message;
+            }
+        }
+    }
 
     $: (() => {
         if (email) isValidEmail = validateEmail(email);
         else isValidEmail = true;
     })();
-
-    $: (async () => {
-        if (form?.current_user && form?.status === 200) goto("/");
-    })()
 </script>
 
 <form
-    use:enhance
+    use:enhance={handleEnhancement}
     method="post"
     style={`border-left: 1px solid ${$COLOR_PALETTE_STORE[$THEME].lite_gray}`}
     class="flex flex-col pl-3 flex-1 w-full min-h-[500px]"
 >
     <HeaderText text="Login" small />
 
-    <SpanTag pink_alert={form?.status !== 200} success={form?.status === 200}>{form?.message || ""}</SpanTag>
+    <SpanTag pink_alert={response?.status !== 200} success={response?.status === 200}>{response?.message || ""}</SpanTag>
+
+    {#if loading}
+        <SpanTag success>Loading...</SpanTag>
+    {/if}
 
     <TextField
         bind:value={email}

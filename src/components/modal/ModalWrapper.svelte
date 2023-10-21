@@ -3,8 +3,9 @@
     import { enhance } from "$app/forms";
     import Button from "$components/atoms/Button.svelte";
     import SpanTag from "$components/atoms/SpanTag.svelte";
-    import { onDestroy } from "svelte";
+    import { onDestroy, onMount } from "svelte";
     import { COLOR_PALETTE_STORE, THEME } from "../../store/store";
+    import { goto } from "$app/navigation";
 
     export let title: string;
     export let confirm_text: string = "Proceed";
@@ -21,18 +22,41 @@
 
     export let form_action: string;
 
+    export let loading_message: string = "Loading..."
+
     export let confirm_is_dangerous: boolean = false; // if true, it means confirming is a dangerous action.
+
+    let loading: boolean = false;
 
     const handleCancle = () => {
         handleClose();
     }
 
-    $: (() => {
-        if (browser) {
-            if (is_open) document.body.style.overflow = "hidden";
-            else document.body.style.overflow = "unset";
-        } 
-    })();
+    const handleEnhancement = async ({ formElement, formData, action, cancel }: any) => {
+        if (loading) { // if user had already submitted, it won't advance any further.
+            cancel();
+        }
+
+        loading = true;
+
+        return async ({ update, result }: any) => {
+            await update();
+            loading = false;
+            is_open = false
+        }
+    }
+
+    // $: (() => {
+    //     if (browser && document) {
+    //         if (is_open) document.body.style.overflow = "hidden";
+    //         else document.body.style.overflow = "unset";
+    //     } 
+    // })();
+
+    onMount(() => {
+        if (is_open) document.body.style.overflow = "hidden";
+        else document.body.style.overflow = "unset";
+    });
 
     onDestroy(() => {
         document.body.style.overflow = "unset";
@@ -51,7 +75,7 @@
 
 {#if is_open}
     <form
-        use:enhance
+        use:enhance={handleEnhancement}
         {method}
         action={form_action}
         style={`background-color: ${$COLOR_PALETTE_STORE[$THEME].app_bg}`}
@@ -67,8 +91,8 @@
             <Button action={handleCancle} type="button" danger={!confirm_is_dangerous} >
                 {reject_text}
             </Button>
-            <Button type="submit" danger={!!confirm_is_dangerous}>
-                {confirm_text}
+            <Button type="submit" danger={!!confirm_is_dangerous && !loading} in_active={loading} >
+                {loading ? loading_message : confirm_text}
             </Button>
         </section>
     </form>
