@@ -20,6 +20,9 @@ export const actions: Actions = {
 
             const res = await loginWithEmailPassword({ email, password });
 
+            const logCumulator: any = {}
+            logCumulator.login_res = res;
+
             if (!res.data || res.status !== 200) return {
                 message: "Incorrect email or password",
                 status: 404,

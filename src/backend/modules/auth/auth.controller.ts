@@ -42,7 +42,7 @@ export class AUTH_CONTROLLER {
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
-                data: er,
+                data: null,
                 status: 500,
             });
         }
@@ -51,7 +51,9 @@ export class AUTH_CONTROLLER {
     static LOGIN: RequestHandler = async (e) => {
         const body = await e.request.json();
 
-        const { cookies } = e
+        const { cookies } = e;
+        const accumulator: any = {};
+        accumulator.body = body;
 
         if (!body) throw error(404, {
             message: ERR_MESSAGE.MISSING_DETAILS(),
@@ -59,22 +61,26 @@ export class AUTH_CONTROLLER {
 
         try {
             const { status, new_user: user } = createFromBody(body, { _type: "USER", _strict: false }); // strict mode is recomended for creation
+            accumulator.createFromBody = { status, new_user: user }
 
+            console.log({status, user})
             if (status !== 200 || !user?.email || !user?.password) throw error(404, {
                 message: ERR_MESSAGE.MISSING_DETAILS(),
             });
 
             const user_and_token = await AUTH_SERVICE.loginWithEmailPassword(user.email, user.password);
+            accumulator.user_and_token
 
             cookies.set("token", user_and_token.token, SET_COOKIE_OPTIONS); // setting the token to cookies
 
-            return new Response(stringifyData(user_and_token), {
+            return new Response(stringifyData({...user_and_token, accumulator}), {
                 headers: createHeaders(),
             });
         } catch (er: any) {
             throw error(er?.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
-                data: er,
+                data: null,
+                accumulator,
                 status: 500,
             });
         }
@@ -84,6 +90,8 @@ export class AUTH_CONTROLLER {
         const authoraztion = headers.get("Authorization");
 
         const token = authoraztion?.split(" ").pop();
+        
+        console.log("headaers", headers)
 
         try {
             if (!token) throw error(401, {
