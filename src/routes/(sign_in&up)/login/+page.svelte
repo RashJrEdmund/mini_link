@@ -49,6 +49,7 @@
     }
 
     $: (() => {
+        console.log("form ", form)
         if (email) isValidEmail = validateEmail(email);
         else isValidEmail = true;
     })();
