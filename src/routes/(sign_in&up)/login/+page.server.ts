@@ -23,6 +23,7 @@ export const actions: Actions = {
             if (!res.data || res.status !== 200) return {
                 message: "Incorrect email or password",
                 status: 404,
+                data: res,
             };
 
             const { data: { user, token } } = res;
@@ -34,8 +35,7 @@ export const actions: Actions = {
                 status: 200,
                 current_user: user,
             };
-        } catch(e) {
-            custom_logger("AN ERROR OCCURED", e);
+        } catch {
             return {
                 messsage: "AN_ERROR_OCCURED",
                 status: 500,
