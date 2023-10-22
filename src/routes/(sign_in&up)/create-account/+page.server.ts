@@ -57,11 +57,12 @@ export const actions: Actions = {
                 status: 200,
                 current_user: res.data
             }
-        } catch {
+        } catch(e) {
             return {
                 message: "AN_ERROR_OCCURED",
                 status: 500,
                 data: null,
+                error: e,
             }
         }
     },
