@@ -19,15 +19,15 @@ export default class AUTH_SERVICE {
     static loginWithEmailPassword = async (email: string, password: string) => {
         let prev_user = await USER_SERVICE.getByEmail(email);
 
-        if (!prev_user) throw error(401, {
-            message: REQ_NOT_FOUND_ERROS.INCORRECT_EMAIL_OR_PASSWORD(),
-        });
+        // if (!prev_user) throw error(401, {
+        //     message: REQ_NOT_FOUND_ERROS.INCORRECT_EMAIL_OR_PASSWORD(),
+        // });
 
-        const match = await BCRYPT.compare(password, prev_user.password);
+        // const match = await BCRYPT.compare(password, prev_user.password);
 
-        if (!match) throw error(401, {
-            message: REQ_NOT_FOUND_ERROS.INCORRECT_EMAIL_OR_PASSWORD(),
-        });
+        // if (!match) throw error(401, {
+        //     message: REQ_NOT_FOUND_ERROS.INCORRECT_EMAIL_OR_PASSWORD(),
+        // });
 
         // prev_user = removeObjectKeys(prev_user, ["password"]) // removing the password field;
 

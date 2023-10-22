@@ -63,7 +63,6 @@ export class AUTH_CONTROLLER {
             const { status, new_user: user } = createFromBody(body, { _type: "USER", _strict: false }); // strict mode is recomended for creation
             accumulator.createFromBody = { status, new_user: user }
 
-            console.log({status, user})
             if (status !== 200 || !user?.email || !user?.password) throw error(404, {
                 message: ERR_MESSAGE.MISSING_DETAILS(),
             });
