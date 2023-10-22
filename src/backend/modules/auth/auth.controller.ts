@@ -42,7 +42,7 @@ export class AUTH_CONTROLLER {
         } catch (er: any) {
             throw error(er.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
-                data: null,
+                data: er,
                 status: 500,
             });
         }
@@ -74,7 +74,7 @@ export class AUTH_CONTROLLER {
         } catch (er: any) {
             throw error(er?.status ?? 500, {
                 message: er?.body?.message ?? ERR_MESSAGE.AN_ERROR_OCCURED(),
-                data: null,
+                data: er,
                 status: 500,
             });
         }
