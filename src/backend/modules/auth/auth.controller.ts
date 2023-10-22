@@ -32,7 +32,7 @@ export class AUTH_CONTROLLER {
                 message: ERR_MESSAGE.NOT_FOUND(),
             });
 
-            const user_and_token = AUTH_SERVICE.signUserToken(user);
+            const user_and_token = {user, token: "token token token"} || AUTH_SERVICE.signUserToken(user);
 
             cookies.set("token", user_and_token.token, SET_COOKIE_OPTIONS); // setting the token to cookies
 
