@@ -29,7 +29,7 @@ export default class AUTH_SERVICE {
             message: REQ_NOT_FOUND_ERROS.INCORRECT_EMAIL_OR_PASSWORD(),
         });
 
-        prev_user = removeObjectKeys(prev_user, ["password"]) // removing the password field;
+        // prev_user = removeObjectKeys(prev_user, ["password"]) // removing the password field;
 
         return this.signUserToken(prev_user);
     }
