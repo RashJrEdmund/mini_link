@@ -40,7 +40,6 @@
         return async ({ update, result }: any) => {
             await update();
             loading = false;
-            console.log("result in login", result)
             if (result.data.status === 200 && result.data.current_user) goto("/");
             else {
                 response.status = result.data.status;

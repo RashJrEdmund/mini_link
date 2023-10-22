@@ -24,7 +24,6 @@
 	})();
 
 	const toggleLogout = () => {
-		console.log(show_logout)
         show_logout = !show_logout;
     };
 

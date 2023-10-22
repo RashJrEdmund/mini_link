@@ -2,7 +2,8 @@
     import { COLOR_PALETTE_STORE, THEME } from "../../store/store";
     import SpanTag from "./SpanTag.svelte";
 
-    export let sx: string = ""; // add custom styles
+    export let sx: string = ""; // add custom  to main span
+    export let sx_2: string = ""; // add custom styles to input field
     export let value: string = "";
     export let placeholder: string = "";
 
@@ -23,7 +24,7 @@
             {...$$restProps}
             {placeholder}
             style={`color: ${$COLOR_PALETTE_STORE[$THEME].lite_gray}`}
-            class={`bg-transparent w-[90%] min-h-[40px]`}
+            class={`bg-transparent w-[90%] min-h-[40px] ${sx_2}`}
         />
 
         <span class="ml-1 h-fit w-fit">

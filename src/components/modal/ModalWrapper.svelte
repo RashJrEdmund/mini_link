@@ -5,7 +5,6 @@
     import SpanTag from "$components/atoms/SpanTag.svelte";
     import { onDestroy, onMount } from "svelte";
     import { COLOR_PALETTE_STORE, THEME } from "../../store/store";
-    import { goto } from "$app/navigation";
 
     export let title: string;
     export let confirm_text: string = "Proceed";
@@ -46,20 +45,24 @@
         }
     }
 
-    // $: (() => {
-    //     if (browser && document) {
-    //         if (is_open) document.body.style.overflow = "hidden";
-    //         else document.body.style.overflow = "unset";
-    //     } 
-    // })();
+    $: (() => {
+        if (browser && document) {
+            if (is_open) document.body.style.overflow = "hidden";
+            else document.body.style.overflow = "unset";
+        } 
+    })();
 
     onMount(() => {
-        if (is_open) document.body.style.overflow = "hidden";
-        else document.body.style.overflow = "unset";
+        if (browser) {
+            if (is_open) document.body.style.overflow = "hidden";
+            else document.body.style.overflow = "unset";
+        }
     });
 
     onDestroy(() => {
-        document.body.style.overflow = "unset";
+        if (browser && document) {
+            document.body.style.overflow = "unset";
+        } 
     })
 </script>
 
@@ -88,10 +91,19 @@
         </div>
 
         <section class="flex items-center self-end justify-between w-[min(100%,_230px)]">
-            <Button action={handleCancle} type="button" danger={!confirm_is_dangerous} >
+            <Button
+                action={handleCancle}
+                type="button"
+                danger={!confirm_is_dangerous}
+            >
                 {reject_text}
             </Button>
-            <Button type="submit" danger={!!confirm_is_dangerous && !loading} in_active={loading} >
+            <Button
+                type="submit"
+                sx={`${loading ? "cursor-progress" : ""}`}
+                danger={!!confirm_is_dangerous && !loading}
+                in_active={loading}
+            >
                 {loading ? loading_message : confirm_text}
             </Button>
         </section>

@@ -16,7 +16,7 @@ export default class HTTPCLIENT implements CLIENT_ITF {
     constructor() {
         this._headers = { ...createHeaders() };
         this._req_er = new REQ_NOT_FOUND_ERROS("URL");
-        custom_logger("httpclient headers", this._headers);
+        // custom_logger("httpclient headers", this._headers); 
     }
 
     GET = (_url: string, _headers = {}) => {

@@ -19,7 +19,6 @@ const getCurrentUser: (bearer_token: string) => API_RETURN_TYPE = async (bearer_
 // ========== LOGIN ==========>
 
 const loginWithEmailPassword: (_user: { email: string, password: string }) => API_RETURN_TYPE = async (_user) => {
-    console.log("got here", 1.1, {_user})
     return httpclient.POST(AUTH_BASE_URL + "/login", _user);
 }
 

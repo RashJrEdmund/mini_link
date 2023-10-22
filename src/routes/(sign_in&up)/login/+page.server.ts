@@ -18,10 +18,8 @@ export const actions: Actions = {
                 status: 401,
             };
 
-            console.log("got here", 1)
             const res = await loginWithEmailPassword({ email, password });
 
-            console.log("got here", 2)
             if (!res.data || res.status !== 200) return {
                 message: "Incorrect email or password",
                 status: 404,
