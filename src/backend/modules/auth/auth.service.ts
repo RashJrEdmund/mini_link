@@ -6,7 +6,7 @@ import REQ_NOT_FOUND_ERROS from "$backend/utils/REQ_ERROR";
 import { removeObjectKeys } from "$backend/utils/utils";
 
 export default class AUTH_SERVICE {
-    static signUserToken = (user: WithId<Document>) => {
+    static signUserToken = (user: any) => {
         const token = TOKEN_SERVICE.sign(user);
 
         return { token, user };
