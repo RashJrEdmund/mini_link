@@ -17,7 +17,7 @@ export default class AUTH_SERVICE {
     }
 
     static loginWithEmailPassword = async (email: string, password: string) => {
-        const prev_user = await USER_SERVICE.getByEmail(email);
+        let prev_user = await USER_SERVICE.getByEmail(email);
 
         if (!prev_user) throw error(401, {
             message: REQ_NOT_FOUND_ERROS.INCORRECT_EMAIL_OR_PASSWORD(),
@@ -29,7 +29,7 @@ export default class AUTH_SERVICE {
             message: REQ_NOT_FOUND_ERROS.INCORRECT_EMAIL_OR_PASSWORD(),
         });
 
-        // prev_user = removeObjectKeys(prev_user, ["password"]) // removing the password field;
+        prev_user = removeObjectKeys(prev_user, ["password"]) // removing the password field;
         // const token =  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTBkYmE3ZGVhMjc4YWNkMjg1NWQwOGQiLCJ1c2VybmFtZSI6InBvc3QgbWFuIDEiLCJlbWFpbCI6InBvc3QgbWFuIDFAZ21haWwuY29tIiwicHJvZmlsZV9waWMiOiIiLCJpc19wcmVtaXVtX3VzZXIiOmZhbHNlLCJjcmVhdGVkQXQiOiJXZWQgU2VwIDEzIDIwMjMiLCJiZWFyZXJfaWQiOiI2NTBkYmE3ZGVhMjc4YWNkMjg1NWQwOGQiLCJpYXQiOjE2OTU0ODg0OTcsImV4cCI6MTY5NTQ5MjA5N30.wx3MTz8e1CPUzHNlKkyodD5tfrQQFJEWu7iwOJe-MWI"
         // return {token, user: prev_user}
 
