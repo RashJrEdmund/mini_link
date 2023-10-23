@@ -3,7 +3,7 @@
 
 	const options = {
 		loadOptions: {
-		apiKey: "ZxrulKMWlDDcgVXubhqV",
+		apiKey: "JnIYsUgDEHYHpfZkntGc",
 		// region: 'eu',
 		// endpoint: ['metrics.yourwebsite.com', defaultEndpoint],
 		// scriptUrlPattern: ['metrics.yourwebsite.com/agent-path', defaultScriptUrlPattern],

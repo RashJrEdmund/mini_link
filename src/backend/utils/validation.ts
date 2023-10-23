@@ -1,4 +1,4 @@
-import bcrypt from "bcrypt"
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 import { JWT_PRIVATE_KEY, SALT_ROUNDS, TOKEN_EXPIRERY_TIME } from "./constants";
