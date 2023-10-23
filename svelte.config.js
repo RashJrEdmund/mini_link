@@ -15,7 +15,6 @@ const config = {
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		adapter: vercel_adapter({
 			runtime: "nodejs18.x", // specifies 'nodejs18.x' as runtime
-			edge: false,
 			split: false
 		}),
 		alias: {
