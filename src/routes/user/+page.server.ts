@@ -22,18 +22,26 @@ import { DEL_COOKIE_OPTIONS } from '$services/constants/cookie_options';
 
 export const actions: Actions = {
     logout: async (e) => {
-        const { cookies, locals } = e;
+        try {
+            const { cookies, locals } = e;
 
-        cookies.delete("token", DEL_COOKIE_OPTIONS);
+            cookies.delete("token", DEL_COOKIE_OPTIONS);
 
-        cookies.delete("current_user", DEL_COOKIE_OPTIONS);
+            cookies.delete("current_user", DEL_COOKIE_OPTIONS);
 
-        locals.current_user = null;
+            locals.current_user = null;
 
-        return {
-            data: null,
-            status: 200,
-            message: "LOGOUT"
+            return {
+                data: null,
+                status: 200,
+                message: "LOGOUT"
+            }
+        } catch (error) {
+            return {
+                message: "AN_ERROR_OCCURED",
+                status: 500,
+                data: null,
+            }
         }
     }
 };

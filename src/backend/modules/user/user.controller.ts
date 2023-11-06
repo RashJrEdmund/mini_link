@@ -1,4 +1,5 @@
-import { stringifyData, headers } from "$backend/utils/utils";
+import { stringifyData } from "$backend/utils/utils";
+import { createHeaders } from "$backend/httpclient/headers";
 import { error, json, type RequestHandler } from "@sveltejs/kit";
 import REQ_NOT_FOUND_ERROS from "$backend/utils/REQ_ERROR";
 import USER_SERVICE from "./user.service";
@@ -15,7 +16,7 @@ export default class USER_CONTROLLER {
             });
 
             return new Response(stringifyData(users), {
-                headers
+                headers: createHeaders(),
             });
         } catch (er: any) {
             throw error(er.status ?? 500, {
@@ -41,7 +42,7 @@ export default class USER_CONTROLLER {
             });
 
             return new Response(stringifyData(user), {
-                headers
+                headers: createHeaders(),
             });
         } catch (er: any) {
             throw error(er.status ?? 500, {
@@ -71,7 +72,7 @@ export default class USER_CONTROLLER {
             });
 
             return new Response(stringifyData(update_user), {
-                headers
+                headers: createHeaders(),
             });
         } catch (er: any) {
             throw error(er.status ?? 500, {
@@ -98,7 +99,7 @@ export default class USER_CONTROLLER {
                 },
                 {
                     status: 404,
-                    headers
+                    headers: createHeaders(),
                 }
             );
 
@@ -108,7 +109,7 @@ export default class USER_CONTROLLER {
                 },
                 {
                     status: 404,
-                    headers
+                    headers: createHeaders(),
                 }
             );
         } catch (er: any) {

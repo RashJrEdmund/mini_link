@@ -14,7 +14,17 @@
         is_open = false
     }
 
+    const MAX_ALIAS_LENGTH = 30;
+
+    $: new_alias = "";
+
     let alias: string = "";
+
+    $: (() => {
+        if (new_alias.length > MAX_ALIAS_LENGTH) {
+            new_alias = new_alias.slice(0, MAX_ALIAS_LENGTH);
+        }
+    })();
 
     $: (() => {
         if (link) {
@@ -30,7 +40,7 @@
     {handleClose}
     bind:is_open
 >
-    <div>
+    <div class="flex flex-col items-end justify-end">
         <input type="hidden" name="url_id" value={link?._id} > <!-- hidden field for url_id-->
 
         <PTag>
@@ -41,6 +51,17 @@
             type="text"
             placeholder="Change link alias"
             name="alias"
-        />
+            sx="min-w-[100%]"
+            sx_2="min-w-full"
+            bind:value={new_alias}
+        >
+            <SpanTag
+                sx="whitespace-nowrap w-fit"
+                success={new_alias.trim().length <= MAX_ALIAS_LENGTH}
+                pink_alert={new_alias.trim().length >= MAX_ALIAS_LENGTH}
+            >
+                {`${MAX_ALIAS_LENGTH - new_alias.trim().length}`}
+            </SpanTag>
+        </TextField>
     </div>
 </ModalWrapper>

@@ -9,12 +9,6 @@ type STRINGIFY = (obj: any, options?: {
 }
 ) => string;
 
-export const headers = {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "*"
-}
-
 export const stringifyData: STRINGIFY = (obj: any, options = { _spacing: 4, status: 200 }) => {
     return JSON.stringify({ data: obj, status: options.status }, null, options._spacing);
 }

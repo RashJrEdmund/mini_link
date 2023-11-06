@@ -13,7 +13,7 @@
 
 	export let form: ActionData;
 
-	export let data
+	export let data;
 
 	let show_logout: boolean = false;
 
@@ -24,7 +24,6 @@
 	})();
 
 	const toggleLogout = () => {
-		console.log(show_logout)
         show_logout = !show_logout;
     };
 
@@ -34,14 +33,11 @@
 </script>
 
 <PageGaurd bind:current_user >
-	<LogoutForm bind:is_open={show_logout} />
+	{#if show_logout}
+		<LogoutForm bind:is_open={show_logout} />
+	{/if}
 
 	<div class="text-column">
-		<!-- <SpanTag>
-			<pre>
-				{JSON.stringify({current_user}, null, 2)}
-			</pre>
-		</SpanTag> -->
 		<LineSeperator header="Profile" />
 
 		<ProfileSection {current_user} />

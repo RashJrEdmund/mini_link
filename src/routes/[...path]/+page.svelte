@@ -6,9 +6,6 @@
     import SpanTag from "$components/atoms/SpanTag.svelte";
     import pageNotFound from "$lib/animations/page_not_found.gif";
     import { COLOR_PALETTE_STORE, THEME } from "../../store/store";
-
-    console.clear();
-    console.log($page);
 </script>
 
 <main class="min-h-[calc(100vh-250px)] flex items-center justify-center">

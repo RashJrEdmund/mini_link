@@ -19,9 +19,7 @@
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/adapter-vercel": "^3.0.3",
 		"@sveltejs/kit": "^1.25.1",
-		"@types/bcrypt": "^5.0.0",
 		"@types/cookie": "^0.5.1",
-		"@types/jsonwebtoken": "^9.0.3",
 		"@types/node": "^20.6.2",
 		"@typescript-eslint/eslint-plugin": "^5.45.0",
 		"@typescript-eslint/parser": "^5.45.0",
@@ -41,8 +39,6 @@
 	"type": "module",
 	"dependencies": {
 		"@fingerprintjs/fingerprintjs-pro-svelte": "^2.0.0",
-		"bcrypt": "^5.1.1",
-		"jsonwebtoken": "^9.0.2",
 		"mongodb": "^6.1.0",
 		"nanoid": "^5.0.1",
 		"svelte-french-toast": "^1.2.0"

@@ -25,10 +25,13 @@
     };
 </script>
 
-<DeleteForm {link} is_open={!show_edit_form && show_delete_modal} />
+{#if !show_edit_form && show_delete_modal}
+    <DeleteForm {link} is_open={!show_edit_form && show_delete_modal} />
+{/if}
 
-<EditForm {link} is_open={!show_delete_modal && show_edit_form} />
-
+{#if !show_delete_modal && show_edit_form}
+    <EditForm {link} is_open={!show_delete_modal && show_edit_form} />
+{/if}
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 

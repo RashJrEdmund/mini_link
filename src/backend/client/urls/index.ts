@@ -23,7 +23,7 @@ const getVisitorUrls: (visitor_id: string) => URLS_ARR_API_RETURN_TYPE = async (
 }
 
 const createUrl: (_url: LINK_OBJ) => URL_API_RETURN_TYPE = async (_url: LINK_OBJ) => {
-    return httpclient.POST(API_BASE_URL + "/urls", _url);
+    return httpclient.POST(API_BASE_URL + "/urls", _url as unknown as BodyInit);
 }
 
 const updateUrl: (_id: string, update: any) => URL_API_RETURN_TYPE = async (_id, update) => {

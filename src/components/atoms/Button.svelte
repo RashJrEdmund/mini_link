@@ -21,6 +21,7 @@
 
 <button
     on:click={handleAction}
+    disabled={in_active}
     {type}
     {...$$restProps}
     style={`

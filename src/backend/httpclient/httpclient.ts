@@ -1,7 +1,8 @@
 /* TODO +=> create httpclient with fetch */
 
 import REQ_NOT_FOUND_ERROS from "$backend/utils/REQ_ERROR";
-import { headers } from "$backend/utils/utils";
+import { createHeaders } from "$backend/httpclient/headers";
+import { custom_logger } from "$services/functions/utils";
 
 interface CLIENT_ITF {
     _headers: HeadersInit,
@@ -13,8 +14,9 @@ export default class HTTPCLIENT implements CLIENT_ITF {
     _req_er
 
     constructor() {
-        this._headers = { ...headers };
+        this._headers = { ...createHeaders() };
         this._req_er = new REQ_NOT_FOUND_ERROS("URL");
+        // custom_logger("httpclient headers", this._headers); 
     }
 
     GET = (_url: string, _headers = {}) => {
