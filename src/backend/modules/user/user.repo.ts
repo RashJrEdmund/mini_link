@@ -26,23 +26,3 @@ export default class USER_REPO {
         return USERS.findOneAndDelete({ _id });
     }
 }
-
-// import { SAMPLE_USERS } from "$services/constants/dummydata";
-// import { ObjectId as OBJECTID } from "mongodb";
-
-// console.clear();
-// console.log("id \n", new OBJECTID());
-// (() => {
-//     const createMany = async () => {
-//         const res = await USERS.insertMany([...SAMPLE_USERS.map(user => {
-//             const _id = user._id ? new OBJECTID(user._id) : new OBJECTID();
-
-//             return { ...user, _id }
-//         })]);
-
-//         return res;
-//     }
-
-//     // console.clear();
-//     // console.log(createMany());
-// })();

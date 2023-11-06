@@ -138,6 +138,10 @@
                     min-width: 100px;
                     word-break: break-all;
 
+                    &[data-cell="original"] {
+                        min-width: 300px;
+                    }
+
                     &[data-cell="date"] {
                         white-space: nowrap;
                     }

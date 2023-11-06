@@ -40,6 +40,7 @@ export type USER = {
     email: string,
     password: string,
     profile_pic: string,
+    verified?: boolean, // for email verification.
     is_premium_user: boolean,
     createdAt?: string,
     updatedAt?: string,

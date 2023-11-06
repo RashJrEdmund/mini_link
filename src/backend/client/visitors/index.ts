@@ -16,7 +16,7 @@ const getOneAndCurrentVisitor: (visitor_id: string) => VISITOR_API_RETURN_TYPE =
 }
 
 const registerVisitor: (visitor: VISITOR_OBJ) => VISITOR_API_RETURN_TYPE = async (visitor) => {
-    return httpclient.POST(VISITOR_BASE_URL, visitor);
+    return httpclient.POST(VISITOR_BASE_URL, visitor as unknown as BodyInit);
 }
 
 const updateVisitor: (visitor_id: string, update: any) => VISITOR_API_RETURN_TYPE = async (visitor_id, update) => {
